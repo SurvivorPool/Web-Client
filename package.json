@@ -61,8 +61,8 @@
     "build-js": "node scripts/build.js",
     "build": "npm-run-all build-css build-js",
     "test": "node scripts/test.js --env=jsdom",
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules ./src  -o ./src/ --output-style compressed",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules ./src -o src/ --watch --recursive --output-style compressed"
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules ./src  -o ./src --output-style compressed",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules ./src -o ./src --watch --recursive --output-style compressed"
   },
   "jest": {
     "collectCoverageFrom": [
