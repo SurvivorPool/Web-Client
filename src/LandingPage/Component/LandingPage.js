@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import { Header, Container, Image } from 'semantic-ui-react';
-import logo from '../../Assets/Images/logo.png';
-import './_LandingPage.scss';
+import { Image  } from 'semantic-ui-react';
+
+import Navbar from "../../Navbar/Component/Navbar";
+
+import logo from 'Images/logo.png';
 
 const className = "LandingPage";
+const heroClassName = `${className}__Hero`;
+const sectionClassName = `${className}__Section`;
 
 class LandingPage extends Component {
 	render() {
 		return (
 			<div className={className}>
-				<Header>
-					{"Survivor Pool"}
-				</Header>
-				<Image src={logo} size={"small"} />
+				<Navbar/>
+				<header className={heroClassName}>
+					<div className={`${heroClassName}__Container`}>
+						<Image src={logo} className={`${className}__Hero__Logo`}/>
+					</div>
+				</header>
+				<section className={sectionClassName}>
+					<div className={`${sectionClassName}__Content`}>
+						<p>{"How it Works Text"}</p>
+					</div>
+				</section>
 			</div>
 		);
 	}

@@ -1,0 +1,26 @@
+// Palette
+$light-blue: #00AEEF;
+$orange: #FDC37B;
+$peach: #FCCAB3;
+$lavender: #8799CE;
+$honeydew: #D6EBCE;
+$green: #79C68D;
+$light-green: #B7DB9F;
+$silver: #F7F7F8;
+
+// Border
+$border: 2px solid $light-green;
+
+
+// Button
+@mixin primary-button {
+    background-color: $lavender !important;
+    color: $silver !important;
+
+    &:hover {
+        background-color: $lavender !important;
+        color: $silver !important;
+        transition: all ease-in .3s;
+        transform: translate3D(0,-1px,0);
+    }
+}
