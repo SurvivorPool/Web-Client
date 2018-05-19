@@ -3,13 +3,16 @@ $light-blue: #00AEEF;
 $orange: #FDC37B;
 $peach: #FCCAB3;
 $lavender: #8799CE;
+$light-lavender: #B0BEE6;
 $honeydew: #D6EBCE;
 $green: #79C68D;
 $light-green: #B7DB9F;
 $silver: #F7F7F8;
+$gray: #CECECE;
+
 
 // Border
-$border: 2px solid $light-green;
+$border: 2px solid $gray;
 
 
 // Button
@@ -18,7 +21,7 @@ $border: 2px solid $light-green;
     color: $silver !important;
 
     &:hover {
-        background-color: $lavender !important;
+        background-color: $light-lavender !important;
         color: $silver !important;
         transition: all ease-in .3s;
         transform: translate3D(0,-1px,0);
