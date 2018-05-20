@@ -1,24 +1,67 @@
 import React, { Component } from 'react';
 import { Image  } from 'semantic-ui-react';
+import autoBind from 'react-autobind';
+import ReactModal from 'react-modal';
 
 import Navbar from "../../Navbar/Component/Navbar";
+import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import logo from 'Images/logo.png';
 
 const className = "LandingPage";
 const heroClassName = `${className}__Hero`;
 const sectionClassName = `${className}__Section`;
+const modalClassName = `${className}__Modal`;
 
 class LandingPage extends Component {
+	constructor(props) {
+		super(props);
+		autoBind(this);
+
+		this.state = {
+			isLoggingIn : false,
+		}
+	}
+
+	onLoginClick() {
+		this.setState({
+			isLoggingIn : true,
+		});
+	}
+
+	onCloseModalClick() {
+		this.setState({
+			isLoggingIn : false,
+		});
+	}
+
+	renderLoginModal() {
+		ReactModal.setAppElement('#root');
+		return (
+			<ReactModal
+				isOpen={this.state.isLoggingIn}
+				className={modalClassName}
+				overlayClassName={`${modalClassName}__Overlay`}
+			>
+				<div className={`${modalClassName}__Content`}>
+					<div className={`${modalClassName}__Controls`}>
+						<PrimaryButton onClick={this.onCloseModalClick}>{"Close"}</PrimaryButton>
+					</div>
+				</div>
+			</ReactModal>
+		);
+	}
+
 	render() {
 		return (
 			<div className={className}>
-				<Navbar/>
+				<Navbar onLoginClick={this.onLoginClick}/>
 				<header className={heroClassName}>
 					<div className={`${heroClassName}__Container`}>
 						<Image src={logo} className={`${className}__Hero__Logo`}/>
 					</div>
 				</header>
+				{this.renderLoginModal()}
 				<section className={sectionClassName}>
 					<div className={`${sectionClassName}__Content`}>
 						<p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eros mauris, volutpat vitae auctor ut, semper et arcu. Sed tempor ultricies viverra. Sed ornare ante eget porta sollicitudin. Etiam facilisis lacus et elementum commodo. Phasellus non nisl euismod, aliquam risus quis, egestas felis. Suspendisse semper ante tellus, id dignissim neque efficitur at. Mauris eu ex non libero laoreet molestie congue sodales arcu. Duis hendrerit et sapien vitae egestas. Suspendisse non tristique justo, in scelerisque erat. Integer vel eros at purus interdum laoreet sed ullamcorper magna."}</p>

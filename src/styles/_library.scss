@@ -14,8 +14,7 @@ $gray: #CECECE;
 // Border
 $border: 2px solid $gray;
 
-
-// Button
+// PrimaryButton
 @mixin primary-button {
     background-color: $lavender !important;
     color: $silver !important;
@@ -26,4 +25,30 @@ $border: 2px solid $gray;
         transition: all ease-in .3s;
         transform: translate3D(0,-1px,0);
     }
+}
+
+
+//Modal
+@mixin modal {
+    position: absolute;
+    top: 40px;
+    left: 25%;
+    right: 25%;
+    bottom: 30%;
+    padding: 30px;
+    border: $border;
+    background-color: $silver;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
 }

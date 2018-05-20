@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import PropTypes from "prop-types";
+
+import PrimaryButton from '../../Common/PrimaryButton/PrimaryButton';
 
 const className = "Navbar";
 const controlsClassName = `${className}__Controls`;
@@ -9,11 +11,20 @@ class Navbar extends Component {
 		return (
 			<div className={className}>
 				<div className={controlsClassName}>
-					<Button className={`${controlsClassName}__Button`}>{"Login"}</Button>
+					<PrimaryButton onClick={this.props.onLoginClick}>{"Login"}</PrimaryButton>
 				</div>
 			</div>
 		);
 	}
 }
+
+Navbar.defaultProps = {
+	onLoginClick : () => {},
+};
+
+
+Navbar.propTypes = {
+	onLoginClick : PropTypes.func,
+};
 
 export default Navbar;

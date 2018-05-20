@@ -51,4 +51,21 @@
         }
 
     }
+
+    &__Modal {
+        @include modal;
+
+        &__Overlay {
+            @include modal-overlay;
+        }
+
+        &__Content {
+
+        }
+
+        &__Controls {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
 }

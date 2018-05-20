@@ -12,10 +12,5 @@
         justify-content: center;
         vertical-align: middle;
         margin: 15px 70px 0 0;
-
-        &__Button {
-            @include primary-button;
-        }
-
     }
 }
