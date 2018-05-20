@@ -36,7 +36,6 @@ class LandingPage extends Component {
 	}
 
 	renderLoginModal() {
-		ReactModal.setAppElement('#root');
 		return (
 			<ReactModal
 				isOpen={this.state.isLoggingIn}
