@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image  } from 'semantic-ui-react';
+import { Image, Icon, Button  } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
 import ReactModal from 'react-modal';
 
@@ -45,6 +45,25 @@ class LandingPage extends Component {
 				<div className={`${modalClassName}__Content`}>
 					<div className={`${modalClassName}__Controls`}>
 						<PrimaryButton onClick={this.onCloseModalClick}>{"Close"}</PrimaryButton>
+					</div>
+					<div className={`${modalClassName}__Login`}>
+						<div className={`${modalClassName}__Login__Title`}>
+							<h1>{"Login"}</h1>
+						</div>
+						<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
+							<Button color={'facebook'}>
+								<Icon name={'facebook'} />
+								{"Facebook"}
+							</Button>
+							<Button color={'google plus'}>
+								<Icon name={'google'} />
+								{"Google"}
+							</Button>
+							<Button color={'grey'}>
+								<Icon name={'github'} />
+								{"Github"}
+							</Button>
+						</Button.Group>
 					</div>
 				</div>
 			</ReactModal>

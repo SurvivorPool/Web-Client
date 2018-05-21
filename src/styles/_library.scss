@@ -10,6 +10,20 @@ $light-green: #B7DB9F;
 $silver: #F7F7F8;
 $gray: #CECECE;
 
+// Breakpoints
+
+@mixin mobile {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 960px) {
+        @content;
+    }
+}
+
 
 // Border
 $border: 2px solid $gray;
@@ -39,6 +53,18 @@ $border: 2px solid $gray;
     border: $border;
     background-color: $silver;
 
+    @include mobile {
+        padding: 10px;
+        top: 25%;
+        left: 0;
+        bottom: 25%;
+        width: 100%;
+    }
+
+    @include desktop {
+
+    }
+
     &:focus {
         outline: none;
     }
@@ -52,3 +78,4 @@ $border: 2px solid $gray;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.75);
 }
+
