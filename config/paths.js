@@ -53,4 +53,5 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   images: resolveApp('src/Assets/Images'),
+  icons: resolveApp('src/Assets/Icons'),
 };
