@@ -47,12 +47,10 @@ $border: 2px solid $gray;
 @mixin modal {
     position: absolute;
     top: 40px;
-    left: 25%;
-    right: 25%;
-    bottom: 30%;
-    padding: 30px;
-    border: $border;
+    left: 30%;
+    right: 30%;
     background-color: $silver;
+    border-radius: 4px;
 
     @include mobile {
         padding: 10px;

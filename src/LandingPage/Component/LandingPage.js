@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Icon, Button  } from 'semantic-ui-react';
+import { Image, Icon, Button, Segment, Divider } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
 import ReactModal from 'react-modal';
 
@@ -7,8 +7,7 @@ import Navbar from "../../Navbar/Component/Navbar";
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import logo from 'Images/logo.png';
-
-import { RefereeIcon } from "Icons/Icons.js";
+import { HelmetIcon, RefereeIcon } from "Icons/Icons.js";
 
 const className = "LandingPage";
 const heroClassName = `${className}__Hero`;
@@ -44,30 +43,36 @@ class LandingPage extends Component {
 				className={modalClassName}
 				overlayClassName={`${modalClassName}__Overlay`}
 			>
-				<div className={`${modalClassName}__Content`}>
-					<div className={`${modalClassName}__Controls`}>
-						<PrimaryButton onClick={this.onCloseModalClick}>{"Close"}</PrimaryButton>
-					</div>
-					<div className={`${modalClassName}__Login`}>
-						<div className={`${modalClassName}__Login__Title`}>
-							<h1>{"Login"}</h1>
+				<Segment stacked>
+					<div className={`${modalClassName}__Content`}>
+						<div className={`${modalClassName}__Controls`}>
+							<PrimaryButton onClick={this.onCloseModalClick}>{"Close"}</PrimaryButton>
 						</div>
-						<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
-							<Button color={'facebook'}>
-								<Icon name={'facebook'} />
-								{"Facebook"}
-							</Button>
-							<Button color={'google plus'}>
-								<Icon name={'google'} />
-								{"Google"}
-							</Button>
-							<Button color={'grey'}>
-								<Icon name={'github'} />
-								{"Github"}
-							</Button>
-						</Button.Group>
+						<div className={`${modalClassName}__Login`}>
+							<div className={`${modalClassName}__Login__Title`}>
+								<RefereeIcon
+									className={`${modalClassName}__Login__Icon`}
+								/>
+								<h1 className={`${modalClassName}__Login__h1`}>{"Login"}</h1>
+							</div>
+							<Divider />
+							<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
+								<Button color={'facebook'}>
+									<Icon name={'facebook'} />
+									{"Facebook"}
+								</Button>
+								<Button color={'google plus'}>
+									<Icon name={'google'} />
+									{"Google"}
+								</Button>
+								<Button color={'grey'}>
+									<Icon name={'github'} />
+									{"Github"}
+								</Button>
+							</Button.Group>
+						</div>
 					</div>
-				</div>
+				</Segment>
 			</ReactModal>
 		);
 	}
@@ -84,9 +89,7 @@ class LandingPage extends Component {
 				{this.renderLoginModal()}
 				<section className={sectionClassName}>
 					<div className={`${sectionClassName}__Content`}>
-						<RefereeIcon
-							height={'150px'}
-							width={'150px'}
+						<HelmetIcon
 							className={`${className}__Icon`}
 						/>
 					</div>
