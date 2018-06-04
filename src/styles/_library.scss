@@ -1,3 +1,9 @@
+// Font
+@font-face {
+    font-family: Happy-Fox;
+    src: url('../Assets/Font/HappyFox-Condensed.otf');
+}
+
 // Palette
 $light-blue: #00AEEF;
 $orange: #FDC37B;
@@ -45,18 +51,15 @@ $border: 2px solid $gray;
 
 //Modal
 @mixin modal {
-    position: absolute;
-    top: 40px;
-    left: 30%;
-    right: 30%;
+    min-height: 300px;
+    width: 30%;
+    padding: 15px 30px 30px 30px;
     background-color: $silver;
     border-radius: 4px;
+    box-shadow: 2px 6px 25px rgba(0, 0, 0, 0.1);
 
     @include mobile {
-        padding: 10px;
-        top: 25%;
-        left: 0;
-        bottom: 25%;
+        height: 100%;
         width: 100%;
     }
 
@@ -72,4 +75,24 @@ $border: 2px solid $gray;
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.ReactModal__Content {
+    opacity: 0;
+}
+
+.ReactModal__Content--after-open {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
+.ReactModal__Content--before-close {
+    opacity: 0;
 }

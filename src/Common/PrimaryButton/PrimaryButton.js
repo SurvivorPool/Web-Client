@@ -7,17 +7,19 @@ const className = "PrimaryButton";
 class PrimaryButton extends Component {
 	render() {
 		return (
-			<Button className={className} onClick={this.props.onClick}>{this.props.children}</Button>
+			<Button className={this.props.className} onClick={this.props.onClick}>{this.props.children}</Button>
 		);
 	}
 }
 
 PrimaryButton.defaultProps = {
 	onClick : () => {},
+	className: 'PrimaryButton',
 };
 
 PrimaryButton.propTypes = {
 	onClick : PropTypes.func,
+	className: PropTypes.string,
 };
 
 export default PrimaryButton;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Icon, Button, Segment, Divider } from 'semantic-ui-react';
+import { Icon, Button, Divider } from 'semantic-ui-react';
 import ReactModal from 'react-modal';
 
 import PrimaryButton from '../../Common/PrimaryButton/PrimaryButton';
@@ -15,37 +15,36 @@ class LoginModal extends Component {
 				isOpen={this.props.isOpen}
 				className={modalClassName}
 				overlayClassName={`${modalClassName}__Overlay`}
+				closeTimeoutMS={150}
 			>
-				<Segment stacked>
-					<div className={`${modalClassName}__Content`}>
-						<div className={`${modalClassName}__Controls`}>
-							<PrimaryButton onClick={this.props.onClose}>{"Close"}</PrimaryButton>
-						</div>
-						<div className={`${modalClassName}__Login`}>
-							<div className={`${modalClassName}__Login__Title`}>
-								<RefereeIcon
-									className={`${modalClassName}__Login__Icon`}
-								/>
-								<h1 className={`${modalClassName}__Login__h1`}>{"Login to play"}</h1>
-							</div>
-							<Divider />
-							<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
-								<Button color={'facebook'}>
-									<Icon name={'facebook'} />
-									{"Facebook"}
-								</Button>
-								<Button color={'google plus'}>
-									<Icon name={'google'} />
-									{"Google"}
-								</Button>
-								<Button color={'grey'}>
-									<Icon name={'github'} />
-									{"Github"}
-								</Button>
-							</Button.Group>
-						</div>
+				<div className={`${modalClassName}__Content`}>
+					<div className={`${modalClassName}__Controls`}>
+						<PrimaryButton onClick={this.props.onClose}>{"Close"}</PrimaryButton>
 					</div>
-				</Segment>
+					<div className={`${modalClassName}__Login`}>
+						<div className={`${modalClassName}__Login__Title`}>
+							<RefereeIcon
+								className={`${modalClassName}__Login__Icon`}
+							/>
+							<h1 className={`${modalClassName}__Login__h1`}>{"Login to play"}</h1>
+						</div>
+						<Divider />
+						<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
+							<Button color={'facebook'}>
+								<Icon name={'facebook'} />
+								{"Facebook"}
+							</Button>
+							<Button color={'google plus'}>
+								<Icon name={'google'} />
+								{"Google"}
+							</Button>
+							<Button color={'grey'}>
+								<Icon name={'github'} />
+								{"Github"}
+							</Button>
+						</Button.Group>
+					</div>
+				</div>
 			</ReactModal>
 		);
 	}
