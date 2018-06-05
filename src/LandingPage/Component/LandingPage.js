@@ -64,7 +64,7 @@ class LandingPage extends Component {
 								</Card.Content>
 								<Card.Content className={`${cardClassName}__Content`}>
 									<StrategyIcon className={`${className}__Icon`}/>
-									<p>{"Each week, choose a team as your pick for the week. You can only choose each time once."}</p>
+									<p>{"Each week, choose a team as your pick for the week. You can only choose each team once."}</p>
 								</Card.Content>
 							</Card>
 							<Card className={cardClassName}>
