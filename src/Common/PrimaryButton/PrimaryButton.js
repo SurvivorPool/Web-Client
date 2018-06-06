@@ -14,7 +14,7 @@ class PrimaryButton extends Component {
 
 PrimaryButton.defaultProps = {
 	onClick : () => {},
-	className: 'PrimaryButton',
+	className: className,
 };
 
 PrimaryButton.propTypes = {

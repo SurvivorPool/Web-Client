@@ -11,6 +11,7 @@ import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
 const className = "LandingPage";
 const heroClassName = `${className}__Hero`;
 const sectionClassName = `${className}__Section`;
+const footerClassName = `${className}__Footer`;
 const cardClassName = `${sectionClassName}__Card`;
 
 class LandingPage extends Component {
@@ -55,7 +56,7 @@ class LandingPage extends Component {
 				<section className={sectionClassName} id={"Overview"}>
 					<span className={`${sectionClassName}__Title`}>{"How it Works"}</span>
 					<div className={`${sectionClassName}__Content`}>
-						<Card.Group>
+						<Card.Group centered>
 							<Card className={cardClassName}>
 								<Card.Content>
 									<Card.Header className={`${cardClassName}__Header`}>
@@ -92,6 +93,12 @@ class LandingPage extends Component {
 						</Card.Group>
 					</div>
 				</section>
+				<footer className={footerClassName} id={"Footer"}>
+					<div className={`${footerClassName}__Content`}>
+						<p>Survivor Pool is not affiliated with The National Football League (NFL).</p>
+						<p>The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
+					</div>
+				</footer>
 			</div>
 		);
 	}

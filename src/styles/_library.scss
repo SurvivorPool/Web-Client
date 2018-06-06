@@ -4,82 +4,108 @@
     src: url('../Assets/Font/HappyFox-Condensed.otf');
 }
 
+@font-face {
+    font-family: Raleway;
+    src: url('../Assets/Font/Raleway-Regular.ttf');
+}
+
 // Palette
-$light-blue: #00AEEF;
-$orange: #FDC37B;
-$burnt-orange: #C1582D;
-$peach: #FCCAB3;
-$lavender: #8799CE;
-$light-lavender: #B0BEE6;
-$honeydew: #D6EBCE;
-$green: #79C68D;
-$light-green: #B7DB9F;
-$silver: #F7F7F8;
-$gray: #CECECE;
+    $light-blue: #00AEEF;
+    $orange: #FDC37B;
+    $burnt-orange: #C1582D;
+    $peach: #FCCAB3;
+    $lavender: #8799CE;
+    $light-lavender: #B0BEE6;
+    $honeydew: #D6EBCE;
+    $green: #79C68D;
+    $light-green: #B7DB9F;
+    $silver: #F7F7F8;
+    $gray: #CECECE;
+
+// Animations
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateY(-15px);
+        transform: translateY(-15px);
+    }
+
+    80% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
 
 // Breakpoints
 
-@mixin mobile {
-    @media (max-width: 767px) {
-        @content;
+    @mixin mobile {
+        @media (max-width: 767px) {
+            @content;
+        }
     }
-}
 
-@mixin desktop {
-    @media (min-width: 960px) {
-        @content;
+    @mixin desktop {
+        @media (min-width: 960px) {
+            @content;
+        }
     }
-}
 
 
 // Border
-$border: 2px solid $gray;
+    $border: 2px solid $gray;
 
 // PrimaryButton
-@mixin primary-button {
-    background-color: $lavender !important;
-    color: $silver !important;
-
-    &:hover {
-        background-color: $light-lavender !important;
+    @mixin primary-button {
+        background-color: $lavender !important;
         color: $silver !important;
-        transition: all ease-in .3s;
-        transform: translate3D(0,-1px,0);
+
+        &:hover {
+            background-color: $light-lavender !important;
+            color: $silver !important;
+            transition: all ease-in .3s;
+            transform: translate3D(0,-1px,0);
+        }
     }
-}
 
 
 //Modal
-@mixin modal {
-    min-height: 300px;
-    width: 30%;
-    padding: 15px 30px 30px 30px;
-    background-color: $silver;
-    border-radius: 4px;
-    box-shadow: 2px 6px 25px rgba(0, 0, 0, 0.1);
+    @mixin modal {
+        min-height: 300px;
+        width: 30%;
+        padding: 15px 30px 30px 30px;
+        background-color: $silver;
+        border-radius: 4px;
+        box-shadow: 2px 6px 25px rgba(0, 0, 0, 0.1);
 
-    @include mobile {
-        height: 100%;
-        width: 100%;
+        @include mobile {
+            height: 100%;
+            width: 100%;
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 
-    &:focus {
-        outline: none;
+    @mixin modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-}
 
-@mixin modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
+// overrides
 .ReactModal__Body--open {
     overflow: hidden;
 }
