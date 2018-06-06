@@ -4,6 +4,7 @@ import autoBind from 'react-autobind';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
+import Analytics from "../../Common/Analytics/Analytics";
 
 import logo from 'Images/logo.png';
 import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
@@ -22,6 +23,12 @@ class LandingPage extends Component {
 		this.state = {
 			isLoggingIn : false,
 		}
+	}
+
+	componentDidMount() {
+		Analytics.tagInspectlet({
+			Environment: process.env.NODE_ENV
+		});
 	}
 
 	onLoginClick() {
