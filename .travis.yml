@@ -19,12 +19,13 @@ notifications:
         - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) %{commit_message} of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}"
 
 
-deploy:
-  provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
-  skip_cleanup: true
-  on:
-    branch: development
+# Netlify below
+#deploy:
+  #provider: script
+  #script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+  #skip_cleanup: true
+  #on:
+    #branch: development
 
 
 # Heroku below
