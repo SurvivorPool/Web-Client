@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import ReactModal from "react-modal";
 
 import './styles/index.css';
-import store from './configureStore';
 import registerServiceWorker from './registerServiceWorker';
+import store from './configureStore';
 
 import router from "./Router/router";
+import Analytics from "./Common/Analytics/Analytics";
+
+Analytics.initLibraries();
 
 ReactModal.setAppElement('#root');
 
