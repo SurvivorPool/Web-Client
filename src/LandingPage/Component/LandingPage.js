@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+import { Link, Element } from 'react-scroll';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
