@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Image, Card } from 'semantic-ui-react';
+import { Image, Card, Icon } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
+import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import logo from 'Images/logo.png';
 import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
@@ -46,14 +48,41 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div className={className}>
-				<Navbar isVisible={!this.state.isLoggingIn} onLoginClick={this.onLoginClick}/>
+				<Navbar isVisible={!this.state.isLoggingIn}>
+					<Link
+						to={"Overview"}
+						smooth={true}
+						className={`${className}__Link`}
+					>
+						{"How it works"}
+					</Link>
+					<PrimaryButton onClick={this.onLoginClick}>
+						{"Login"}
+					</PrimaryButton>
+				</Navbar>
 				<header className={heroClassName}>
 					<div className={`${heroClassName}__Container`}>
-						<Image src={logo} className={`${className}__Hero__Logo`} alt={"SurvivorPool logo"}/>
+						<Image
+							src={logo}
+							className={`${className}__Hero__Logo`}
+							alt={"SurvivorPool logo"}
+						/>
+						<Link
+							to={"Overview"}
+							smooth={true}
+						>
+							<Icon
+								className={`${heroClassName}__Chevron`}
+								name={"chevron down"}
+								size={"huge"}
+								color={"orange"}
+							/>
+						</Link>
 					</div>
 				</header>
 				{this.renderLoginModal()}
-				<section className={sectionClassName} id={"Overview"}>
+				<section className={sectionClassName}>
+					<Element name={"Overview"}/>
 					<span className={`${sectionClassName}__Title`}>{"How it Works"}</span>
 					<div className={`${sectionClassName}__Content`}>
 						<Card.Group centered>
