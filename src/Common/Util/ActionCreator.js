@@ -3,30 +3,6 @@ export default function actionCreator(params) {
 	const ACTION_COMPLETED = params.name + "_COMPLETED";
 	const ACTION_FAILED = params.name + "_FAILED";
 
-	function createAction() {
-		const params = [].slice.call(arguments);
-		return {
-			type: ACTION,
-			params,
-		};
-	}
-
-	function completeAction(data, params) {
-		return {
-			type: ACTION_COMPLETED,
-			data,
-			params,
-		};
-	}
-
-	function failAction(error, params) {
-		return {
-			type: ACTION_FAILED,
-			error,
-			params,
-		};
-	}
-
 	function defineAction() {
 		const args = [].slice.call(arguments);
 
@@ -50,4 +26,28 @@ export default function actionCreator(params) {
 	defineAction.ACTION_FAILED = ACTION_FAILED;
 
 	return defineAction;
+
+	function createAction() {
+		const params = [].slice.call(arguments);
+		return {
+			type: ACTION,
+			params,
+		};
+	}
+
+	function completeAction(data, params) {
+		return {
+			type: ACTION_COMPLETED,
+			data,
+			params,
+		};
+	}
+
+	function failAction(error, params) {
+		return {
+			type: ACTION_FAILED,
+			error,
+			params,
+		};
+	}
 }

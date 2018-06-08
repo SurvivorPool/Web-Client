@@ -1,6 +1,7 @@
-import ActionCreator from "../../Util/ActionCreator";
+const ACTION = 'USER_LOGIN';
 
-export default ActionCreator({
-	name: "USER_LOGIN",
-	action: () => { console.log('action gooooo')},
-});
+const actionCreator = payload => ({ type: ACTION, payload });
+
+actionCreator.ACTION = ACTION;
+
+export default actionCreator;
