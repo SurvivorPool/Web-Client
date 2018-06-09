@@ -1,71 +1,8 @@
-// Font
-@font-face {
-    font-family: Happy-Fox;
-    src: url('../Assets/Font/HappyFox-Condensed.otf');
-}
-
-@font-face {
-    font-family: Raleway;
-    src: url('../Assets/Font/Raleway-Regular.ttf');
-}
-
-// Palette
-    $light-blue: #00AEEF;
-    $orange: #FDC37B;
-    $burnt-orange: #C1582D;
-    $peach: #FCCAB3;
-    $lavender: #8799CE;
-    $light-lavender: #B0BEE6;
-    $honeydew: #D6EBCE;
-    $green: #79C68D;
-    $light-green: #B7DB9F;
-    $silver: #F7F7F8;
-    $gray: #CECECE;
-
-// Animations
-
-@keyframes bounce {
-    0%, 20%, 60%, 100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-
-    40% {
-        -webkit-transform: translateY(-15px);
-        transform: translateY(-15px);
-    }
-
-    80% {
-        -webkit-transform: translateY(-5px);
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes pop-in {
-    0% {
-        opacity: 0;
-        transform: translateY(-4rem) scale(.8);
-    }
-    100% {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-// Breakpoints
-
-    @mixin mobile {
-        @media (max-width: 767px) {
-            @content;
-        }
-    }
-
-    @mixin desktop {
-        @media (min-width: 960px) {
-            @content;
-        }
-    }
-
+@import "./library/palette";
+@import "./library/font";
+@import "./library/animations";
+@import "./library/breakpoints";
+@import "./library/overrides";
 
 // Border
     $border: 2px solid $gray;
@@ -115,25 +52,3 @@
         align-items: center;
     }
 
-
-// overrides
-.ReactModal__Body--open {
-    overflow: hidden;
-}
-
-.ReactModal__Content {
-    opacity: 0;
-}
-
-.ReactModal__Content--after-open {
-    opacity: 1;
-    transition: opacity 200ms;
-}
-
-.ReactModal__Content--before-close {
-    opacity: 0;
-}
-
-i.orange.icon {
-    color: $burnt-orange !important;
-}
