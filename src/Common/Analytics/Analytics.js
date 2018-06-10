@@ -1,7 +1,5 @@
 import Raven from 'raven-js';
 
-const noop = () => {};
-
 export default class Analytics  {
 	constructor() {
 		this.inspectlet = window.__insp || [];

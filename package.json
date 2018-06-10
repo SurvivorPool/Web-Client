@@ -71,6 +71,7 @@
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules ./src  -o ./src --output-style compressed",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules ./src -o ./src --watch --recursive --output-style compressed"
   },
+ "proxy": "http://localhost:3000",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"

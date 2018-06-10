@@ -1,6 +1,10 @@
 import loginAction from '../Action/loginAction';
+import firebaseLoggedInAction from "../Action/fireBaseLoggedInAction";
+import userExistsAction from "../Action/userExistsAction";
+import userCreateAction from "../Action/userCreateAction";
+import userGetAction from "../Action/userGetAction";
 
-import { login } from "../Util/firebase";
+import { firebaseLogin } from "../Util/firebase";
 
 export default function authMiddleware({ getState, dispatch }) {
 	return (next) =>
@@ -11,11 +15,20 @@ export default function authMiddleware({ getState, dispatch }) {
 		};
 }
 
-function authMiddlewareListeners(action) {
+function authMiddlewareListeners(action, getState, dispatch) {
 	switch (action.type) {
 		case loginAction.ACTION: {
-			login(action.payload);
+			firebaseLogin(action.payload)
+				.then(userAuth =>
+					Promise.all([
+						dispatch(firebaseLoggedInAction(userAuth)),
+						dispatch(userExistsAction(userAuth)).then(exists => {
+							!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction(exists))
+						})
+					]));
 			break;
 		}
+		default:
+			break;
 	}
 }

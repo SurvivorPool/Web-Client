@@ -1,17 +1,39 @@
-export default class Requests {
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
-	static formatPayload(data, method) {
-		return {
-			body: JSON.stringify(data),
-			headers:{
-				'Content-Type': 'application/json'
-			},
-			method,
-		};
+const isProd =  process.env.NODE_ENV === 'production';
+const api = isProd ? `${process.env.REACT_APP_API_URL}/` : '';
+
+export default class Requests {
+	constructor() {
+		this.token = null;
 	}
 
-	static fetch(url, method, payload = {},) {
-		return fetch(url, Requests.formatPayload(payload, method))
+	static setAuthorization() {
+		return firebase.auth().currentUser.getIdToken(true).then(token => { this.token = token});
+	}
+
+	static formatPayload(data, method) {
+		Requests.setAuthorization();
+		const request = {
+			method,
+			headers: {
+				'Authorization': this.token,
+			}
+		};
+
+		if(data) {
+			request.body = JSON.stringify(data);
+			request.headers = {
+				...request.headers,
+				'Content-Type': 'application/json',
+			};
+		}
+		return request;
+	}
+
+	static fetch(url, method, payload,) {
+		return fetch(`${api}${url}`, Requests.formatPayload(payload, method))
 			.then(response => {
 				return response.json();
 			})
@@ -25,11 +47,11 @@ export default class Requests {
 	}
 
 	static post(url, data) {
-		return Requests.fetch(url, data, 'POST');
+		return Requests.fetch(url, 'POST', data);
 	}
 
 	static put(url, data) {
-		return Requests.fetch(url, data, 'PUT');
+		return Requests.fetch(url, 'PUT', data);
 	}
 
 	static delete(url) {

@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import loadPreviousState from './loadPreviousState';
 
 import authReducer from "./Common/Auth/Reducer/authReducer";
+import userReducer from "./Common/Auth/Reducer/userReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
 const storeReducers = combineReducers({
     auth: authReducer,
+    user: userReducer,
 });
 
 function getMiddleware() {
