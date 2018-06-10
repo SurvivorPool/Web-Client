@@ -16,14 +16,13 @@ export default function userReducer(state = initialState, action) {
 				loading: true,
 			};
 		case userGetAction.ACTION_COMPLETED:
-		case userCreateAction.ACTION_COMPLETED: {
+		case userCreateAction.ACTION_COMPLETED:
 			return {
 				...state,
 				data: action.data,
 				loading: false,
 				error: null,
 			};
-		}
 		case userGetAction.ACTION_FAILED:
 		case userCreateAction.ACTION_FAILED:
 			return {
