@@ -54,7 +54,7 @@ class LandingPage extends Component {
 						smooth={true}
 						className={`${className}__Link`}
 					>
-						{"How it works"}
+						{"How to Play"}
 					</Link>
 					<PrimaryButton onClick={this.onLoginClick}>
 						{"Login"}
@@ -83,7 +83,9 @@ class LandingPage extends Component {
 				{this.renderLoginModal()}
 				<section className={sectionClassName}>
 					<Element name={"Overview"}/>
-					<span className={`${sectionClassName}__Title`}>{"How it Works"}</span>
+					<span className={`${sectionClassName}__Title`}>
+						{"How to Play"}
+					</span>
 					<div className={`${sectionClassName}__Content`}>
 						<Card.Group centered>
 							<Card className={cardClassName}>
