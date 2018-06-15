@@ -1,5 +1,6 @@
 import userCreateAction from '../Action/userCreateAction';
 import userGetAction from '../Action/userGetAction';
+import userExistsAction from '../Action/userExistsAction';
 
 export const initialState = {
 	loading: false,
@@ -25,6 +26,7 @@ export default function userReducer(state = initialState, action) {
 			};
 		case userGetAction.ACTION_FAILED:
 		case userCreateAction.ACTION_FAILED:
+		case userExistsAction.ACTION_FAILED:
 			return {
 				...state,
 				data: null,

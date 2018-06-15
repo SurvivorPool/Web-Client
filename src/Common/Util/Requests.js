@@ -32,14 +32,21 @@ export default class Requests {
 		return request;
 	}
 
+	static formatResponse(response) {
+		if(response.status >= 200 && response.status <= 300) {
+			return response.json();
+		}
+
+		throw {
+			status: response.status,
+			message: response.statusText,
+			url: response.url
+		};
+	}
+
 	static fetch(url, method, payload,) {
 		return fetch(`${api}${url}`, Requests.formatPayload(payload, method))
-			.then(response => {
-				return response.json();
-			})
-			.catch(error => {
-				console.log(error);
-			});
+			.then(response => Requests.formatResponse(response));
 	}
 
 	static get(url) {
