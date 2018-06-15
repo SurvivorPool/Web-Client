@@ -67,10 +67,12 @@
         white-space: nowrap;
         display: block;
         line-height: 1;
+        color: $lavender;
+        font-weight: bold;
 
         &:hover {
-            text-decoration: underline;
             cursor: pointer;
+            color: $light-lavender;
         }
     }
 

@@ -18,21 +18,11 @@ try {
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
+export const githubProvider = new firebase.auth.GithubAuthProvider();
 
 export default firebase;
 
 export function firebaseLogin(provider) {
-	switch(provider) {
-		case 'google':
-			provider = googleProvider;
-			break;
-		case 'facebook':
-			provider = facebookProvider;
-			break;
-		default:
-			break;
-	}
-
 	return firebase.auth().signInWithPopup(provider).then((results) => {
 		return {
 			uid: results.user.uid,

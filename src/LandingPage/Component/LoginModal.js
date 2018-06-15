@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 
 import PrimaryButton from '../../Common/PrimaryButton/PrimaryButton';
 import { RefereeIcon } from "Icons/Icons.js";
+import { facebookProvider, githubProvider, googleProvider } from "../../Common/Auth/Util/firebase";
 
 import loginAction from "../../Common/Auth/Action/loginAction";
 
@@ -23,8 +24,9 @@ class LoginModal extends Component {
 	constructor(props) {
 		super(props);
 
-		this.googleLogin = this.props.login.bind(this, 'google');
-		this.facebookLogin = this.props.login.bind(this, 'facebook');
+		this.googleLogin = this.props.login.bind(this, googleProvider);
+		this.facebookLogin = this.props.login.bind(this, facebookProvider);
+		this.githubLogin = this.props.login.bind(this, githubProvider);
 	}
 	render() {
 		return (
@@ -43,7 +45,7 @@ class LoginModal extends Component {
 							<RefereeIcon
 								className={`${modalClassName}__Login__Icon`}
 							/>
-							<h1 className={`${modalClassName}__Login__h1`}>{"Login to play"}</h1>
+								<h1 className={`${modalClassName}__Login__h1`}>{"Sign in"}</h1>
 						</div>
 						<Divider />
 						<Button.Group vertical className={`${modalClassName}__Login__Buttons`}>
@@ -61,7 +63,10 @@ class LoginModal extends Component {
 								<Icon name={'google'} />
 								{"Google"}
 							</Button>
-							<Button color={'grey'}>
+							<Button
+								color={'grey'}
+								onClick={this.githubLogin}
+							>
 								<Icon name={'github'} />
 								{"Github"}
 							</Button>

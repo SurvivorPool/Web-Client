@@ -57,7 +57,7 @@ class LandingPage extends Component {
 						{"How to Play"}
 					</Link>
 					<PrimaryButton onClick={this.onLoginClick}>
-						{"Login"}
+						{"Sign In"}
 					</PrimaryButton>
 				</Navbar>
 				<header className={heroClassName}>
