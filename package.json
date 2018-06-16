@@ -80,7 +80,8 @@
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
-      "<rootDir>/config/jest/setupTests.js"
+      "<rootDir>/config/jest/setupTests.js",
+      "<rootDir>/config/jest/assetMock.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
