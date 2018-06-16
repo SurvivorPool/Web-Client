@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { Icon, Button, Divider } from 'semantic-ui-react';
 import ReactModal from 'react-modal';
@@ -8,25 +7,17 @@ import PrimaryButton from '../../Common/PrimaryButton/PrimaryButton';
 import { RefereeIcon } from "Icons/Icons.js";
 import { facebookProvider, githubProvider, googleProvider } from "../../Common/Auth/Util/firebase";
 
-import loginAction from "../../Common/Auth/Action/loginAction";
+const noop = () => {};
 
 const modalClassName = "LoginModal";
 
-@connect(
-	state => ({
-		auth: state.auth,
-	}),
-	dispatch => ({
-		login: provider => dispatch(loginAction(provider))
-	})
-)
 class LoginModal extends Component {
 	constructor(props) {
 		super(props);
 
-		this.googleLogin = this.props.login.bind(this, googleProvider);
-		this.facebookLogin = this.props.login.bind(this, facebookProvider);
-		this.githubLogin = this.props.login.bind(this, githubProvider);
+		this.googleLogin = this.props.startLogin.bind(this, googleProvider);
+		this.facebookLogin = this.props.startLogin.bind(this, facebookProvider);
+		this.githubLogin = this.props.startLogin.bind(this, githubProvider);
 	}
 	render() {
 		return (
@@ -80,13 +71,15 @@ class LoginModal extends Component {
 
 LoginModal.defaultProps = {
 	isOpen : false,
-	onClose: () => {},
+	onClose: noop,
+	startLogin: noop,
 };
 
 
 LoginModal.propTypes = {
-	isOpen : PropTypes.bool,
+	isOpen: PropTypes.bool,
 	onClose: PropTypes.func,
+	startLogin: PropTypes.func,
 };
 
 export default LoginModal;

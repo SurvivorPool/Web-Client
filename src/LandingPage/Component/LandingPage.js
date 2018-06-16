@@ -44,6 +44,7 @@ class LandingPage extends Component {
 		return <LoginModal
 			isOpen={this.state.isLoggingIn}
 			onClose={this.onCloseModalClick}
+			startLogin={this.props.login}
 		/>
 	}
 

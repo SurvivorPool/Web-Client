@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import authSelector from '../Util/authSelector';
 
 import logoutAction from '../Action/logoutAction';
+import loginAction from '../Action/loginAction';
 
 export default function(DecoratedComponent) {
 	@connect(
@@ -11,20 +12,18 @@ export default function(DecoratedComponent) {
 			auth: authSelector(state),
 		}),
 		dispatch => ({
-			logout: () => dispatch(logoutAction())
+			logout: () => dispatch(logoutAction()),
+			login: provider => dispatch(loginAction(provider))
 		})
 	)
 	class AuthDecorator extends Component {
-		logout() {
-			this.props.logout();
-		}
-
 		render() {
 			const props = this.props;
 			return (
 				<DecoratedComponent
 					{...props}
-					logout={this.logout}
+					logout={props.logout}
+					login={props.login}
 					isLoggedIn={!!(props.auth && props.auth.isLoggedIn)}
 				/>
 			)
