@@ -9,7 +9,7 @@
 
 * `yarn install` or `npm install`
 
-* Start the client locally - `yarm start` or `npm run start`
+* Start the client locally - `yarn start` or `npm run start`
 
 * Your browser will open to _localhost:8000_
 
