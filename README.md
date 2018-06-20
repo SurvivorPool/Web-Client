@@ -3,7 +3,7 @@
 ![alt text](src/Assets/Images/logoMedium.png)
 
 
-##Installation & Running Locally
+## Installation & Running Locally
 
 * Create an .env file in the root of the project named: `env.development.local` for local development.
 
@@ -13,7 +13,7 @@
 
 * Your browser will open to _localhost:8000_
 
-##Tests
+## Tests
 
 `yarn test` or `npm run test`
 
