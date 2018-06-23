@@ -9,16 +9,12 @@ export default function(DecoratedComponent) {
 				return this.props[key] && this.props[key].loading;
 			});
 
-			if (isLoading) {
-				return (
-					<React.Fragment>
-						<Loader />
-						<DecoratedComponent {...this.props} />
-					</React.Fragment>
-				);
-			}
-
-			return (
+			return isLoading ? (
+				<React.Fragment>
+					<Loader />
+					<DecoratedComponent {...this.props} />
+				</React.Fragment>
+			) : (
 				<DecoratedComponent {...this.props} />
 			);
 		}
