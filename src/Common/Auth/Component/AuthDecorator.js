@@ -24,7 +24,7 @@ export default function(DecoratedComponent) {
 					{...props}
 					logout={props.logout}
 					login={props.login}
-					isLoggedIn={!!(props.auth && props.auth.isLoggedIn)}
+					isLoggedIn={!!(props.auth.data && props.auth.data.isLoggedIn)}
 				/>
 			)
 		}

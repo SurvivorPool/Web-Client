@@ -6,7 +6,7 @@ const defaultAuth = {};
 const authSelector = createSelector(
 	[authDataSelector],
 	authData => {
-		return authData.data || defaultAuth;
+		return authData || defaultAuth;
 	}
 );
 

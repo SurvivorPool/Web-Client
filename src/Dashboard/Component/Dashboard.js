@@ -6,10 +6,12 @@ import Navbar from "../../Navbar/Component/Navbar";
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 
 const className = "Dashboard";
 
 @AuthDecorator
+@LoaderDecorator
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);

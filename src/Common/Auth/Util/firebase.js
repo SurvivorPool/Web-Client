@@ -23,12 +23,13 @@ export const githubProvider = new firebase.auth.GithubAuthProvider();
 export default firebase;
 
 export function firebaseLogin(provider) {
-	return firebase.auth().signInWithPopup(provider).then((results) => {
-		return {
-			uid: results.user.uid,
-			displayName: results.user.displayName,
-			email: results.user.email,
-			pictureURL: results.user.photoURL
-		};
+	return firebase.auth().signInWithPopup(provider)
+		.then((results) => {
+			return {
+				uid: results.user.uid,
+				displayName: results.user.displayName,
+				email: results.user.email,
+				pictureURL: results.user.photoURL
+			};
 	});
 }

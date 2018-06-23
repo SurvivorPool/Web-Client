@@ -7,7 +7,9 @@ import { Redirect } from "react-router-dom";
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
+
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 
 import logo from 'Images/logo.png';
 import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
@@ -19,6 +21,7 @@ const footerClassName = `${className}__Footer`;
 const cardClassName = `${sectionClassName}__Card`;
 
 @AuthDecorator
+@LoaderDecorator
 class LandingPage extends Component {
 	constructor(props) {
 		super(props);

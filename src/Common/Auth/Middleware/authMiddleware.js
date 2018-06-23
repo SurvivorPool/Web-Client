@@ -37,6 +37,8 @@ function authMiddlewareListeners(action, getState, dispatch) {
 						name: userAuth.displayName,
 					});
 					Analytics.identifyInspectlet(userAuth.email);
+				}).catch(error => {
+					dispatch(logoutAction());
 				});
 			break;
 		}
