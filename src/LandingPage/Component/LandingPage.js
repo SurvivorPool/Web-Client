@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
 import { Link, Element } from 'react-scroll';
+import { Redirect } from "react-router-dom";
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
@@ -48,7 +49,103 @@ class LandingPage extends Component {
 		/>
 	}
 
+	static renderPlayCards() {
+		return (
+			<Card.Group centered>
+				<Card className={cardClassName}>
+					<Card.Content>
+						<Card.Header className={`${cardClassName}__Header`}>
+							{"Pick a Team"}
+						</Card.Header>
+					</Card.Content>
+					<Card.Content className={`${cardClassName}__Content`}>
+						<StrategyIcon className={`${className}__Icon`}/>
+						<p>{"Each week, choose a team as your pick for the week. You can only choose each team once."}</p>
+					</Card.Content>
+				</Card>
+				<Card className={cardClassName}>
+					<Card.Content>
+						<Card.Header className={`${cardClassName}__Header`}>
+							{"Battle Other Players"}
+						</Card.Header>
+					</Card.Content>
+					<Card.Content className={`${cardClassName}__Content`}>
+						<HelmetIcon className={`${className}__Icon`}/>
+						<p>{"If your team wins that week, you advance on to the next week. Lose and you're out."}</p>
+					</Card.Content>
+				</Card>
+				<Card className={cardClassName}>
+					<Card.Content>
+						<Card.Header className={`${cardClassName}__Header`}>
+							{"Survive"}
+						</Card.Header>
+					</Card.Content>
+					<Card.Content className={`${cardClassName}__Content`}>
+						<CupIcon className={`${className}__Icon`}/>
+						<p>{"Don't sink and be crowned the season champion."}</p>
+					</Card.Content>
+				</Card>
+			</Card.Group>
+		);
+	}
+
+	static renderHeader() {
+		return (
+			<header className={heroClassName}>
+				<div className={`${heroClassName}__Container`}>
+					<Image
+						src={logo}
+						className={`${className}__Hero__Logo`}
+						alt={"SurvivorPool logo"}
+					/>
+					<Link
+						to={"Overview"}
+						smooth={true}
+					>
+						<Icon
+							className={`${heroClassName}__Chevron`}
+							name={"chevron down"}
+							size={"huge"}
+							color={"orange"}
+						/>
+					</Link>
+				</div>
+			</header>
+		);
+	}
+
+	static renderHowToPlay() {
+		return (
+			<section className={sectionClassName}>
+				<Element name={"Overview"}/>
+				<span className={`${sectionClassName}__Title`}>
+						{"How to Play"}
+					</span>
+				<div className={`${sectionClassName}__Content`}>
+					{LandingPage.renderPlayCards()}
+				</div>
+			</section>
+		);
+	}
+
+	static renderFooter() {
+		return (
+			<footer className={footerClassName} id={"Footer"}>
+				<div className={`${footerClassName}__Content`}>
+					<p>Survivor Pool is not affiliated with The National Football League (NFL).</p>
+					<p>The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
+				</div>
+			</footer>
+		);
+	}
+
 	render() {
+		if(this.props.isLoggedIn) {
+			return (
+				<Redirect to={"/dashboard"}/>
+			)
+		}
+
 		return (
 			<div className={className}>
 				<Navbar isVisible={!this.state.isLoggingIn}>
@@ -63,76 +160,10 @@ class LandingPage extends Component {
 						{"Sign In"}
 					</PrimaryButton>
 				</Navbar>
-				<header className={heroClassName}>
-					<div className={`${heroClassName}__Container`}>
-						<Image
-							src={logo}
-							className={`${className}__Hero__Logo`}
-							alt={"SurvivorPool logo"}
-						/>
-						<Link
-							to={"Overview"}
-							smooth={true}
-						>
-							<Icon
-								className={`${heroClassName}__Chevron`}
-								name={"chevron down"}
-								size={"huge"}
-								color={"orange"}
-							/>
-						</Link>
-					</div>
-				</header>
+				{LandingPage.renderHeader()}
 				{this.renderLoginModal()}
-				<section className={sectionClassName}>
-					<Element name={"Overview"}/>
-					<span className={`${sectionClassName}__Title`}>
-						{"How to Play"}
-					</span>
-					<div className={`${sectionClassName}__Content`}>
-						<Card.Group centered>
-							<Card className={cardClassName}>
-								<Card.Content>
-									<Card.Header className={`${cardClassName}__Header`}>
-										{"Pick a Team"}
-									</Card.Header>
-								</Card.Content>
-								<Card.Content className={`${cardClassName}__Content`}>
-									<StrategyIcon className={`${className}__Icon`}/>
-									<p>{"Each week, choose a team as your pick for the week. You can only choose each team once."}</p>
-								</Card.Content>
-							</Card>
-							<Card className={cardClassName}>
-								<Card.Content>
-									<Card.Header className={`${cardClassName}__Header`}>
-										{"Battle Other Players"}
-									</Card.Header>
-								</Card.Content>
-								<Card.Content className={`${cardClassName}__Content`}>
-									<HelmetIcon className={`${className}__Icon`}/>
-									<p>{"If your team wins that week, you advance on to the next week. Lose and you're out."}</p>
-								</Card.Content>
-							</Card>
-							<Card className={cardClassName}>
-								<Card.Content>
-									<Card.Header className={`${cardClassName}__Header`}>
-										{"Survive"}
-									</Card.Header>
-								</Card.Content>
-								<Card.Content className={`${cardClassName}__Content`}>
-									<CupIcon className={`${className}__Icon`}/>
-									<p>{"Don't sink and be crowned the season champion."}</p>
-								</Card.Content>
-							</Card>
-						</Card.Group>
-					</div>
-				</section>
-				<footer className={footerClassName} id={"Footer"}>
-					<div className={`${footerClassName}__Content`}>
-						<p>Survivor Pool is not affiliated with The National Football League (NFL).</p>
-						<p>The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
-					</div>
-				</footer>
+				{LandingPage.renderHowToPlay()}
+				{LandingPage.renderFooter()}
 			</div>
 		);
 	}

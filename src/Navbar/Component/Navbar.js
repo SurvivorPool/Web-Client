@@ -6,10 +6,11 @@ const controlsClassName = `${className}__Controls`;
 
 class Navbar extends Component {
 	render() {
-		return this.props.isVisible ? (
+		const props = this.props;
+		return props.isVisible ? (
 			<div className={className}>
 				<div className={controlsClassName}>
-					{this.props.children}
+					{props.children}
 				</div>
 			</div>
 		) : null;

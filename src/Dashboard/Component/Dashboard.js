@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Link } from "react-router-dom";
+import { Card } from 'semantic-ui-react';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
@@ -28,6 +28,14 @@ class Dashboard extends Component {
 						{"Sign Out"}
 					</PrimaryButton>
 				</Navbar>
+				<div className={`${className}__Content`}>
+					<Card
+						header='Sample League Card'
+						meta='League'
+						description='Sample League Description. How many players. Current Pot. Rules.'
+						extra='Your teams'
+					/>
+				</div>
 			</div>
 		);
 	}
