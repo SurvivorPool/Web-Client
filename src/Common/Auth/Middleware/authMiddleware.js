@@ -43,10 +43,11 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		case firebaseLoggedInAction.ACTION: {
 			if(action.payload && action.payload.uid) {
 				LocalStorage.set('auth', action.payload);
+				dispatch(push('/dashboard'));
 			}
 			break;
 		}
-		case logoutAction: {
+		case logoutAction.ACTION: {
 			LocalStorage.delete('auth');
 			dispatch(push('/'));
 			break;
