@@ -63,7 +63,7 @@ class LandingPage extends Component {
 					</Card.Content>
 					<Card.Content className={`${cardClassName}__Content`}>
 						<StrategyIcon className={`${className}__Icon`}/>
-						<p>{"Each week, choose a team as your pick for the week. You can only choose each team once."}</p>
+						<p>{"Choose one team as your pick for the week. You can only select a team once.."}</p>
 					</Card.Content>
 				</Card>
 				<Card className={cardClassName}>
@@ -74,7 +74,7 @@ class LandingPage extends Component {
 					</Card.Content>
 					<Card.Content className={`${cardClassName}__Content`}>
 						<HelmetIcon className={`${className}__Icon`}/>
-						<p>{"If your team wins that week, you advance on to the next week. Lose and you're out."}</p>
+						<p>{"If your team wins that week, you advance on to the next. Lose and you're sunk."}</p>
 					</Card.Content>
 				</Card>
 				<Card className={cardClassName}>
@@ -151,7 +151,9 @@ class LandingPage extends Component {
 
 		return (
 			<div className={className}>
-				<Navbar isVisible={!this.state.isLoggingIn}>
+				<Navbar
+					isVisible={!this.state.isLoggingIn}
+				>
 					<Link
 						to={"Overview"}
 						smooth={true}
