@@ -25,7 +25,6 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		console.log(this.props, 'props');
 		return (
 			<div className={className}>
 				<Navbar>

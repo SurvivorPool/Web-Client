@@ -32,9 +32,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 					Promise.all([
 						dispatch(firebaseLoggedInAction(userAuth)),
 						dispatch(userExistsAction(userAuth)).then(exists => {
-							//!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction(exists))
-						}).catch(e => {
-							dispatch(userGetAction({user_id: 1}))
+							!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction(exists))
 						}),
 						firebase.auth().currentUser.getIdToken(true).then(token => {
 							dispatch(userAuthTokenAction({token}))
