@@ -1,6 +1,7 @@
 import loginAction from '../Action/loginAction';
 import fireBaseLoggedInAction from "../Action/fireBaseLoggedInAction";
 import logoutAction from '../Action/logoutAction';
+import userAuthTokenAction from '../Action/userAuthTokenAction';
 
 import LocalStorage from "../../Util/LocalStorage";
 
@@ -11,6 +12,7 @@ export const initialState = {
 	data:  prevAuth && prevAuth.uid ? {
 			...prevAuth,
 			isLoggedIn : true,
+			token: null,
 		} : null,
 	error: null,
 };
@@ -44,6 +46,14 @@ export default function userReducer(state = initialState, action) {
 				data: null,
 				loading: false,
 				error: action.error,
+			};
+		case userAuthTokenAction.ACTION:
+			return {
+				...state,
+				data: {
+					...state.data,
+					token: action.payload.token,
+				}
 			};
 		default:
 			return state;

@@ -1,4 +1,7 @@
 import {push} from "connected-react-router";
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+
 
 import loginAction from '../Action/loginAction';
 import logoutAction from '../Action/logoutAction';
@@ -6,6 +9,7 @@ import firebaseLoggedInAction from "../Action/fireBaseLoggedInAction";
 import userExistsAction from "../Action/userExistsAction";
 import userCreateAction from "../Action/userCreateAction";
 import userGetAction from "../Action/userGetAction";
+import userAuthTokenAction from "../Action/userAuthTokenAction";
 
 import { firebaseLogin } from "../Util/firebase";
 import Analytics from "../../Analytics/Analytics";
@@ -28,8 +32,13 @@ function authMiddlewareListeners(action, getState, dispatch) {
 					Promise.all([
 						dispatch(firebaseLoggedInAction(userAuth)),
 						dispatch(userExistsAction(userAuth)).then(exists => {
-							!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction(exists))
-						})
+							//!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction(exists))
+						}).catch(e => {
+							dispatch(userGetAction({user_id: 1}))
+						}),
+						firebase.auth().currentUser.getIdToken(true).then(token => {
+							dispatch(userAuthTokenAction({token}))
+						}),
 					]);
 					Analytics.setContextRaven(userAuth);
 					Analytics.tagInspectlet({

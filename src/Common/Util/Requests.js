@@ -1,20 +1,14 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-
 import store from '../../configureStore';
 
 import logoutAction	 from '../Auth/Action/logoutAction';
 
 const isProd =  process.env.NODE_ENV === 'production';
 const api = isProd ? `${process.env.REACT_APP_API_URL}/` : '';
+let authToken = null;
 
 export default class Requests {
-	constructor() {
-		this.token = null;
-	}
-
 	static setAuthorization() {
-		return firebase.auth().currentUser.getIdToken(true).then(token => { this.token = token});
+		authToken = (store.getState().auth.data && store.getState().auth.data.token) || null;
 	}
 
 	static formatPayload(data, method) {
@@ -22,7 +16,7 @@ export default class Requests {
 		const request = {
 			method,
 			headers: {
-				'Authorization': this.token,
+				'Authorization': authToken,
 			}
 		};
 

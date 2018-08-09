@@ -3,7 +3,7 @@ import Requests from "../../Util/Requests";
 export default class UserApi {
 
 	static exists(user) {
-		return Requests.get(`/users/exists/${user.uid}`);
+		return Requests.get(`/user/exists/${user.uid}`);
 	}
 
 	static create(user) {
@@ -13,10 +13,10 @@ export default class UserApi {
 			user_id: user.uid,
 			picture_url: user.pictureURL
 		};
-		return Requests.post('/users', createdUser);
+		return Requests.post('/user', createdUser);
 	}
 
 	static get(user) {
-		return Requests.get(`/users/${user.user_id}`);
+		return Requests.get(`/user/${user.user_id}`);
 	}
 }

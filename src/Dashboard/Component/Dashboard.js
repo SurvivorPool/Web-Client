@@ -7,10 +7,12 @@ import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
+import UserDecorator from "../../Common/Auth/Component/UserDecorator";
 
 const className = "Dashboard";
 
 @AuthDecorator
+@UserDecorator
 @LoaderDecorator
 class Dashboard extends Component {
 	constructor(props) {
@@ -23,6 +25,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
+		console.log(this.props, 'props');
 		return (
 			<div className={className}>
 				<Navbar>
