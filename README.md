@@ -5,7 +5,7 @@
 
 ## Installation & Running Locally
 
-* Create an .env file in the root of the project named: `env.development.local` for local development.
+* Create an .env file in the root of the project named: `.env.development.local` for local development.
 
 * `yarn install` or `npm install`
 
