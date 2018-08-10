@@ -9,6 +9,7 @@ import loadPreviousState from './loadPreviousState';
 import authReducer from "./Common/Auth/Reducer/authReducer";
 import userReducer from "./Common/Auth/Reducer/userReducer";
 import leagueReducer from "./League/Reducer/leagueReducer";
+import leaguesReducer from "./League/Reducer/leaguesReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
@@ -17,6 +18,7 @@ export const history = createBrowserHistory();
 const storeReducers = combineReducers({
     auth: authReducer,
     league: leagueReducer,
+    leagues: leaguesReducer,
     user: userReducer,
 });
 

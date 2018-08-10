@@ -23,25 +23,25 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		//testing code
-		if(!Object.keys(this.props.league).length) {
-			this.props.getLeague(1);
+		if(!this.props.leagues && this.props.leagues.leagues) {
+			this.props.getAllLeagues();
 		}
 	}
 
-	onLogoutClick() {
-		this.props.logout();
-	}
-
 	static renderLeagueCards(props) {
-		return Object.keys(props.league).length ? <LeagueCards leagues={[{...props.league}]}/> : null;
+		const leagueCards = (props.leagues && props.leagues.leagues) || [];
+		return leagueCards.length ? <LeagueCards leagues={leagueCards}/> : null;
 	}
 
 	render() {
 		return (
 			<div className={className}>
 				<Navbar>
-					<Profile onLogoutClick={this.onLogoutClick}/>
+					<Profile
+						onLogoutClick={this.props.logout}
+						redirectLink={"/admin"}
+						redirectLabel={"Admin Dashboard"}
+					/>
 				</Navbar>
 				<div className={`${className}__Content`}>
 					{Dashboard.renderLeagueCards(this.props)}

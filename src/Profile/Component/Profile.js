@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom";
 import { Image, Dropdown, Icon } from 'semantic-ui-react';
 
 import userSelector from "../../Common/Auth/Selector/userSelector";
@@ -20,8 +21,14 @@ class Profile extends Component {
 		super(props);
 		autoBind(this);
 		this.state = {
-			activeItem: 'inbox'
+			shouldRedirect: false
 		};
+	}
+
+	goToRedirect() {
+		this.setState({
+			shouldRedirect: true,
+		});
 	}
 
 	static renderUserImage(props) {
@@ -42,8 +49,23 @@ class Profile extends Component {
 		);
 	}
 
+	static renderAdminLink(props, goToRedirect) {
+		return props.user && props.user.is_admin ? (
+			<Dropdown.Item onClick={goToRedirect}>
+				{props.redirectLabel}
+			</Dropdown.Item>
+		) : null;
+	}
+
 	render() {
 		const props = this.props;
+
+		if(this.state.shouldRedirect) {
+			return (
+				<Redirect to={props.redirectLink} />
+			)
+		}
+
 		return (
 			<div className={`${className}__Container`}>
 				{Profile.renderUserImage(props)}
@@ -53,6 +75,7 @@ class Profile extends Component {
 					labeled
 				>
 					<Dropdown.Menu>
+						{Profile.renderAdminLink(props, this.goToRedirect)}
 						{Profile.renderLogout(props)}
 					</Dropdown.Menu>
 				</Dropdown>
@@ -62,6 +85,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-	onLogoutClick: PropTypes.func.isRequired,
+	redirectLink: PropTypes.string.isRequired,
+	redirectLabel: PropTypes.string.isRequired,
 };
 export default Profile;

@@ -18,4 +18,8 @@ export default class LeagueApi {
 	static getByUser(user) {
 		return Requests.get(`/leagues/user/${user.user_id}`);
 	}
+
+	static getAllLeagues() {
+		return Requests.get('/leagues');
+	}
 }
