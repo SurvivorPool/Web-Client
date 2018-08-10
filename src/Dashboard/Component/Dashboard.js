@@ -3,7 +3,7 @@ import autoBind from 'react-autobind';
 import { Card } from 'semantic-ui-react';
 
 import Navbar from "../../Navbar/Component/Navbar";
-import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
+import Profile from "../../Profile/Component/Profile";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
@@ -19,18 +19,14 @@ class Dashboard extends Component {
 		super(props);
 		autoBind(this);
 	}
-
 	onLogoutClick() {
 		this.props.logout();
 	}
-
 	render() {
 		return (
 			<div className={className}>
 				<Navbar>
-					<PrimaryButton onClick={this.onLogoutClick}>
-						{"Sign Out"}
-					</PrimaryButton>
+					<Profile onLogoutClick={this.onLogoutClick}/>
 				</Navbar>
 				<div className={`${className}__Content`}>
 					<Card

@@ -143,7 +143,8 @@ class LandingPage extends Component {
 	}
 
 	render() {
-		if(this.props.isLoggedIn) {
+		const props = this.props;
+		if(props.isLoggedIn) {
 			return (
 				<Redirect to={"/dashboard"}/>
 			)
