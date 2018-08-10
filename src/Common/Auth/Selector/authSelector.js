@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const authDataSelector = state => state.auth;
+const authDataSelector = state => state.auth.data;
 const defaultAuth = {};
 
 const authSelector = createSelector(

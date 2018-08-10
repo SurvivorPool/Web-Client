@@ -23,19 +23,17 @@ class Profile extends Component {
 			activeItem: 'inbox'
 		};
 	}
+
 	static renderUserImage(props) {
-		return props.user.data && props.user.data.picture_url ?
-			<Image src={props.user.data.picture_url} avatar /> :
-			<Icon name={'user'} avatar />;
+		return props.user && props.user.picture_url ?
+			<Image src={props.user.picture_url} avatar /> :
+			<Icon name={'user'} />;
 	}
+
 	static renderDisplayName(props) {
-		return props.user.data && props.user.data.full_name ? (
-			<React.Fragment>
-				{Profile.renderUserImage(props)}
-				{props.user.data.full_name}
-			</React.Fragment>
-		) : null;
+		return props.user && props.user.full_name ? props.user.full_name : null;
 	}
+
 	static renderLogout(props) {
 		return (
 			<Dropdown.Item onClick={props.onLogoutClick}>
@@ -43,18 +41,22 @@ class Profile extends Component {
 			</Dropdown.Item>
 		);
 	}
+
 	render() {
 		const props = this.props;
 		return (
-			<Dropdown
-				className={`${className}__Menu icon`}
-				text={Profile.renderDisplayName(props)}
-				labeled
-			>
-				<Dropdown.Menu>
-					{Profile.renderLogout(props)}
-				</Dropdown.Menu>
-			</Dropdown>
+			<div className={`${className}__Container`}>
+				{Profile.renderUserImage(props)}
+				<Dropdown
+					className={`${className}__Menu icon`}
+					text={Profile.renderDisplayName(props)}
+					labeled
+				>
+					<Dropdown.Menu>
+						{Profile.renderLogout(props)}
+					</Dropdown.Menu>
+				</Dropdown>
+			</div>
 		);
 	}
 }
