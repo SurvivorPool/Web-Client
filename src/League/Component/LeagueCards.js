@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import { Card } from 'semantic-ui-react';
+import { Card, Container } from 'semantic-ui-react';
 
 const className = "LeagueCards";
 
@@ -27,7 +27,16 @@ class LeagueCards extends Component {
 
 	render() {
 		const props = this.props;
-		return LeagueCards.renderLeagueCards(props);
+		return (
+			<Container>
+				<h1 className={`${className}__Header`}>
+					{"Current Leagues"}
+				</h1>
+				<Card.Group>
+					{LeagueCards.renderLeagueCards(props)}
+				</Card.Group>
+			</Container>
+		);
 	}
 }
 LeagueCards.propTypes = {

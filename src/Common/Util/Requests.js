@@ -4,19 +4,20 @@ import logoutAction	 from '../Auth/Action/logoutAction';
 
 const isProd =  process.env.NODE_ENV === 'production';
 const api = isProd ? `${process.env.REACT_APP_API_URL}/` : '';
-let authToken = null;
+
+let firebaseToken = null;
+
+function setToken() {
+	firebaseToken = (store.getState().auth.data && store.getState().auth.data.token) || null;
+}
 
 export default class Requests {
-	static setAuthorization() {
-		authToken = (store.getState().auth.data && store.getState().auth.data.token) || null;
-	}
-
 	static formatPayload(data, method) {
-		Requests.setAuthorization();
+		setToken();
 		const request = {
 			method,
 			headers: {
-				'Authorization': authToken,
+				'auth': firebaseToken,
 			}
 		};
 

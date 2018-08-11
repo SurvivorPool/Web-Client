@@ -23,7 +23,7 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		if(!this.props.leagues && this.props.leagues.leagues) {
+		if(!this.props.leagues || !this.props.leagues.leagues) {
 			this.props.getAllLeagues();
 		}
 	}

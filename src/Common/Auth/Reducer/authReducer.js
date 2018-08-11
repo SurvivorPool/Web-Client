@@ -12,7 +12,7 @@ export const initialState = {
 	data:  prevAuth && prevAuth.uid ? {
 			...prevAuth,
 			isLoggedIn : true,
-			token: null,
+			token: prevAuth.token,
 		} : null,
 	error: null,
 };
@@ -52,7 +52,7 @@ export default function userReducer(state = initialState, action) {
 				...state,
 				data: {
 					...state.data,
-					token: action.payload.token,
+					token: action.payload || action.payload.token,
 				}
 			};
 		default:

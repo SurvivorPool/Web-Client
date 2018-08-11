@@ -2,14 +2,12 @@ import {push} from "connected-react-router";
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
-
 import loginAction from '../Action/loginAction';
 import logoutAction from '../Action/logoutAction';
 import firebaseLoggedInAction from "../Action/fireBaseLoggedInAction";
 import userExistsAction from "../Action/userExistsAction";
 import userCreateAction from "../Action/userCreateAction";
 import userGetAction from "../Action/userGetAction";
-import userAuthTokenAction from "../Action/userAuthTokenAction";
 
 import { firebaseLogin } from "../Util/firebase";
 import Analytics from "../../Analytics/Analytics";
@@ -35,9 +33,6 @@ function authMiddlewareListeners(action, getState, dispatch) {
 							const exists = !!response.exists;
 							!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({user_id: userAuth.uid}))
 						}),
-						firebase.auth().currentUser.getIdToken(true).then(token => {
-							dispatch(userAuthTokenAction({token}))
-						}),
 					]);
 					Analytics.setContextRaven(userAuth);
 					Analytics.tagInspectlet({
@@ -52,8 +47,10 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		}
 		case firebaseLoggedInAction.ACTION: {
 			if(action.payload && action.payload.uid) {
-				LocalStorage.set('auth', action.payload);
-				dispatch(push('/dashboard'));
+				firebase.auth().currentUser.getIdToken(true).then(token => {
+					LocalStorage.set('auth', { ...action.payload, token});
+					dispatch(push('/dashboard'));
+				});
 			}
 			break;
 		}
