@@ -7,7 +7,7 @@ export default class LeagueApi {
 	}
 
 	static update(league) {
-		return Requests.put(`/league/${league.id}`, league);
+		return Requests.put(`/league/${league.league_id}`, league);
 	}
 
 	static get(leagueId) {

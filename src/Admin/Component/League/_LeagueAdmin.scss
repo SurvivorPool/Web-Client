@@ -1,0 +1,11 @@
+.LeagueAdmin {
+    &__Form {
+        margin: 20px;
+    }
+
+    &__Section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
