@@ -61,6 +61,11 @@ class LeagueAdmin extends Component {
 	handleActionChange(e, { value }) {
 		this.setState({
 			action: value,
+			leagueSuccess: '',
+			leagueError: '',
+			leagueName: '',
+			leaguePrice: '',
+			leagueDescription: '',
 		});
 	}
 
@@ -110,7 +115,7 @@ class LeagueAdmin extends Component {
 		this.setState({
 			leagueLoading: false,
 			leagueSuccess: response,
-		});
+		}, this.props.getAllLeagues);
 	}
 
 	onSubmitFailure(error) {
