@@ -8,6 +8,7 @@ import * as firebase from "firebase";
 import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import store from './configureStore';
+import { setToken } from "./Common/Util/Requests";
 
 import userAuthTokenAction from './Common/Auth/Action/userAuthTokenAction';
 
@@ -32,15 +33,14 @@ try {
 	Raven.captureException(e);
 };
 
-
 firebase.auth().onAuthStateChanged((user) => {
 	if (user) {
 		firebase.auth().currentUser.getIdToken(true).then(token => {
+			setToken(token);
 			store.dispatch(userAuthTokenAction(token));
 		});
 	}
 });
-
 
 Raven.context(() => {
     ReactDOM.render(
