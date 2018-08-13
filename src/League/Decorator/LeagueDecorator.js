@@ -9,12 +9,16 @@ import getAllLeaguesAction from "../Action/getAllLeaguesAction";
 
 import leagueSelector from "../Selector/leagueSelector";
 import leaguesSelector from "../Selector/leaguesSelector";
+import playerLeaguesSelector from "../Selector/playerLeaguesSelector";
+import userSelector from "../../Common/Auth/Selector/userSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
 		state => ({
 			league: leagueSelector(state),
 			leagues: leaguesSelector(state),
+			playerLeagues: playerLeaguesSelector(state),
+			user: userSelector(state),
 		}),
 		dispatch => ({
 			getLeague: (leagueId) => dispatch(getLeagueAction(leagueId)),
@@ -25,6 +29,19 @@ export default function(DecoratedComponent) {
 		})
 	)
 	class LeagueDecorator extends Component {
+		componentDidMount() {
+			const props = this.props;
+			if(!props.leagues.data || !props.leagues.data.leagues) {
+				props.getAllLeagues();
+			}
+
+		}
+		componentDidUpdate(prevProps) {
+			console.log(this.props, prevProps);
+			if(this.props.user.data && this.props.user.data !== prevProps.user.data) {
+				this.props.getLeagueByUser(this.props.user.data);
+			}
+		}
 		render() {
 			return (
 				<DecoratedComponent

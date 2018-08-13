@@ -10,6 +10,7 @@ import authReducer from "./Common/Auth/Reducer/authReducer";
 import userReducer from "./Common/Auth/Reducer/userReducer";
 import leagueReducer from "./League/Reducer/leagueReducer";
 import leaguesReducer from "./League/Reducer/leaguesReducer";
+import playerLeaguesReducer from "./League/Reducer/playerLeaguesReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
@@ -19,6 +20,7 @@ const storeReducers = combineReducers({
     auth: authReducer,
     league: leagueReducer,
     leagues: leaguesReducer,
+    playerLeagues: playerLeaguesReducer,
     user: userReducer,
 });
 

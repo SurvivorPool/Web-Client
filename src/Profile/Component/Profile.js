@@ -32,13 +32,13 @@ class Profile extends Component {
 	}
 
 	static renderUserImage(props) {
-		return props.user && props.user.picture_url ?
-			<Image src={props.user.picture_url} avatar /> :
+		return props.user.data && props.user.data.picture_url ?
+			<Image src={props.user.data.picture_url} avatar /> :
 			<Icon name={'user'} />;
 	}
 
 	static renderDisplayName(props) {
-		return props.user && props.user.full_name ? props.user.full_name : null;
+		return props.user.data && props.user.data.full_name ? props.user.data.full_name : null;
 	}
 
 	static renderLogout(props) {
@@ -50,7 +50,7 @@ class Profile extends Component {
 	}
 
 	static renderAdminLink(props, goToRedirect) {
-		return props.user && props.user.is_admin ? (
+		return props.user.data && props.user.data.is_admin ? (
 			<Dropdown.Item onClick={goToRedirect}>
 				{props.redirectLabel}
 			</Dropdown.Item>

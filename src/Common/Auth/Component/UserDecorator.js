@@ -18,10 +18,7 @@ export default function(DecoratedComponent) {
 	)
 	class UserDecorator extends Component {
 		componentDidMount() {
-			const props = this.props;
-			if(!Object.keys(props.user).length) {
-				props.getUser({user_id: props.auth.uid});
-			}
+			this.props.getUser({user_id: this.props.auth.data.uid});
 		}
 		render() {
 			return (

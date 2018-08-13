@@ -102,7 +102,7 @@ class LeagueAdmin extends Component {
 	}
 
 	handleLeagueSelection(e, { value }) {
-		const leagueInfo = this.props.leagues.leagues.find(league => league.league_id === value);
+		const leagueInfo = this.props.leagues.data.leagues.find(league => league.league_id === value);
 		this.setState({
 			leagueId: leagueInfo.league_id,
 			leagueName: leagueInfo.league_name,
@@ -178,7 +178,7 @@ class LeagueAdmin extends Component {
 	}
 
 	renderLeaguesDropdown() {
-		const leagues = this.props.leagues && this.props.leagues.leagues || [];
+		const leagues = this.props.leagues.data && this.props.leagues.data.leagues || [];
 		return (
 			<Form.Dropdown
 				deburr

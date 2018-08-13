@@ -23,14 +23,15 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		if(!this.props.leagues || !this.props.leagues.leagues) {
-			this.props.getAllLeagues();
-		}
+
 	}
 
 	static renderLeagueCards(props) {
-		const leagueCards = (props.leagues && props.leagues.leagues) || [];
-		return leagueCards.length ? <LeagueCards leagues={leagueCards}/> : null;
+		const leagues = (props.leagues.data && props.leagues.data.leagues) || [];
+		const playerLeagues = (props.playerLeagues.data && props.playerLeagues.data.user_leagues) || [];
+		return (
+			<LeagueCards leagues={leagues} playerLeagues={playerLeagues} />
+		);
 	}
 
 	render() {

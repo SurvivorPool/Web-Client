@@ -6,6 +6,7 @@ const isProd =  process.env.NODE_ENV === 'production';
 const api = isProd ? `${process.env.REACT_APP_API_URL}/` : '';
 
 let firebaseToken = null;
+
 export function setToken(token) {
 	firebaseToken = token || (store.getState().auth.data && store.getState().auth.data.token) || null;
 }
@@ -35,7 +36,7 @@ export default class Requests {
 			return response.json();
 		}
 
-		if (response.status >= 400) {
+		if (response.status > 400) {
 			store.dispatch(logoutAction());
 		}
 

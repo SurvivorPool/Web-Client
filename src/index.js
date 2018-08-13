@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import ReactModal from "react-modal";
 import Raven from 'raven-js';
 import * as firebase from "firebase";
+import "firebase/auth";
 
 import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';

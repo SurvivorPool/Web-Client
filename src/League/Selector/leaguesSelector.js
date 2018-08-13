@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const leaguesDataSelector = state => state.leagues.data;
+const leaguesDataSelector = state => state.leagues;
 const defaultLeagues = {};
 
 const leaguesSelector = createSelector(

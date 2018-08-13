@@ -14,7 +14,6 @@ export default class LeagueApi {
 		return Requests.get(`/league/${leagueId}`);
 	}
 
-	// leaguesReducer
 	static getByUser(user) {
 		return Requests.get(`/leagues/user/${user.user_id}`);
 	}
