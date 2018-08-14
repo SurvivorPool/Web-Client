@@ -178,7 +178,7 @@ class LeagueAdmin extends Component {
 	}
 
 	renderLeaguesDropdown() {
-		const leagues = this.props.leagues.data && this.props.leagues.data.leagues || [];
+		const leagues = (this.props.leagues.data && this.props.leagues.data.leagues) || [];
 		return (
 			<Form.Dropdown
 				deburr

@@ -40,8 +40,7 @@ class Dashboard extends Component {
 				<Navbar>
 					<Profile
 						onLogoutClick={this.props.logout}
-						redirectLink={"/admin"}
-						redirectLabel={"Admin Dashboard"}
+						currentPage={'dashboard'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>

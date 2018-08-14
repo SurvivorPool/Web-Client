@@ -18,3 +18,8 @@
 i.orange.icon {
     color: $burnt-orange !important;
 }
+
+.ui.orange.label, .ui.orange.labels .label {
+    background-color: $burnt-orange !important;
+    border-color: $burnt-orange !important;
+}

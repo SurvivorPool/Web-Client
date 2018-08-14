@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { Card, Checkbox, Container } from 'semantic-ui-react';
 
 const className = "LeagueCards";
@@ -10,8 +11,17 @@ class LeagueCards extends Component {
 		super(props);
 		autoBind(this);
 		this.state = {
+			selectedLeagueId: null,
 			showAllLeagues: true,
+			shouldRedirect: false,
 		};
+	}
+
+	handleLeagueSelection(selectedLeagueId) {
+		this.setState({
+			selectedLeagueId,
+			shouldRedirect: true,
+		});
 	}
 
 	handleLeagueToggle() {
@@ -32,7 +42,7 @@ class LeagueCards extends Component {
 		)
 	}
 
-	static renderLeagueCards(props, showAllLeagues) {
+	static renderLeagueCards(props, showAllLeagues, handleLeagueSelection) {
 		const leagues = showAllLeagues ? props.leagues : props.playerLeagues;
 		return leagues.length ? leagues.map(league => {
 			return (
@@ -42,23 +52,24 @@ class LeagueCards extends Component {
 					meta='League'
 					description={league.league_description}
 					extra='Your teams'
+					onClick={() => handleLeagueSelection(league.league_id)}
 				/>
 			);
 		}) : LeagueCards.renderNoLeagues();
 	}
 
-	static renderCurrentLeagues(props, showAllLeagues) {
+	static renderCurrentLeagues(props, showAllLeagues, handleLeagueSelection) {
 		return showAllLeagues ? (
 			<Card.Group>
-				{LeagueCards.renderLeagueCards(props, showAllLeagues)}
+				{LeagueCards.renderLeagueCards(props, showAllLeagues, handleLeagueSelection)}
 			</Card.Group>
 		) : null;
 	}
 
-	static renderPlayerLeagues(props, showAllLeagues) {
+	static renderPlayerLeagues(props, showAllLeagues, handleLeagueSelection) {
 		return !showAllLeagues ? (
 			<Card.Group>
-				{LeagueCards.renderLeagueCards(props, showAllLeagues)}
+				{LeagueCards.renderLeagueCards(props, showAllLeagues, handleLeagueSelection)}
 			</Card.Group>
 		) : null;
 	}
@@ -86,12 +97,19 @@ class LeagueCards extends Component {
 
 	render() {
 		const props = this.props;
-		const { showAllLeagues } = this.state;
+		const { showAllLeagues, shouldRedirect, selectedLeagueId } = this.state;
+
+		if(shouldRedirect) {
+			return (
+				<Redirect to={`/league/${selectedLeagueId}`}/>
+			);
+		}
+
 		return (
 			<Container>
 				{this.renderTitle(showAllLeagues)}
-				{LeagueCards.renderCurrentLeagues(props, showAllLeagues)}
-				{LeagueCards.renderPlayerLeagues(props, showAllLeagues)}
+				{LeagueCards.renderCurrentLeagues(props, showAllLeagues, this.handleLeagueSelection)}
+				{LeagueCards.renderPlayerLeagues(props, showAllLeagues, this.handleLeagueSelection)}
 			</Container>
 		);
 	}

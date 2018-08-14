@@ -37,7 +37,6 @@ export default function(DecoratedComponent) {
 
 		}
 		componentDidUpdate(prevProps) {
-			console.log(this.props, prevProps);
 			if(this.props.user.data && this.props.user.data !== prevProps.user.data) {
 				this.props.getLeagueByUser(this.props.user.data);
 			}

@@ -6,9 +6,11 @@ import Profile from "../../Profile/Component/Profile";
 import LeagueAdmin from "./League/LeagueAdmin";
 
 import AdminDecorator from "../Decorator/AdminDecorator";
+import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 
 const className = "AdminDashboard";
 
+@AuthDecorator
 @AdminDecorator
 class AdminDashboard extends Component {
 	constructor(props) {
@@ -25,8 +27,7 @@ class AdminDashboard extends Component {
 				<Navbar>
 					<Profile
 						onLogoutClick={this.props.logout}
-						redirectLink={"/dashboard"}
-						redirectLabel={"Dashboard"}
+						currentPage={'admin'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>

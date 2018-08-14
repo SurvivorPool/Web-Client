@@ -11,6 +11,7 @@ import store, { history } from '../configureStore';
 import LandingPage from '../LandingPage/Component/LandingPage';
 import Dashboard from '../Dashboard/Component/Dashboard';
 import AdminDashboard from "../Admin/Component/AdminDashboard";
+import LeaguePage from "../League/Component/LeaguePage";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
@@ -40,8 +41,9 @@ export default (
 	<ConnectedRouter history={history}>
 		<Switch>
 			<Route exact path="/" component={LandingPage}/>
-			<ProtectedRoute exact path="/dashboard" component={Dashboard}/>
-			<AdminRoute exact path="/admin" component={AdminDashboard}/>
+			<ProtectedRoute path="/dashboard" component={Dashboard}/>
+			<AdminRoute path="/admin" component={AdminDashboard}/>
+			<ProtectedRoute path={"/league/:league_id"} component={LeaguePage} />
 		</Switch>
 	</ConnectedRouter>
 );

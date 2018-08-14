@@ -10,6 +10,11 @@ import authSelector from "../../Common/Auth/Selector/authSelector";
 
 const className = "Profile";
 
+const links = {
+	dashboard: '/dashboard',
+	admin: '/admin',
+};
+
 @connect(
 	state => ({
 		user: userSelector(state),
@@ -21,13 +26,15 @@ class Profile extends Component {
 		super(props);
 		autoBind(this);
 		this.state = {
-			shouldRedirect: false
+			shouldRedirect: false,
+			redirectLink: null,
 		};
 	}
 
-	goToRedirect() {
+	goToRedirect(redirectLink) {
 		this.setState({
 			shouldRedirect: true,
+			redirectLink,
 		});
 	}
 
@@ -49,12 +56,20 @@ class Profile extends Component {
 		);
 	}
 
-	static renderAdminLink(props, goToRedirect) {
-		return props.user.data && props.user.data.is_admin ? (
-			<Dropdown.Item onClick={goToRedirect}>
-				{props.redirectLabel}
+	renderAdminLink(props) {
+		return props.currentPage !== links.admin && props.user.data && props.user.data.is_admin ? (
+			<Dropdown.Item onClick={() => this.goToRedirect('/admin')}>
+				{"Admin Dashboard"}
 			</Dropdown.Item>
 		) : null;
+	}
+
+	renderDashboardLink(props) {
+		return props.currentPage !== links.dashboard ? (
+			<Dropdown.Item onClick={() => this.goToRedirect('/dashboard')}>
+				{"Dashboard"}
+			</Dropdown.Item>
+ 		) : null;
 	}
 
 	render() {
@@ -62,7 +77,7 @@ class Profile extends Component {
 
 		if(this.state.shouldRedirect) {
 			return (
-				<Redirect to={props.redirectLink} />
+				<Redirect to={this.state.redirectLink} />
 			)
 		}
 
@@ -75,7 +90,8 @@ class Profile extends Component {
 					labeled
 				>
 					<Dropdown.Menu>
-						{Profile.renderAdminLink(props, this.goToRedirect)}
+						{this.renderDashboardLink(props)}
+						{this.renderAdminLink(props)}
 						{Profile.renderLogout(props)}
 					</Dropdown.Menu>
 				</Dropdown>
@@ -85,7 +101,8 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-	redirectLink: PropTypes.string.isRequired,
-	redirectLabel: PropTypes.string.isRequired,
+	currentPage: PropTypes.string.isRequired,
+	onLogoutClick: PropTypes.func.isRequired,
 };
+
 export default Profile;
