@@ -36,7 +36,7 @@ export default class Requests {
 			return response.json();
 		}
 
-		if (response.status > 400) {
+		if (response.status === 403) {
 			store.dispatch(logoutAction());
 		}
 
