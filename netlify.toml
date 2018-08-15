@@ -5,5 +5,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "REACT_APP_API_URL"
+  to = "https://api.survivorpool.win/*"
   status = 200
