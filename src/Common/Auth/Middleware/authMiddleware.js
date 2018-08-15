@@ -24,6 +24,16 @@ export default function authMiddleware({ getState, dispatch }) {
 		};
 }
 
+function determineUser(userAuth, token, dispatch) {
+	dispatch(firebaseLoggedInAction({ ...userAuth, token}));
+	dispatch(userExistsAction(userAuth)).then(response => {
+		const exists = !!response.exists;
+		!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({ user_id: userAuth.uid }));
+	}).then(() => {
+		dispatch(push('/dashboard'));
+	})
+}
+
 function authMiddlewareListeners(action, getState, dispatch) {
 	switch (action.type) {
 		case loginAction.ACTION: {
@@ -31,13 +41,8 @@ function authMiddlewareListeners(action, getState, dispatch) {
 				.then(userAuth => {
 					firebase.auth().currentUser.getIdToken(true).then(token => {
 						setToken(token);
-						Promise.all([
-							dispatch(firebaseLoggedInAction({ ...userAuth, token })),
-							dispatch(userExistsAction(userAuth)).then(response => {
-								const exists = !!response.exists;
-								!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({user_id: userAuth.uid}))
-							}),
-						]);
+						determineUser(userAuth, token, dispatch);
+
 						Analytics.setContextRaven(userAuth);
 						Analytics.tagInspectlet({
 							email: userAuth.email,
@@ -53,7 +58,6 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		case firebaseLoggedInAction.ACTION: {
 			if(action.payload && action.payload.uid) {
 				LocalStorage.set('auth', { ...action.payload});
-				dispatch(push('/dashboard'));
 			}
 			break;
 		}
