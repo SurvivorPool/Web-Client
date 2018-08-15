@@ -8,10 +8,12 @@ import firebaseLoggedInAction from "../Action/fireBaseLoggedInAction";
 import userExistsAction from "../Action/userExistsAction";
 import userCreateAction from "../Action/userCreateAction";
 import userGetAction from "../Action/userGetAction";
+import userClearAction from "../Action/userClearAction";
 
 import { firebaseLogin } from "../Util/firebase";
 import Analytics from "../../Analytics/Analytics";
 import LocalStorage from "../../Util/LocalStorage";
+import { setToken } from "../../Util/Requests";
 
 export default function authMiddleware({ getState, dispatch }) {
 	return (next) =>
@@ -27,19 +29,22 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		case loginAction.ACTION: {
 			firebaseLogin(action.payload)
 				.then(userAuth => {
-					Promise.all([
-						dispatch(firebaseLoggedInAction(userAuth)),
-						dispatch(userExistsAction(userAuth)).then(response => {
-							const exists = !!response.exists;
-							!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({user_id: userAuth.uid}))
-						}),
-					]);
-					Analytics.setContextRaven(userAuth);
-					Analytics.tagInspectlet({
-						email: userAuth.email,
-						name: userAuth.displayName,
+					firebase.auth().currentUser.getIdToken(true).then(token => {
+						setToken(token);
+						Promise.all([
+							dispatch(firebaseLoggedInAction({ ...userAuth, token })),
+							dispatch(userExistsAction(userAuth)).then(response => {
+								const exists = !!response.exists;
+								!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({user_id: userAuth.uid}))
+							}),
+						]);
+						Analytics.setContextRaven(userAuth);
+						Analytics.tagInspectlet({
+							email: userAuth.email,
+							name: userAuth.displayName,
+						});
+						Analytics.identifyInspectlet(userAuth.email);
 					});
-					Analytics.identifyInspectlet(userAuth.email);
 				}).catch(error => {
 					dispatch(logoutAction());
 				});
@@ -47,16 +52,15 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		}
 		case firebaseLoggedInAction.ACTION: {
 			if(action.payload && action.payload.uid) {
-				firebase.auth().currentUser.getIdToken(true).then(token => {
-					LocalStorage.set('auth', { ...action.payload, token});
-					dispatch(push('/dashboard'));
-				});
+				LocalStorage.set('auth', { ...action.payload});
+				dispatch(push('/dashboard'));
 			}
 			break;
 		}
 		case logoutAction.ACTION: {
 			LocalStorage.delete('auth');
 			dispatch(push('/'));
+			dispatch(userClearAction());
 			break;
 		}
 		default:

@@ -1,6 +1,7 @@
 import userCreateAction from '../Action/userCreateAction';
 import userGetAction from '../Action/userGetAction';
 import userExistsAction from '../Action/userExistsAction';
+import userClearAction from "../Action/userClearAction";
 
 export const initialState = {
 	loading: false,
@@ -32,6 +33,12 @@ export default function userReducer(state = initialState, action) {
 				data: null,
 				loading: false,
 				error: action.error,
+			};
+		case userClearAction.ACTION:
+			return {
+				data: null,
+				loading: false,
+				error: null,
 			};
 		default:
 			return state;

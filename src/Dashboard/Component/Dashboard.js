@@ -23,7 +23,13 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-
+		if(!this.props.leagues.data || !this.props.leagues.data.leagues) {
+			if(!this.props.user.data) {
+				this.props.getUser({user_id: this.props.auth.data.uid}).then(this.props.getAllLeagues);
+			} else {
+				this.props.getAllLeagues();
+			}
+		}
 	}
 
 	static renderLeagueCards(props) {
@@ -40,7 +46,7 @@ class Dashboard extends Component {
 				<Navbar>
 					<Profile
 						onLogoutClick={this.props.logout}
-						currentPage={'dashboard'}
+						currentPage={'/dashboard'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>

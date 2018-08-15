@@ -9,13 +9,11 @@ import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
 import LeaguePageDecorator from "../Decorator/LeaguePageDecorator";
 
 const className = "LeaguePage";
 
 @AuthDecorator
-@UserDecorator
 @LeaguePageDecorator
 @LoaderDecorator
 class LeaguePage extends Component {

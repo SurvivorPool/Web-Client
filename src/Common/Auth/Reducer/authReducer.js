@@ -28,6 +28,7 @@ export default function userReducer(state = initialState, action) {
 			return {
 				...state,
 				data: {
+					...state.data,
 					isLoggedIn: !!action.payload.uid,
 					...action.payload
 				},
@@ -37,6 +38,15 @@ export default function userReducer(state = initialState, action) {
 		case logoutAction.ACTION:
 			return {
 				data: null,
+				loading: false,
+				error: false,
+			};
+		case loginAction.ACTION_COMPLETED:
+			return {
+				data: {
+					...state.data,
+					...action.data
+				},
 				loading: false,
 				error: false,
 			};

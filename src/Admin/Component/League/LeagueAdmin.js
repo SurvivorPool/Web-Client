@@ -43,7 +43,7 @@ class LeagueAdmin extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.leagues && !this.props.leagues.leagues) {
+		if(this.props.leagues.data && !this.props.leagues.data.leagues) {
 			this.props.getAllLeagues();
 		}
 	}

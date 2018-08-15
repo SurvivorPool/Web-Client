@@ -29,13 +29,6 @@ export default function(DecoratedComponent) {
 		})
 	)
 	class LeagueDecorator extends Component {
-		componentDidMount() {
-			const props = this.props;
-			if(!props.leagues.data || !props.leagues.data.leagues) {
-				props.getAllLeagues();
-			}
-
-		}
 		componentDidUpdate(prevProps) {
 			if(this.props.user.data && this.props.user.data !== prevProps.user.data) {
 				this.props.getLeagueByUser(this.props.user.data);

@@ -20,14 +20,13 @@ class AdminDashboard extends Component {
 		}
 	}
 
-
 	render() {
 		return (
 			<div className={className}>
 				<Navbar>
 					<Profile
 						onLogoutClick={this.props.logout}
-						currentPage={'admin'}
+						currentPage={'/admin'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>
