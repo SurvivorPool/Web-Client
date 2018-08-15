@@ -4,6 +4,6 @@
   status = 200
 
 [[redirects]]
-  from = "https://api.survivorpool.win/*"
+  from = "/api/*"
   to = "https://api.survivorpool.win/:splat"
   status = 200
