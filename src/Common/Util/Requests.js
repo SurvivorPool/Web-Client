@@ -3,7 +3,7 @@ import store from '../../configureStore';
 import logoutAction	 from '../Auth/Action/logoutAction';
 
 const isProd =  process.env.NODE_ENV === 'production';
-const api = isProd ? `${process.env.REACT_APP_API_URL}/` : '';
+const api = isProd ? `${process.env.REACT_APP_API_URL}` : '';
 
 let firebaseToken = null;
 
