@@ -28,11 +28,10 @@ function determineUser(userAuth, token, dispatch) {
 	dispatch(firebaseLoggedInAction({ ...userAuth, token}));
 	dispatch(userExistsAction(userAuth)).then(response => {
 		const exists = !!response.exists;
-		!exists ? dispatch(userCreateAction(userAuth)) : dispatch(userGetAction({ user_id: userAuth.uid }));
-	}).then(() => {
-		dispatch(push('/dashboard'));
-	})
-}
+		!exists ?
+			dispatch(userCreateAction(userAuth)).then(() => dispatch(push('/dashboard')))
+			: dispatch(userGetAction({ user_id: userAuth.uid })).then(() => dispatch(push('/dashboard')));
+	});
 
 function authMiddlewareListeners(action, getState, dispatch) {
 	switch (action.type) {
