@@ -51,6 +51,7 @@ export default class Requests {
 
 
 	static fetch(url, method, payload,) {
+		console.log(api, url, 'fetch debug');
 		return fetch(`${api}${url}`, Requests.formatPayload(payload, method))
 			.then(response => Requests.formatResponse(response));
 	}
