@@ -25,7 +25,6 @@ class AdminDashboard extends Component {
 			<div className={className}>
 				<Navbar>
 					<Profile
-						onLogoutClick={this.props.logout}
 						currentPage={'/admin'}
 					/>
 				</Navbar>

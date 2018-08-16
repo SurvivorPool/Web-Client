@@ -8,12 +8,14 @@ import Profile from "../../Profile/Component/Profile";
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import UserDecorator from "../../Common/Auth/Component/UserDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 import LeaguePageDecorator from "../Decorator/LeaguePageDecorator";
 
 const className = "LeaguePage";
 
 @AuthDecorator
+@UserDecorator
 @LeaguePageDecorator
 @LoaderDecorator
 class LeaguePage extends Component {
@@ -91,7 +93,6 @@ class LeaguePage extends Component {
 			<div className={className}>
 				<Navbar>
 					<Profile
-						onLogoutClick={props.logout}
 						currentPage={'league'}
 					/>
 				</Navbar>

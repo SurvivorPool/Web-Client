@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import { Image, Dropdown, Icon } from 'semantic-ui-react';
 
-import userSelector from "../../Common/Auth/Selector/userSelector";
-import authSelector from "../../Common/Auth/Selector/authSelector";
+import UserDecorator from "../../Common/Auth/Component/UserDecorator";
+import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 
 const className = "Profile";
 
@@ -15,12 +14,8 @@ const links = {
 	admin: '/admin',
 };
 
-@connect(
-	state => ({
-		user: userSelector(state),
-		auth: authSelector(state),
-	})
-)
+@AuthDecorator
+@UserDecorator
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -39,8 +34,8 @@ class Profile extends Component {
 	}
 
 	static renderUserImage(props) {
-		return props.user.data && props.user.data.picture_url ?
-			<Image src={props.user.data.picture_url} avatar /> :
+		return props.auth.data && props.auth.data.pictureURL ?
+			<Image src={props.auth.data.pictureURL} avatar /> :
 			<Icon name={'user'} />;
 	}
 
@@ -50,7 +45,7 @@ class Profile extends Component {
 
 	static renderLogout(props) {
 		return (
-			<Dropdown.Item onClick={props.onLogoutClick}>
+			<Dropdown.Item onClick={props.logout}>
 				{"Log Out"}
 			</Dropdown.Item>
 		);
@@ -102,7 +97,6 @@ class Profile extends Component {
 
 Profile.propTypes = {
 	currentPage: PropTypes.string.isRequired,
-	onLogoutClick: PropTypes.func.isRequired,
 };
 
 export default Profile;

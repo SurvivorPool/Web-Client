@@ -23,12 +23,12 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		if(!this.props.leagues.data || !this.props.leagues.data.leagues) {
-			if(!this.props.user.data) {
-				this.props.getUser({user_id: this.props.auth.data.uid}).then(this.props.getAllLeagues);
-			} else {
-				this.props.getAllLeagues();
-			}
+		if(!this.props.user.data) {
+			this.props.getUser({user_id: this.props.auth.data.uid});
+		} else if (!this.props.leagues.data) {
+			this.props.getAllLeagues();
+		} else if (!this.props.playerLeagues.data) {
+			this.props.getLeagueByUser(this.props.user.data);
 		}
 	}
 
@@ -45,7 +45,6 @@ class Dashboard extends Component {
 			<div className={className}>
 				<Navbar>
 					<Profile
-						onLogoutClick={this.props.logout}
 						currentPage={'/dashboard'}
 					/>
 				</Navbar>

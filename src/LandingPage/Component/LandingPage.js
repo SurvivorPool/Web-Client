@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
 import autoBind from 'react-autobind';
 import { Link, Element } from 'react-scroll';
-import { Redirect } from "react-router-dom";
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
 import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
+import Profile from "../../Profile/Component/Profile";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
@@ -142,14 +142,20 @@ class LandingPage extends Component {
 		);
 	}
 
+	renderProfile(props) {
+		return props.auth.data && props.auth.data.isLoggedIn ? (
+			<Profile
+				currentPage={'/'}
+			/>
+		) : (
+			<PrimaryButton onClick={this.onLoginClick}>
+				{"Sign In"}
+			</PrimaryButton>
+		);
+	}
+
 	render() {
 		const props = this.props;
-		if(props.isLoggedIn) {
-			return (
-				<Redirect to={"/dashboard"}/>
-			)
-		}
-
 		return (
 			<div className={className}>
 				<Navbar
@@ -162,9 +168,7 @@ class LandingPage extends Component {
 					>
 						{"How to Play"}
 					</Link>
-					<PrimaryButton onClick={this.onLoginClick}>
-						{"Sign In"}
-					</PrimaryButton>
+					{this.renderProfile(props)}
 				</Navbar>
 				{LandingPage.renderHeader()}
 				{this.renderLoginModal()}

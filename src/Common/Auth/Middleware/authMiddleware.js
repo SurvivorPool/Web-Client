@@ -7,7 +7,7 @@ import logoutAction from '../Action/logoutAction';
 import firebaseLoggedInAction from "../Action/fireBaseLoggedInAction";
 import userExistsAction from "../Action/userExistsAction";
 import userCreateAction from "../Action/userCreateAction";
-import userGetAction from "../Action/userGetAction";
+import userInitialGetAction from "../Action/userInitialGetAction";
 import userClearAction from "../Action/userClearAction";
 
 import { firebaseLogin } from "../Util/firebase";
@@ -25,13 +25,14 @@ export default function authMiddleware({ getState, dispatch }) {
 }
 
 function determineUser(userAuth, token, dispatch) {
-	dispatch(firebaseLoggedInAction({ ...userAuth, token}));
+	dispatch(firebaseLoggedInAction({...userAuth, token}));
 	dispatch(userExistsAction(userAuth)).then(response => {
 		const exists = !!response.exists;
 		!exists ?
-			dispatch(userCreateAction(userAuth)).then(() => dispatch(push('/dashboard')))
-			: dispatch(userGetAction({ user_id: userAuth.uid })).then(() => dispatch(push('/dashboard')));
+			dispatch(userCreateAction(userAuth))
+			: dispatch(userInitialGetAction({user_id: userAuth.uid}));
 	});
+}
 
 function authMiddlewareListeners(action, getState, dispatch) {
 	switch (action.type) {
@@ -64,6 +65,14 @@ function authMiddlewareListeners(action, getState, dispatch) {
 			LocalStorage.delete('auth');
 			dispatch(push('/'));
 			dispatch(userClearAction());
+			break;
+		}
+		case userCreateAction.ACTION_COMPLETED: {
+			dispatch(userInitialGetAction({user_id: getState().auth.uid}));
+			break;
+		}
+		case userInitialGetAction.ACTION_COMPLETED: {
+			dispatch(push('/dashboard'));
 			break;
 		}
 		default:
