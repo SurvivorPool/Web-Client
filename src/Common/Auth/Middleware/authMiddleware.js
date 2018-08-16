@@ -68,7 +68,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 			break;
 		}
 		case userCreateAction.ACTION_COMPLETED: {
-			dispatch(userInitialGetAction({user_id: getState().auth.uid}));
+			dispatch(userInitialGetAction({user_id: getState().auth.data.uid}));
 			break;
 		}
 		case userInitialGetAction.ACTION_COMPLETED: {
