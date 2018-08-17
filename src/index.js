@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactModal from "react-modal";
 import Raven from 'raven-js';
-import * as firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/auth";
 
 import './styles/index.css';
