@@ -83,7 +83,7 @@ class LeagueCards extends Component {
 	}
 
 	renderLeagueToggle(showAllLeagues) {
-		const label = showAllLeagues ? "Your Leagues" : "All Leagues";
+		const label = showAllLeagues ? "All Leagues" : "Your Leagues";
 		return (
 			<Checkbox
 				className={`${className}__Toggle`}

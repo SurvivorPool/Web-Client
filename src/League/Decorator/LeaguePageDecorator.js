@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import getLeagueAction from "../Action/getLeagueAction";
 
 import leagueSelector from "../Selector/leagueSelector";
+import playerTeamFromLeagueSelector from "../../PlayerTeam/Selector/playerTeamFromLeagueSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
 		state => ({
 			league: leagueSelector(state),
+			playerTeamFromLeague: playerTeamFromLeagueSelector(state),
 		}),
 		dispatch => ({
 			getLeague: (leagueId) => dispatch(getLeagueAction(leagueId)),

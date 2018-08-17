@@ -63,6 +63,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		}
 		case logoutAction.ACTION: {
 			LocalStorage.delete('auth');
+			LocalStorage.delete('user');
 			dispatch(push('/'));
 			dispatch(userClearAction());
 			break;
@@ -73,6 +74,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 		}
 		case userInitialGetAction.ACTION_COMPLETED: {
 			dispatch(push('/dashboard'));
+			LocalStorage.set('user', {...action.data});
 			break;
 		}
 		default:

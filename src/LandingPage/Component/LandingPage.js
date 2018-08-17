@@ -164,7 +164,7 @@ class LandingPage extends Component {
 					<Link
 						to={"Overview"}
 						smooth={true}
-						className={`${className}__Link`}
+						className={'Navbar__Link'}
 					>
 						{"How to Play"}
 					</Link>

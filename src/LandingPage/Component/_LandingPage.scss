@@ -62,20 +62,6 @@
         }
     }
 
-    &__Link  {
-        font-size: 16px;
-        white-space: nowrap;
-        display: block;
-        line-height: 1;
-        color: $lavender;
-        font-weight: bold;
-
-        &:hover {
-            cursor: pointer;
-            color: $light-lavender;
-        }
-    }
-
     &__Section {
         width: 100%;
         min-height: 500px;

@@ -13,7 +13,7 @@
     }
 
     &__Controls {
-        width: 250px;
+        width: 400px;
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -21,6 +21,22 @@
 
         @include mobile {
             width: 100%;
+            margin: 15px 0 0 0;
+        }
+    }
+
+
+    &__Link {
+        font-size: 16px;
+        white-space: nowrap;
+        display: block;
+        line-height: 1;
+        color: $lavender;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            color: $light-lavender;
         }
     }
 }

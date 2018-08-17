@@ -12,6 +12,7 @@ const className = "Profile";
 const links = {
 	dashboard: '/dashboard',
 	admin: '/admin',
+	league: '/league',
 };
 
 @AuthDecorator
@@ -52,7 +53,7 @@ class Profile extends Component {
 	}
 
 	renderAdminLink(props) {
-		return props.currentPage !== links.admin && props.user.data && props.user.data.is_admin ? (
+		return canShowAdmin(props) ? (
 			<Dropdown.Item onClick={() => this.goToRedirect('/admin')}>
 				{"Admin Dashboard"}
 			</Dropdown.Item>
@@ -60,7 +61,7 @@ class Profile extends Component {
 	}
 
 	renderDashboardLink(props) {
-		return props.currentPage !== links.dashboard ? (
+		return canShowDashboard(props) ? (
 			<Dropdown.Item onClick={() => this.goToRedirect('/dashboard')}>
 				{"Dashboard"}
 			</Dropdown.Item>
@@ -100,3 +101,11 @@ Profile.propTypes = {
 };
 
 export default Profile;
+
+function canShowDashboard(props) {
+	return props.currentPage !== links.dashboard && props.currentPage !== links.league
+}
+
+function canShowAdmin(props) {
+	return props.currentPage !== links.admin && props.user.data && props.user.data.is_admin;
+}

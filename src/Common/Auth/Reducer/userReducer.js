@@ -2,10 +2,15 @@ import userCreateAction from '../Action/userCreateAction';
 import userGetAction from '../Action/userGetAction';
 import userExistsAction from '../Action/userExistsAction';
 import userClearAction from "../Action/userClearAction";
+import LocalStorage from "../../Util/LocalStorage";
+
+const prevUser = LocalStorage.get('user');
 
 export const initialState = {
 	loading: false,
-	data: null,
+	data: prevUser ? {
+		...prevUser
+		} : null,
 	error: null,
 };
 
