@@ -84,6 +84,7 @@ class LeaguePage extends Component {
 						{props.playerTeamFromLeague.map(team =>
 							<PlayerTeam
 								key={team.team_id}
+								leagueId={props.league.data.league_id}
 								team={team}
 								cardColor={'green'}
 								loadLeague={props.loadLeague}

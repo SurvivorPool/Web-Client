@@ -188,7 +188,7 @@ class LeagueAdmin extends Component {
 						>
 							<Label basic>$</Label>
 							<input />
-							<Label>.00</Label>
+							<Label/>
 						</Form.Input>
 					</Form.Group>
 					<Form.TextArea
@@ -237,7 +237,7 @@ class LeagueAdmin extends Component {
 						>
 							<Label basic>$</Label>
 							<input />
-							<Label>.00</Label>
+							<Label/>
 						</Form.Input>
 					</Form.Group>
 					<Form.TextArea

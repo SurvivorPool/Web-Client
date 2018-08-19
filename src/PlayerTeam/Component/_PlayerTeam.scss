@@ -1,0 +1,24 @@
+@import "../../styles/library";
+
+.PlayerTeam {
+
+    &__Actions {
+        margin: 10px 3px;
+        font-size: 24px !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__Form {
+        width: 100%;
+    }
+
+    &__Extra {
+        background-color: $silver !important;
+    }
+
+    &__Wrench {
+        color: $lavender !important;
+    }
+}

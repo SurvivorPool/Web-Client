@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import {Card, Form, Icon, Image} from 'semantic-ui-react';
 import { withToastManager } from "react-toast-notifications";
 
 import PrimaryButton from "../../Common/Button/PrimaryButton";
@@ -19,24 +19,31 @@ class PlayerTeam extends Component {
 		autoBind(this);
 		this.state = {
 			isDeletingTeam: false,
+			isEditingTeam: false,
 			isLoading: false,
+			teamName: props.team.team_name || '',
 		}
 	}
 
-	onDeleteTeamSuccess() {
+	onTeamSuccess(action) {
 		const props = this.props;
 		this.setState({
 			isDeletingTeam: false,
+			isEditingTeam: false,
 			isLoading: false,
 		});
-		props.toastManager.add('Deleted Team Successfully', { appearance: 'success', autoDismiss: true });
+
+		const messageAction = action === 'delete' ? 'Deleted' : 'Edited';
+
+		props.toastManager.add(`${messageAction} Team Successfully`, { appearance: 'success', autoDismiss: true });
 		props.loadLeague();
 	}
 
-	onAddTeamFailure(e) {
+	onTeamFailure(e) {
 		const props = this.props;
 		this.setState({
 			isDeletingTeam: false,
+			isEditingTeam: false,
 			isLoading: false,
 		});
 		props.toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
@@ -49,25 +56,57 @@ class PlayerTeam extends Component {
 		});
 	}
 
+	handleEditTeam() {
+		this.setState({
+			isEditingTeam: true,
+		});
+	}
+
+	handleChange(e, { name, value }) {
+		this.setState({[name]: value})
+	}
+
+	cancelAction(e) {
+		e.stopPropagation();
+		this.setState({
+			isLoading: false,
+			isDeletingTeam: false,
+			isEditingTeam: false,
+		});
+	}
+
 	deleteTeam() {
 		const props = this.props;
 		this.setState({
 			isLoading: true,
 		});
 
+		const onSuccess = () => this.onTeamSuccess('delete');
+
 		this.props.deletePlayerTeam(
 			{
 				user_id: props.team.user_info.user_id,
 				team_id: props.team.team_id,
 			}
-		).then(this.onDeleteTeamSuccess).catch(e => this.onDeleteTeamSuccess(e));
+		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
-	cancelAction() {
+	editTeam() {
+		const props = this.props;
 		this.setState({
-			isLoading: false,
-			isDeletingTeam: false,
+			isLoading: true,
 		});
+
+		const onSuccess = () => this.onTeamSuccess('edit');
+
+		this.props.updatePlayerTeam(
+			{
+				user_id: props.team.user_info.user_id,
+				league_id: props.leagueId,
+				team_id: props.team.team_id,
+				team_name: this.state.teamName,
+			}
+		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
 	static renderTeamExtra(team) {
@@ -76,10 +115,13 @@ class PlayerTeam extends Component {
 		const isActiveIcon = team.is_active ? 'checkmark' : 'cancel';
 
 		return (
-			<React.Fragment>
+			<Card.Content
+				className={`${className}__Extra`}
+				extra
+			>
 				<Icon name={'dollar'} color={hasPaidColor} />
 				<Icon name={isActiveIcon} color={isActiveColor} />
-			</React.Fragment>
+			</Card.Content>
 		);
 	}
 
@@ -104,13 +146,67 @@ class PlayerTeam extends Component {
 			);
 		}
 
-		return canDelete ? (
+		return canDelete && !this.state.isEditingTeam ? (
 			<Icon
 				name={'trash'}
 				color={'orange'}
 				onClick={this.handleDeleteTeam}
 			/>
 		) : null;
+	}
+
+	renderEditTeam(team) {
+		const canEdit = !team.has_paid;
+
+		if(this.state.isEditingTeam) {
+			return (
+				<Form
+					className={`${className}__Form`}
+					onSubmit={this.editTeam}
+				>
+					<Form.Input
+						fluid
+						required
+						label='Team Name'
+						placeholder='Team'
+						name={'teamName'}
+						value={this.state.teamName}
+						onChange={this.handleChange}
+					/>
+					<div className='ui two buttons'>
+						<PrimaryButton>
+							{"Edit"}
+						</PrimaryButton>
+						<SecondaryButton
+							onClick={this.cancelAction}
+						>
+							{"Cancel"}
+						</SecondaryButton>
+					</div>
+				</Form>
+
+			);
+		}
+
+
+		return canEdit && !this.state.isDeletingTeam ? (
+			<Icon
+				className={`${className}__Wrench`}
+				name={'wrench'}
+				onClick={this.handleEditTeam}
+			/>
+		) : null;
+	}
+
+	renderTeamActions(team) {
+		return (
+			<Card.Description
+				className={`${className}__Actions`}
+			>
+				{this.renderEditTeam(team)}
+				{this.renderDeleteTeam(team)}
+			</Card.Description>
+		);
 	}
 
 	render() {
@@ -126,13 +222,9 @@ class PlayerTeam extends Component {
 					/>
 					<Card.Header>{team.team_name}</Card.Header>
 					<Card.Description>{'Current Pick goes here?'}</Card.Description>
-					<Card.Description>{this.renderDeleteTeam(team)}</Card.Description>
+					{this.renderTeamActions(team)}
 				</Card.Content>
-				<Card.Content
-					extra
-				>
-					{PlayerTeam.renderTeamExtra(team)}
-				</Card.Content>
+				{PlayerTeam.renderTeamExtra(team)}
 			</Card>
 		);
 	}
