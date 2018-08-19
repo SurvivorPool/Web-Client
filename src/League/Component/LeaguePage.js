@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Divider, Segment, Label, Container, Card, Icon } from 'semantic-ui-react';
+import { Divider, Segment, Label, Container, Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
 import PlayerTeam from "../../PlayerTeam/Component/PlayerTeam";
+import PlayerTeamAdd from "../../PlayerTeam/Component/PlayerTeamAdd";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import UserDecorator from "../../Common/Auth/Component/UserDecorator";
@@ -66,7 +67,7 @@ class LeaguePage extends Component {
 
 	static renderPlayerTeams(props) {
 		if(!props.playerTeamFromLeague.length) {
-			LeaguePage.renderNoTeams();
+			LeaguePage.renderNoTeams(props);
 		}
 
 		return (
@@ -80,15 +81,22 @@ class LeaguePage extends Component {
 				</Label>
 				<div className={`${className}__Teams__Container`}>
 					<Card.Group>
-						{props.playerTeamFromLeague.map(team => <PlayerTeam key={team.team_id} team={team} cardColor={'green'}/>)}
-						{LeaguePage.renderAddTeam()}
+						{props.playerTeamFromLeague.map(team =>
+							<PlayerTeam
+								key={team.team_id}
+								team={team}
+								cardColor={'green'}
+								loadLeague={props.loadLeague}
+							/>
+						)}
+						{LeaguePage.renderAddTeam(props)}
 					</Card.Group>
 				</div>
 			</Segment>
 		);
 	}
 
-	static renderNoTeams() {
+	static renderNoTeams(props) {
 		return (
 			<Segment raised>
 				<Label
@@ -100,28 +108,22 @@ class LeaguePage extends Component {
 				</Label>
 				<div className={`${className}__Teams__Container`}>
 					<Card.Group>
-						{LeaguePage.renderAddTeam()}
+						{LeaguePage.renderAddTeam(props)}
 					</Card.Group>
 				</div>
 			</Segment>
 		);
 	}
 
-	static renderAddTeam() {
+	static renderAddTeam(props) {
 		return (
-			<Card color={'purple'}>
-				<Card.Content>
-					<Card.Header textAlign='center'>
-						{"Add a Team"}
-					</Card.Header>
-					<Card.Description className={`${className}__Add`}>
-						<Icon name={'plus'}  />
-					</Card.Description>
-				</Card.Content>
-			</Card>
+			<PlayerTeamAdd
+				userId={props.user.data.user_id}
+				leagueId={props.league.data.league_id}
+				loadLeague={props.loadLeague}
+			/>
 		);
 	}
-
 
 	render() {
 		const props = this.props;

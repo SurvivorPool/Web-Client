@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import autoBind from 'react-autobind';
 
 import getLeagueAction from "../Action/getLeagueAction";
 
@@ -17,17 +18,25 @@ export default function(DecoratedComponent) {
 		})
 	)
 	class LeaguePageDecorator extends Component {
+		constructor(props) {
+			super(props);
+			autoBind(this);
+		}
 		componentDidMount() {
+			this.loadLeague();
+		}
+		loadLeague() {
 			const props = this.props;
 			const leagueId = (props.match.params && props.match.params.league_id) || null;
 			if(leagueId) {
-				props.getLeague(leagueId);
+				this.props.getLeague(leagueId)
 			}
 		}
 		render() {
 			return (
 				<DecoratedComponent
 					{...this.props}
+					loadLeague={this.loadLeague}
 				/>
 			)
 		}

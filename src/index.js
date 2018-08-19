@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactModal from "react-modal";
+import { ToastProvider } from 'react-toast-notifications';
 import Raven from 'raven-js';
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -45,8 +46,13 @@ firebase.auth().onAuthStateChanged((user) => {
 
 Raven.context(() => {
     ReactDOM.render(
-        <Provider store={store}>
-            {router}
-        </Provider>, document.getElementById('root'));
+		<ToastProvider
+			placement={'bottom-right'}
+			autoDismissTimeout={6000}
+		>
+			<Provider store={store}>
+				{router}
+			</Provider>
+		</ToastProvider>, document.getElementById('root'));
     registerServiceWorker();
 });

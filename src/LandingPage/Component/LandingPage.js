@@ -5,7 +5,7 @@ import { Link, Element } from 'react-scroll';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
-import PrimaryButton from "../../Common/PrimaryButton/PrimaryButton";
+import PrimaryButton from "../../Common/Button/PrimaryButton";
 import Profile from "../../Profile/Component/Profile";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";

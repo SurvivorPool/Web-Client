@@ -66,8 +66,8 @@ export default class Requests {
 		return Requests.fetch(url, 'PUT', data);
 	}
 
-	static delete(url) {
-		return Requests.fetch(url, 'DELETE');
+	static delete(url, data) {
+		return Requests.fetch(url, 'DELETE', data);
 	}
 
 }

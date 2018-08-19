@@ -1,0 +1,12 @@
+@import "../../styles/library";
+
+.PlayerTeamAdd  {
+
+    &__Container {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+        font-size: 32px;
+        color: $lavender !important;
+    }
+}
