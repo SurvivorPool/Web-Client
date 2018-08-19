@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Container, Card,  Form, Message, Label, Dropdown } from 'semantic-ui-react'
+import { Container, Card,  Form, Label, Dropdown } from 'semantic-ui-react'
+import { withToastManager } from "react-toast-notifications";
 
 import LeagueDecorator from "../../../League/Decorator/LeagueDecorator";
 
@@ -24,6 +25,7 @@ const actions = [
 	},
 ];
 
+@withToastManager
 @LeagueDecorator
 class LeagueAdmin extends Component {
 	constructor(props) {
@@ -34,8 +36,6 @@ class LeagueAdmin extends Component {
 			action: '',
 			leagueId: null,
 			leagueLoading: false,
-			leagueSuccess: '',
-			leagueError: '',
 			leagueName: '',
 			leaguePrice: '',
 			leagueDescription: '',
@@ -43,15 +43,9 @@ class LeagueAdmin extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.leagues.data && !this.props.leagues.data.leagues) {
+		if(!this.props.leagues.data) {
 			this.props.getAllLeagues();
 		}
-	}
-
-	handleDismiss(message) {
-		this.setState({
-			[message] : '',
-		});
 	}
 
 	handleChange(e, { name, value }) {
@@ -61,8 +55,6 @@ class LeagueAdmin extends Component {
 	handleActionChange(e, { value }) {
 		this.setState({
 			action: value,
-			leagueSuccess: '',
-			leagueError: '',
 			leagueName: '',
 			leaguePrice: '',
 			leagueDescription: '',
@@ -111,48 +103,21 @@ class LeagueAdmin extends Component {
 		});
 	}
 
-	onSubmitSuccess(response) {
+	onSubmitSuccess() {
+		const props = this.props;
 		this.setState({
 			leagueLoading: false,
-			leagueSuccess: response,
-		}, this.props.getAllLeagues);
+		});
+		props.getAllLeagues();
+		props.toastManager.add(`Success`, { appearance: 'success', autoDismiss: true });
 	}
 
 	onSubmitFailure(error) {
 		const message = `${error.status} : ${error.message}`;
 		this.setState({
 			leagueLoading: false,
-			leagueError: message,
 		});
-	}
-
-	renderError(error) {
-		return error ? (
-			<Message
-				error
-				header='Failed'
-				content={`${error}`}
-				onDismiss={() => this.handleDismiss('leagueError')}
-			/>
-		) : null;
-	}
-
-	renderSuccess(success) {
-		return success ? (
-			<Message
-				success
-				header='Success'
-				content={`${LeagueAdmin.formatSuccessObject(success)}`}
-				onDismiss={() => this.handleDismiss('leagueSuccess')}
-			/>
-		) : null;
-	}
-
-	static formatSuccessObject(success) {
-		return Object.keys(success).reduce((output, key) => {
-			output.push(`${key} : ${success[key]}`);
-			return output
-		}, []).join(', ');
+		this.props.toastManager.add(message, { appearance: 'error', autoDismiss: true});
 	}
 
 	static formatLeagues(leagues) {
@@ -198,8 +163,6 @@ class LeagueAdmin extends Component {
 				<Card.Content description='Create League' />
 				<Form
 					loading={this.state.leagueLoading}
-					success={!!this.state.leagueSuccess}
-					error={!!this.state.leagueError}
 					className={`${className}__Form`}
 					onSubmit={this.handleSubmit}
 				>
@@ -236,8 +199,6 @@ class LeagueAdmin extends Component {
 						value={this.state.leagueDescription}
 						onChange={this.handleChange}
 					/>
-					{this.renderSuccess(this.state.leagueSuccess)}
-					{this.renderError(this.state.leagueError)}
 					<Form.Button content={'Submit'}/>
 				</Form>
 			</React.Fragment>
@@ -250,8 +211,6 @@ class LeagueAdmin extends Component {
 				<Card.Content description='Update League' />
 				<Form
 					loading={this.state.leagueLoading}
-					success={!!this.state.leagueSuccess}
-					error={!!this.state.leagueError}
 					className={`${className}__Form`}
 					onSubmit={this.handleSubmit}
 				>
@@ -289,8 +248,6 @@ class LeagueAdmin extends Component {
 						value={this.state.leagueDescription}
 						onChange={this.handleChange}
 					/>
-					{this.renderSuccess(this.state.leagueSuccess)}
-					{this.renderError(this.state.leagueError)}
 					<Form.Button content={'Submit'}/>
 				</Form>
 			</React.Fragment>

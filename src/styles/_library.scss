@@ -7,7 +7,7 @@
 // Border
     $border: 2px solid $gray;
 
-// PrimaryButton
+// Button
     @mixin primary-button {
         background-color: $lavender !important;
         color: $silver !important;
@@ -16,10 +16,21 @@
             background-color: $light-lavender !important;
             color: $silver !important;
             transition: all ease-in .3s;
-            transform: translate3D(0,-1px,0);
         }
     }
 
+// SecondaryButton
+    @mixin secondary-button {
+        background-color: $silver !important;
+        color: $lavender !important;
+        border: 1px solid $lavender !important;
+
+        &:hover {
+            background-color: $lavender !important;
+            color: $silver !important;
+            transition: all ease-in .3s;
+        }
+    }
 
 //Modal
     @mixin modal {

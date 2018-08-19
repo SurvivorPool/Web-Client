@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Icon, Button, Divider } from 'semantic-ui-react';
 import ReactModal from 'react-modal';
 
-import PrimaryButton from '../../Common/PrimaryButton/PrimaryButton';
+import PrimaryButton from '../../Common/Button/PrimaryButton';
 import { RefereeIcon } from "Icons/Icons.js";
 import { facebookProvider, githubProvider, googleProvider } from "../../Common/Auth/Util/firebase";
 
