@@ -18,7 +18,29 @@
         background-color: $silver !important;
     }
 
+    &__Link {
+        float: right;
+        font-size: 16px;
+
+        &:hover {
+            color: $lavender !important;
+        }
+    }
+
+    &__Trash {
+
+        &:hover {
+            animation: bounce 1s;
+            cursor: pointer;
+        }
+    }
+
     &__Wrench {
         color: $lavender !important;
+
+        &:hover {
+            animation: bounce 1s;
+            cursor: pointer;
+        }
     }
 }

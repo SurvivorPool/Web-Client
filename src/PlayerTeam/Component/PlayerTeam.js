@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import {Card, Form, Icon, Image} from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 
 import PrimaryButton from "../../Common/Button/PrimaryButton";
@@ -109,7 +110,7 @@ class PlayerTeam extends Component {
 		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
-	static renderTeamExtra(team) {
+	static renderTeamExtra(team, leagueId) {
 		const hasPaidColor = team.has_paid ? 'green' : 'red';
 		const isActiveColor = team.is_active ? 'green' : 'red';
 		const isActiveIcon = team.is_active ? 'checkmark' : 'cancel';
@@ -119,8 +120,20 @@ class PlayerTeam extends Component {
 				className={`${className}__Extra`}
 				extra
 			>
-				<Icon name={'dollar'} color={hasPaidColor} />
-				<Icon name={isActiveIcon} color={isActiveColor} />
+				<Icon
+					name={'dollar'}
+					color={hasPaidColor}
+				/>
+				<Icon
+					name={isActiveIcon}
+					color={isActiveColor}
+				/>
+				<Link
+					className={`${className}__Link`}
+					to={`/league/${leagueId}/team/${team.team_id}`}
+				>
+					{"View Team"}
+				</Link>
 			</Card.Content>
 		);
 	}
@@ -148,6 +161,7 @@ class PlayerTeam extends Component {
 
 		return canDelete && !this.state.isEditingTeam ? (
 			<Icon
+				className={`${className}__Trash`}
 				name={'trash'}
 				color={'orange'}
 				onClick={this.handleDeleteTeam}
@@ -211,11 +225,12 @@ class PlayerTeam extends Component {
 
 	render() {
 		const { team } = this.props;
+
 		return (
 			<Card
 				className={className}
 				color={this.props.cardColor}
-				href={`/league/${this.props.leagueId}/team/${team.team_id}`}
+				onClick={this.handleRedirect}
 			>
 				<Card.Content>
 					<Image
@@ -228,7 +243,7 @@ class PlayerTeam extends Component {
 					<Card.Description>{'Current Pick goes here?'}</Card.Description>
 					{this.renderTeamActions(team)}
 				</Card.Content>
-				{PlayerTeam.renderTeamExtra(team)}
+				{PlayerTeam.renderTeamExtra(team, this.props.leagueId)}
 			</Card>
 		);
 	}

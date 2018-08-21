@@ -12,6 +12,7 @@ import leagueReducer from "./League/Reducer/leagueReducer";
 import leaguesReducer from "./League/Reducer/leaguesReducer";
 import playerLeaguesReducer from "./League/Reducer/playerLeaguesReducer";
 import playerTeamReducer from "./PlayerTeam/Reducer/playerTeamReducer";
+import gamesReducer from "./Games/Reducer/gamesReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
@@ -19,6 +20,7 @@ export const history = createBrowserHistory();
 
 const storeReducers = combineReducers({
     auth: authReducer,
+    games: gamesReducer,
     league: leagueReducer,
     leagues: leaguesReducer,
     playerLeagues: playerLeaguesReducer,

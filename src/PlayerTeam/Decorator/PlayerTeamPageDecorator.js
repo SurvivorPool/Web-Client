@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 import { Redirect } from 'react-router-dom'
 
-import getLeagueAction from "../../League/Action/getLeagueAction";
+import getGamesAction from "../../Games/Action/getGamesAction";
 
 import playerTeamSelector from "../Selector/playerTeamSelector";
-import leagueSelector from "../../League/Selector/leagueSelector";
+import gamesSelector from "../../Games/Selector/gamesSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
 		state => ({
 			playerTeam: playerTeamSelector(state),
-			league: leagueSelector(state),
+			games: gamesSelector(state),
 		}),
 		dispatch => ({
-			getLeague: (leagueId) => dispatch(getLeagueAction(leagueId))
+			getGames: (week) => dispatch(getGamesAction(week)),
 		})
 	)
 	class PlayerTeamPageDecorator extends Component {
@@ -36,8 +36,6 @@ export default function(DecoratedComponent) {
 					});
 				}
 			});
-
-			props.getLeague(props.match.params && props.match.params.league_id);
 		}
 
 		loadTeam() {

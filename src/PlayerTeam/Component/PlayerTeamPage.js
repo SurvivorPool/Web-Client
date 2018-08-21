@@ -25,6 +25,13 @@ class PlayerTeamPage extends Component {
 		autoBind(this);
 	}
 
+	componentDidMount() {
+		const props = this.props;
+		/*if(!props.games.data) {
+			props.getGames(1);
+		}*/
+	}
+
 	static renderTitle(props) {
 		return (
 			<div className={`${className}__Header__Container`}>
@@ -36,9 +43,10 @@ class PlayerTeamPage extends Component {
 	}
 
 	static renderNavBar(props) {
-		const leagueLink = props.league.data && props.league.data.league_id ? (
+		const leagueInfo = props.playerTeam.data && props.playerTeam.data.league_info;
+		const leagueLink = leagueInfo && leagueInfo.league_id ? (
 			<Link
-				to={`/league/${props.league.data.league_id}`}
+				to={`/league/${leagueInfo.league_id}`}
 				className={'Navbar__Link'}
 			>
 				{"League"}
@@ -61,15 +69,27 @@ class PlayerTeamPage extends Component {
 		);
 	}
 
+	static renderPickSection(props) {
+		return (
+			<Segment
+				raised
+			>
+				<div className={`${className}__Pick`}>
+					{}
+				</div>
+			</Segment>
+		);
+	}
+
 	render() {
 		const props = this.props;
-
 		return (
 			<div className={className}>
 				{PlayerTeamPage.renderNavBar(props)}
 				<div className={`${className}__Content`}>
 					<Container>
 						{PlayerTeamPage.renderTitle(props)}
+						{PlayerTeamPage.renderPickSection(props)}
 					</Container>
 				</div>
 			</div>
