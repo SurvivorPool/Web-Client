@@ -212,7 +212,11 @@ class PlayerTeam extends Component {
 	render() {
 		const { team } = this.props;
 		return (
-			<Card color={this.props.cardColor}>
+			<Card
+				className={className}
+				color={this.props.cardColor}
+				href={`/league/${this.props.leagueId}/team/${team.team_id}`}
+			>
 				<Card.Content>
 					<Image
 						floated='right'

@@ -12,6 +12,7 @@ import LandingPage from '../LandingPage/Component/LandingPage';
 import Dashboard from '../Dashboard/Component/Dashboard';
 import AdminDashboard from "../Admin/Component/AdminDashboard";
 import LeaguePage from "../League/Component/LeaguePage";
+import PlayerTeamPage from "../PlayerTeam/Component/PlayerTeamPage";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
@@ -43,6 +44,7 @@ export default (
 			<Route exact path="/" component={LandingPage}/>
 			<ProtectedRoute path="/dashboard" component={Dashboard}/>
 			<AdminRoute path="/admin" component={AdminDashboard}/>
+			<ProtectedRoute path={"/league/:league_id/team/:team_id"} component={PlayerTeamPage} />
 			<ProtectedRoute path={"/league/:league_id"} component={LeaguePage} />
 		</Switch>
 	</ConnectedRouter>
