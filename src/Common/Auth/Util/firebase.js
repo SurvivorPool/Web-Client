@@ -16,5 +16,13 @@ export function firebaseLogin(provider) {
 				email: results.user.email,
 				pictureURL: results.user.photoURL
 			};
+	}).catch(e => {
+		if(e.code == 'auth/account-exists-with-different-credential') {
+			alert(e.message);
+		} else {
+			console.log(e.code);
+		}
+
+		return Promise.reject();
 	});
 }
