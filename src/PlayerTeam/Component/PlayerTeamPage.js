@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
+import Game from "../../Games/Component/Game";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import UserDecorator from "../../Common/Auth/Component/UserDecorator";
@@ -83,6 +84,11 @@ class PlayerTeamPage extends Component {
 		);
 	}
 
+	static renderGames(props) {
+		const games = (props.games.data && props.games.data.games) || [];
+		return games.length ? games.map(game => <Game key={game.game_id} game={game}/>) : null;
+	}
+
 	render() {
 		const props = this.props;
 		return (
@@ -92,6 +98,7 @@ class PlayerTeamPage extends Component {
 					<Container>
 						{PlayerTeamPage.renderTitle(props)}
 						{PlayerTeamPage.renderPickSection(props)}
+						{PlayerTeamPage.renderGames(props)}
 					</Container>
 				</div>
 			</div>

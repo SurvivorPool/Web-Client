@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import { Redirect} from 'react-router-dom';
-import { Card, Checkbox, Container } from 'semantic-ui-react';
+import { Card, Checkbox, Container, Label } from 'semantic-ui-react';
+
+import UserDecorator from "../../Common/Auth/Component/UserDecorator";
 
 const className = "LeagueCards";
 
+@UserDecorator
 class LeagueCards extends Component {
 	constructor(props) {
 		super(props);
@@ -58,11 +61,7 @@ class LeagueCards extends Component {
 							{league.league_description}
 						</Card.Description>
 					</Card.Content>
-					<Card.Content
-						extra
-					>
-
-					</Card.Content>
+					{LeagueCards.renderLeagueExtra(league, props)}
 				</Card>
 			);
 		}) : LeagueCards.renderNoLeagues();
@@ -82,6 +81,46 @@ class LeagueCards extends Component {
 				{LeagueCards.renderLeagueCards(props, showAllLeagues, handleLeagueSelection)}
 			</Card.Group>
 		) : null;
+	}
+
+	static renderLeagueExtra(league, props) {
+		return (
+			<Card.Content
+				extra
+			>
+				{LeagueCards.renderPlayerTeamCount(league, props)}
+			</Card.Content>
+		)
+	}
+
+	static renderPlayerTeamCount(league, props) {
+		const playerTeams = (props.user.data && props.user.data.teams) || [];
+		const noTeamMessage = <div>{"Join this league!"}</div>;
+
+		if(!playerTeams.length) {
+			return noTeamMessage;
+		}
+
+		const leagueTeams = playerTeams.filter(team => team.league_id === league.league_id);
+		return leagueTeams.length ? (
+			<div>
+				<Label
+					horizontal
+					color={'olive'}
+				>
+					{"Teams"}
+				</Label>
+				{LeagueCards.renderCountMessage(leagueTeams)}
+			</div>
+		) : noTeamMessage;
+	}
+
+	static renderCountMessage(leagueTeams) {
+		const count = leagueTeams.length;
+		const multipleOthers = leagueTeams.length >= 3;
+		return count > 1 ?
+			`${leagueTeams[0].team_name} and ${leagueTeams.length - 1} other${multipleOthers ? 's' : ''}..`
+			: leagueTeams[0].team_name;
 	}
 
 	static renderNoLeagues() {
@@ -124,6 +163,7 @@ class LeagueCards extends Component {
 		);
 	}
 }
+
 LeagueCards.propTypes = {
 	leagues: PropTypes.array,
 	playerLeagues: PropTypes.array,

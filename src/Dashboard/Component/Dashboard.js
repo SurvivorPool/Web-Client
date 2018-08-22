@@ -36,7 +36,10 @@ class Dashboard extends Component {
 		const leagues = (props.leagues.data && props.leagues.data.leagues) || [];
 		const playerLeagues = (props.playerLeagues.data && props.playerLeagues.data.user_leagues) || [];
 		return (
-			<LeagueCards leagues={leagues} playerLeagues={playerLeagues} />
+			<LeagueCards
+				leagues={leagues}
+				playerLeagues={playerLeagues}
+			/>
 		);
 	}
 
