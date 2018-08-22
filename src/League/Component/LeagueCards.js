@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import { Card, Checkbox, Container } from 'semantic-ui-react';
 
 const className = "LeagueCards";
@@ -48,12 +48,22 @@ class LeagueCards extends Component {
 			return (
 				<Card
 					key={league.league_id}
-					header={league.league_name}
-					meta='League'
-					description={league.league_description}
-					extra='Your teams'
 					onClick={() => handleLeagueSelection(league.league_id)}
-				/>
+				>
+					<Card.Content>
+						<Card.Header>
+							{league.league_name}
+						</Card.Header>
+						<Card.Description>
+							{league.league_description}
+						</Card.Description>
+					</Card.Content>
+					<Card.Content
+						extra
+					>
+
+					</Card.Content>
+				</Card>
 			);
 		}) : LeagueCards.renderNoLeagues();
 	}

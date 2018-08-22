@@ -27,9 +27,11 @@ class PlayerTeamPage extends Component {
 
 	componentDidMount() {
 		const props = this.props;
-		/*if(!props.games.data) {
+		console.log(props, 'props');
+		if(!props.games.data || !props.games.data.games) {
+			// getWeekNum from somewhere
 			props.getGames(1);
-		}*/
+		}
 	}
 
 	static renderTitle(props) {
