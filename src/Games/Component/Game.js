@@ -8,6 +8,8 @@ import PrimaryButton from "../../Common/Button/PrimaryButton";
 import SecondaryButton from "../../Common/Button/SecondaryButton";
 
 const className = 'Game';
+const awayClassName = `${className}__Away`;
+const homeClassName = `${className}__Home`;
 
 @withToastManager
 class Game extends Component {
@@ -21,14 +23,30 @@ class Game extends Component {
 
 	render() {
 		const { game } = this.props;
+		console.log(game, 'game');
+		//const awayConfig = getTeamConfig(team);
 
 		return (
-			<div>
-				<div>
-					{game.away_team_name}
+			<div className={`${className}__Container`}>
+				<div
+					className={awayClassName}
+					style={{ 'backgroundColor': `#${game.away.color}`}}
+				>
+					<div
+						className={`${awayClassName}__Polygon`}
+						style={{ 'backgroundColor': `#${game.away.color}`}}
+					/>
+					<div>{game.away.displayName}</div>
 				</div>
-				<div>
-					{game.home_team_name}
+				<div
+					className={homeClassName}
+					style={{ 'backgroundColor': `#${game.home.color}`}}
+				>
+					<div
+						className={`${homeClassName}__Polygon`}
+						style={{ 'backgroundColor': `#${game.home.color}`}}
+					/>
+					<div>{game.home.displayName}</div>
 				</div>
 			</div>
 		);

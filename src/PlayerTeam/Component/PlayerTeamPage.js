@@ -86,7 +86,11 @@ class PlayerTeamPage extends Component {
 
 	static renderGames(props) {
 		const games = (props.games.data && props.games.data.games) || [];
-		return games.length ? games.map(game => <Game key={game.game_id} game={game}/>) : null;
+		return games.length ? (
+			<Segment>
+				{games.map(game => <Game key={game.game_id} game={game}/>)}
+			</Segment>
+		) : null;
 	}
 
 	render() {
