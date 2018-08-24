@@ -10,6 +10,7 @@ import SecondaryButton from "../../Common/Button/SecondaryButton";
 const className = 'Game';
 const awayClassName = `${className}__Away`;
 const homeClassName = `${className}__Home`;
+const vsClassName = `${className}__VS`;
 
 @withToastManager
 class Game extends Component {
@@ -20,37 +21,55 @@ class Game extends Component {
 		}
 	}
 
+	static renderSide(side, game) {
+		const sideClassName = side === 'away' ? awayClassName : homeClassName;
+		const team = game[side];
+
+		return (
+			<div
+				className={sideClassName}
+				style={{ 'backgroundColor': `#${team.color}`}}
+			>
+				<div
+					className={`${sideClassName}__Polygon`}
+					style={{ 'backgroundColor': `#${team.color}`}}
+				/>
+				<div className={`${className}__Info__Container ${sideClassName}__Info`}>
+					<img
+						src={team.logoPath}
+						alt={`${team.displayName} logo`}
+						className={`${className}__Logo`}
+					/>
+				</div>
+			</div>
+		);
+	}
+
+	static renderScore(game) {
+		// hasStarted
+		return game ? (
+			<div
+				className={`${className}__Score`}
+			>
+				{`${game.away.score} - ${game.home.score}`}
+			</div>
+		) : null;
+	}
+
 
 	render() {
 		const { game } = this.props;
-		console.log(game, 'game');
-		//const awayConfig = getTeamConfig(team);
 
 		return (
 			<div className={`${className}__Container`}>
-				<div
-					className={awayClassName}
-					style={{ 'backgroundColor': `#${game.away.color}`}}
-				>
-					<div
-						className={`${awayClassName}__Polygon`}
-						style={{ 'backgroundColor': `#${game.away.color}`}}
-					/>
-					<div>{game.away.displayName}</div>
+				{Game.renderSide('away', game)}
+				<div className={`${vsClassName}__Container`}>
+					<div className={vsClassName}>
+						{"VS."}
+					</div>
+					{Game.renderScore(game)}
 				</div>
-				<div className={`${className}__VS`}>
-					{"VS"}
-				</div>
-				<div
-					className={homeClassName}
-					style={{ 'backgroundColor': `#${game.home.color}`}}
-				>
-					<div
-						className={`${homeClassName}__Polygon`}
-						style={{ 'backgroundColor': `#${game.home.color}`}}
-					/>
-					<div>{game.home.displayName}</div>
-				</div>
+				{Game.renderSide('home', game)}
 			</div>
 		);
 	}

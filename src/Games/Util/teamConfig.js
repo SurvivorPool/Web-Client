@@ -8,8 +8,13 @@ export function getTeamConfig(game, side) {
 			color: teamColors[teamName],
 			score: game[`${side}_team_score`],
 			abbrev: game[`${side}_team_city_abbr`],
+			logoPath: getLogoPath(game[`${side}_team_name`]),
 		}
 	}
+}
+
+function getLogoPath(team) {
+	return `${process.env.PUBLIC_URL}/images/${team}.gif`;
 }
 
 const teamColors = {
