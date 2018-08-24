@@ -38,8 +38,8 @@ class Game extends Component {
 					/>
 					<div>{game.away.displayName}</div>
 				</div>
-				<div className={`${className}__AT`}>
-					{"AT"}
+				<div className={`${className}__VS`}>
+					{"VS"}
 				</div>
 				<div
 					className={homeClassName}

@@ -2,7 +2,7 @@
 
 .Game {
 
-    &__AT {
+    &__VS {
         display: flex;
         justify-content: center;
         align-content: center;
@@ -10,9 +10,10 @@
         z-index: 1;
         font-size: 32px;
         padding: 20px;
-        color: $lavender;
+        color: $burnt-orange;
         letter-spacing: 4px;
         font-weight: bold;
+        transform: skewX(-20deg);
     }
 
     &__Away, &__Home {
