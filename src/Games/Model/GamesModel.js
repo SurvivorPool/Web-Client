@@ -1,7 +1,7 @@
 import { getTeamConfig } from "../Util/teamConfig";
 
 export default function GamesModel(data) {
-	const formattedGames = data.games.map(game => formatGame(game));
+	const formattedGames = data.games.map(game => formatGame(game)).sort((a, b) => a.game_id - b.game_id);
 	return {
 		games: formattedGames,
 	}
