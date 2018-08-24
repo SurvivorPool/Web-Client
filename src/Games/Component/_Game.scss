@@ -2,6 +2,19 @@
 
 .Game {
 
+    &__AT {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        line-height: 1;
+        z-index: 1;
+        font-size: 32px;
+        padding: 20px;
+        color: $lavender;
+        letter-spacing: 4px;
+        font-weight: bold;
+    }
+
     &__Away, &__Home {
         width: calc(50% - 25px);
         position: relative;

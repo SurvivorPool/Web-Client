@@ -38,6 +38,9 @@ class Game extends Component {
 					/>
 					<div>{game.away.displayName}</div>
 				</div>
+				<div className={`${className}__AT`}>
+					{"AT"}
+				</div>
 				<div
 					className={homeClassName}
 					style={{ 'backgroundColor': `#${game.home.color}`}}
