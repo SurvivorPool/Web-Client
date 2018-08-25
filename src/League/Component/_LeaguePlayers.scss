@@ -1,0 +1,40 @@
+@import "../../styles/library";
+
+.LeaguePlayers {
+    height: 300px;
+    width: auto;
+    padding: 30px;
+    margin: 0 0 50px 0;
+
+    @include mobile {
+        padding: 30px 0 0 0;
+    }
+
+    &__Search {
+        margin: 0 0 15px 0;
+    }
+
+    &__Team {
+        display: grid;
+        grid-template-columns: 150px auto 200px 150px;
+        border-top: 0.5x solid $gray;
+        border-bottom: 0.5px solid $gray;
+        align-content: center;
+
+        @include mobile {
+            grid-template-columns: auto auto auto auto;
+        }
+
+        &__Avatar {
+            margin-left: 30px;
+
+            @include mobile {
+                margin-left: 0;
+            }
+        }
+
+        & > div {
+            text-overflow: ellipsis;
+        }
+    }
+}

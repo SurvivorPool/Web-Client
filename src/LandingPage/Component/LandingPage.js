@@ -10,6 +10,7 @@ import Profile from "../../Profile/Component/Profile";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
+import ToastsDecorator from "../../Common/Toasts/Decorator/ToastsDecorator";
 
 import logo from 'Images/logo.png';
 import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
@@ -20,6 +21,7 @@ const sectionClassName = `${className}__Section`;
 const footerClassName = `${className}__Footer`;
 const cardClassName = `${sectionClassName}__Card`;
 
+@ToastsDecorator
 @AuthDecorator
 @LoaderDecorator
 class LandingPage extends Component {

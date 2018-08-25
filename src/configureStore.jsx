@@ -7,12 +7,13 @@ import thunk from 'redux-thunk';
 import loadPreviousState from './loadPreviousState';
 
 import authReducer from "./Common/Auth/Reducer/authReducer";
-import userReducer from "./Common/Auth/Reducer/userReducer";
+import gamesReducer from "./Games/Reducer/gamesReducer";
 import leagueReducer from "./League/Reducer/leagueReducer";
 import leaguesReducer from "./League/Reducer/leaguesReducer";
 import playerLeaguesReducer from "./League/Reducer/playerLeaguesReducer";
 import playerTeamReducer from "./PlayerTeam/Reducer/playerTeamReducer";
-import gamesReducer from "./Games/Reducer/gamesReducer";
+import toastsReducer from "./Common/Toasts/Reducer/toastsReducer"
+import userReducer from "./Common/Auth/Reducer/userReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
@@ -25,6 +26,7 @@ const storeReducers = combineReducers({
     leagues: leaguesReducer,
     playerLeagues: playerLeaguesReducer,
     playerTeam: playerTeamReducer,
+    toasts: toastsReducer,
     user: userReducer,
 });
 

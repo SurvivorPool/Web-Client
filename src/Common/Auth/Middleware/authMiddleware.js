@@ -9,6 +9,7 @@ import userExistsAction from "../Action/userExistsAction";
 import userCreateAction from "../Action/userCreateAction";
 import userInitialGetAction from "../Action/userInitialGetAction";
 import userClearAction from "../Action/userClearAction";
+import createToastAction from "../../Toasts/Action/createToastAction";
 
 import { firebaseLogin } from "../Util/firebase";
 import Analytics from "../../Analytics/Analytics";
@@ -66,6 +67,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 			LocalStorage.delete('user');
 			dispatch(push('/'));
 			dispatch(userClearAction());
+			dispatch(createToastAction(['You have been logged out.', { appearance: 'warning', autoDismiss: true }]));
 			break;
 		}
 		case userCreateAction.ACTION_COMPLETED: {

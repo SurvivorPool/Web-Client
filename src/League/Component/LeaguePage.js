@@ -7,6 +7,7 @@ import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
 import PlayerTeam from "../../PlayerTeam/Component/PlayerTeam";
 import PlayerTeamAdd from "../../PlayerTeam/Component/PlayerTeamAdd";
+import LeaguePlayers from "./LeaguePlayers";
 
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import UserDecorator from "../../Common/Auth/Component/UserDecorator";
@@ -23,6 +24,28 @@ class LeaguePage extends Component {
 	constructor(props) {
 		super(props);
 		autoBind(this);
+		this.state = {
+			leaguePlayers: props.leaguePlayers || [],
+		};
+	}
+
+	handlePlayerSearch(e, { value }) {
+		value = value.toLowerCase();
+		if(value) {
+			const searchedPlayers = this.props.leaguePlayers.filter(team => {
+				const teamName = team.team_name.toLowerCase();
+				const fullName = team.user_info.full_name.toLowerCase();
+				return teamName.includes(value) || fullName.includes(value);
+			});
+
+			this.setState({
+				leaguePlayers: searchedPlayers,
+			});
+		} else {
+			this.setState({
+				leaguePlayers: this.props.leaguePlayers,
+			});
+		}
 	}
 
 	static renderLeagueTitle(props) {
@@ -54,13 +77,15 @@ class LeaguePage extends Component {
 		);
 	}
 
-	static renderLeague(props) {
+	static renderLeague(props, state, handleSearch) {
 		return props.league.data && props.league.data.league_name ? (
 			<React.Fragment>
 				{LeaguePage.renderLeagueTitle(props)}
 				<Divider />
 				{LeaguePage.renderLeagueInfo(props)}
 				{LeaguePage.renderPlayerTeams(props)}
+				{LeaguePage.renderPlayers(state, handleSearch)}
+				{LeaguePage.renderFooter()}
 			</React.Fragment>
 		) :  null;
 	}
@@ -97,6 +122,15 @@ class LeaguePage extends Component {
 		);
 	}
 
+	static renderPlayers(state, handleSearch) {
+		return  (
+			<LeaguePlayers
+				players={state.leaguePlayers}
+				handleSearch={handleSearch}
+			/>
+		);
+	}
+
 	static renderNoTeams(props) {
 		return (
 			<Segment raised>
@@ -126,6 +160,10 @@ class LeaguePage extends Component {
 		);
 	}
 
+	static renderFooter() {
+		return <div className={`${className}__Footer`}/>;
+	}
+
 	render() {
 		const props = this.props;
 		return (
@@ -143,7 +181,7 @@ class LeaguePage extends Component {
 				</Navbar>
 				<div className={`${className}__Content`}>
 					<Container>
-						{LeaguePage.renderLeague(props)}
+						{LeaguePage.renderLeague(props, this.state, this.handlePlayerSearch)}
 					</Container>
 				</div>
 			</div>
