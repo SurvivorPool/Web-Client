@@ -6,6 +6,7 @@ export function getTeamConfig(game, side) {
 		[side] :{
 			displayName: teamInfo.full_name,
 			teamName,
+			nickName: teamInfo.nickname,
 			color: teamColors[teamName.toLowerCase()],
 			score: game[`${side}_team_score`],
 			abbrev: teamInfo.abbreviation,

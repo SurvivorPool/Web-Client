@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { Divider, Segment, Label, Container, Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
+import { withToastManager } from "react-toast-notifications";
 
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
@@ -10,14 +11,18 @@ import Game from "../../Games/Component/Game";
 import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
 import UserDecorator from "../../Common/Auth/Component/UserDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
+import PicksDecorator from "../../Picks/Decorator/PicksDecorator";
 import PlayerTeamDecorator from "../Decorator/PlayerTeamDecorator";
 import PlayerTeamPageDecorator from "../Decorator/PlayerTeamPageDecorator";
 
+
 const className = "PlayerTeamPage";
 
+@withToastManager
 @AuthDecorator
 @UserDecorator
 @PlayerTeamDecorator
+@PicksDecorator
 @PlayerTeamPageDecorator
 @LoaderDecorator
 class PlayerTeamPage extends Component {
@@ -28,10 +33,28 @@ class PlayerTeamPage extends Component {
 
 	componentDidMount() {
 		const props = this.props;
-		console.log(props, 'props');
+
 		if(!props.games.data || !props.games.data.games) {
-			// getWeekNum from somewhere
-			props.getGames(1);
+			props.getGames();
+		}
+	}
+
+	onPickSuccess(pick) {
+		const { toastManager } = this.props;
+		toastManager.add(`Picked the ${pick.nfl_team_name}!`, { appearance: 'success', autoDismiss: true });
+		this.props.getPlayerTeam(pick.team_id);
+	}
+
+	onPickFailure() {
+		const { toastManager } = this.props;
+		toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
+	}
+
+	handlePick(pick) {
+		if(pick) {
+			this.props.createPick(pick)
+				.then(() => this.onPickSuccess(pick))
+				.catch(this.onPickFailure);
 		}
 	}
 
@@ -73,28 +96,51 @@ class PlayerTeamPage extends Component {
 	}
 
 	static renderPickSection(props) {
+		const { playerTeam } = props;
+		const currentPick = playerTeam.data && playerTeam.data.current_pick;
+
 		return (
 			<Segment
 				raised
 			>
-				<div className={`${className}__Pick`}>
-					{}
-				</div>
+				{PlayerTeamPage.getCurrentPick(currentPick)}
 			</Segment>
 		);
 	}
 
-	static renderGames(props) {
+	static getCurrentPick(currentPick) {
+		return currentPick ? (
+			<div className={`${className}__Pick`}>
+				{`Current Pick - ${currentPick}`}
+			</div>
+		) : (
+			<div className={`${className}__Pick`}>
+				{"No current pick. Choose a team below!"}
+			</div>
+		);
+	}
+
+	renderGames(props) {
 		const games = (props.games.data && props.games.data.games) || [];
+		const playerTeam = (props.playerTeam.data || {});
+
 		return games.length ? (
 			<Segment>
-				{games.map(game => <Game key={game.game_id} game={game}/>)}
+				{games.map(game =>
+					<Game
+						key={game.game_id}
+						game={game}
+						playerTeam={playerTeam}
+						handlePick={this.handlePick}
+					/>
+				)}
 			</Segment>
 		) : null;
 	}
 
 	render() {
 		const props = this.props;
+
 		return (
 			<div className={className}>
 				{PlayerTeamPage.renderNavBar(props)}
@@ -102,7 +148,7 @@ class PlayerTeamPage extends Component {
 					<Container>
 						{PlayerTeamPage.renderTitle(props)}
 						{PlayerTeamPage.renderPickSection(props)}
-						{PlayerTeamPage.renderGames(props)}
+						{this.renderGames(props)}
 					</Container>
 				</div>
 			</div>

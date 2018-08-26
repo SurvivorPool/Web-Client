@@ -15,7 +15,7 @@ export default function(DecoratedComponent) {
 			games: gamesSelector(state),
 		}),
 		dispatch => ({
-			getGames: (week) => dispatch(getGamesAction(week)),
+			getGames: () => dispatch(getGamesAction()),
 		})
 	)
 	class PlayerTeamPageDecorator extends Component {

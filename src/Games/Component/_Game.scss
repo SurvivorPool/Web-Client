@@ -2,14 +2,79 @@
 
 .Game {
 
+    &__Started {
+        z-index: 6;
+        opacity: 0.5;
+    }
+
     &__Info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 100%;
+
+        &__Buttons {
+            height: 50%;
+
+            @include mobile {
+                height: auto;
+            }
+
+            &__Confirm {
+                color: white;
+                font-size: 24px;
+                font-weight: bold;
+                font-family: Happy-Fox;
+                letter-spacing: 6px;
+                text-shadow:
+                        3px 3px 0 black,
+                        -1px -1px 0 black,
+                        1px -1px 0 black,
+                        -1px 1px 0 black,
+                        1px 1px 0 black;
+            }
+
+            &__Container {
+                display: flex;
+                flex-direction: row;
+
+                @include mobile {
+                    flex-direction: column;
+                }
+            }
+
+            &__Away {
+                align-self: flex-start;
+            }
+
+            &__Home {
+                align-self: flex-end;
+            }
+        }
 
         &__Container {
             display: flex;
             z-index: 2;
             width: 100%;
+            height: 50%;
         }
 
+    }
+
+    &__Time {
+        color: black;
+        font-weight: bold;
+        font-size: 20px;
+        white-space: nowrap;
+        transform: skew(20deg);
+        text-align: center;
+        font-family: Happy-Fox;
+        letter-spacing: 6px;
+
+        @include mobile {
+            white-space: normal;
+            transform: skewX(0);
+        }
     }
 
     &__Logo {
@@ -26,7 +91,7 @@
     &__Score {
         color: black;
         font-weight: bold;
-        font-size: 24px;
+        font-size: 32px;
         white-space: nowrap;
         border-top: 1px solid $gray;
         padding: 10px 0;
@@ -36,6 +101,8 @@
 
         @include mobile {
             font-size: 18px;
+            transform: skewX(0);
+            text-align: center;
         }
     }
 
@@ -53,6 +120,11 @@
                 1px 1px 0 $burnt-orange;
         font-weight: bold;
         text-align: center;
+
+        @include mobile {
+            transform: skewX(0);
+            text-align: center;
+        }
 
         &__Container {
             display: flex;
@@ -88,7 +160,7 @@
             top: 0;
             content:'';
             height: 100%;
-            width: 50%;
+            width: 100px;
 
             @include mobile {
                 display: none;
