@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Divider, Segment, Label, Container, Card } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 
@@ -37,6 +37,10 @@ class PlayerTeamPage extends Component {
 		if(!props.games.data || !props.games.data.games) {
 			props.getGames();
 		}
+	}
+
+	componentWillUnMount() {
+		this.props.clearPick();
 	}
 
 	onPickSuccess(pick) {
