@@ -27,16 +27,26 @@ class AdminDashboard extends Component {
 
 	populateGames() {
 		this.props.populateGames()
-			.then(this.onPopulateGamesSuccess)
-			.catch(this.onPopulateGamesFailure);
+			.then(this.onPopulateSucess)
+			.catch(this.onPopulateFailure);
 	}
 
-	onPopulateGamesSuccess() {
+	populateTeams() {
+		this.props.populateTeams()
+			.then(this.onPopulateSucess)
+			.catch(this.onPopulateFailure);
+
+		this.props.populateStadiums()
+			.then(this.onPopulateSucess)
+			.catch(this.onPopulateFailure);
+	}
+
+	onPopulateSucess() {
 		const { toastManager } = this.props;
-		toastManager.add('Populated Games Successfully', { appearance: 'success', autoDismiss: true });
+		toastManager.add('Populated Successfully', { appearance: 'success', autoDismiss: true });
 	}
 
-	onPopulateGamesFailure() {
+	onPopulateFailure() {
 		const { toastManager } = this.props;
 		toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
 	}
@@ -51,10 +61,21 @@ class AdminDashboard extends Component {
 		)
 	}
 
+	renderPopulateTeamsButton() {
+		return (
+			<PrimaryButton
+				onClick={this.populateTeams}
+			>
+				{"Populate Teams"}
+			</PrimaryButton>
+		);
+	}
+
 	render() {
 		return (
 			<div className={className}>
 				<Navbar>
+					{this.renderPopulateTeamsButton()}
 					{this.renderPopulateGamesButton()}
 					<Profile
 						currentPage={'/admin'}

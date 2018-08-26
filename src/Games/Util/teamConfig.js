@@ -1,14 +1,15 @@
 export function getTeamConfig(game, side) {
-	const teamName = game[`${side}_team_name`] === '49ers' ? 'niners' : game[`${side}_team_name`];
+	const teamInfo = game[`${side}_team_info`];
+	const teamName = teamInfo.nickname === '49ers' ? 'niners' : teamInfo.nickname;
 
 	return {
 		[side] :{
-			displayName: game[`${side}_team_name`],
+			displayName: teamInfo.full_name,
 			teamName,
-			color: teamColors[teamName],
+			color: teamColors[teamName.toLowerCase()],
 			score: game[`${side}_team_score`],
-			abbrev: game[`${side}_team_city_abbr`],
-			logoPath: getLogoPath(game[`${side}_team_name`]),
+			abbrev: teamInfo.abbreviation,
+			logoPath: getLogoPath(teamInfo.nickname.toLowerCase()),
 		}
 	}
 }
