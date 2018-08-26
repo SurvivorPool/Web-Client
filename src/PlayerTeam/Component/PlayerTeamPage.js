@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Segment, Container } from 'semantic-ui-react';
+import { Segment, Container, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 
@@ -22,8 +22,8 @@ const className = "PlayerTeamPage";
 @AuthDecorator
 @UserDecorator
 @PlayerTeamDecorator
-@PicksDecorator
 @PlayerTeamPageDecorator
+@PicksDecorator
 @LoaderDecorator
 class PlayerTeamPage extends Component {
 	constructor(props) {
@@ -100,14 +100,13 @@ class PlayerTeamPage extends Component {
 	}
 
 	static renderPickSection(props) {
-		const { playerTeam } = props;
-		const currentPick = playerTeam.data && playerTeam.data.current_pick;
+		const { pickedGame } = props;
 
 		return (
 			<Segment
 				raised
 			>
-				{PlayerTeamPage.getCurrentPick(currentPick)}
+				{PlayerTeamPage.getCurrentPick(pickedGame.playerPick)}
 			</Segment>
 		);
 	}
@@ -115,7 +114,8 @@ class PlayerTeamPage extends Component {
 	static getCurrentPick(currentPick) {
 		return currentPick ? (
 			<div className={`${className}__Pick`}>
-				{`Current Pick - ${currentPick}`}
+				<h2>{`You've currently chosen the ${currentPick}.`}</h2>
+				<span>{`If the ${currentPick}' game hasn't started yet, you can switch to another team. Goodluck!`}</span>
 			</div>
 		) : (
 			<div className={`${className}__Pick`}>
@@ -129,12 +129,21 @@ class PlayerTeamPage extends Component {
 		const playerTeam = (props.playerTeam.data || {});
 
 		return games.length ? (
-			<Segment>
+			<Segment
+				raised
+			>
+				<Label
+					ribbon
+					color={'blue'}
+				>
+					{"Upcoming Games"}
+				</Label>
 				{games.map(game =>
 					<Game
 						key={game.game_id}
 						game={game}
 						playerTeam={playerTeam}
+						pickedGame={props.pickedGame}
 						handlePick={this.handlePick}
 					/>
 				)}

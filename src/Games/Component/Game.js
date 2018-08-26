@@ -11,6 +11,7 @@ const homeClassName = `${className}__Home`;
 const vsClassName = `${className}__VS`;
 const startedClassName = `${className}__Started`;
 const timeClassName = `${className}__Time`;
+const pickedClassName = `${className}__Picked`;
 
 class Game extends Component {
 	constructor(props) {
@@ -23,8 +24,11 @@ class Game extends Component {
 	}
 
 	handleTeamClick(team) {
-		const { game, playerTeam } = this.props;
-		const canPick = !game.hasStarted;
+		const { game, playerTeam, pickedGame } = this.props;
+		const canPick = !game.hasStarted
+			&& playerTeam.is_active
+			&& !pickedGame.hasStarted
+			&& pickedGame.playerPick !== team.nickName;
 
 		if(canPick) {
 			const pick = {
@@ -56,11 +60,14 @@ class Game extends Component {
 		});
 	}
 
-	static renderSide(side, game, state, handlers) {
+	static renderSide(side, state, props, handlers) {
 		const { isPicking, pick } = state;
+		const { pickedGame, game } = props;
 		const sideClassName = side === 'away' ? awayClassName : homeClassName;
 		const team = game[side];
 		const isPickingTeam = isPicking && pick.nfl_team_name === team.nickName;
+		const hasPickedGame = pickedGame && pickedGame.game_id === game.game_id;
+		const sidePicked = hasPickedGame ? pickedGame.playerPick === team.nickName : false;
 
 		return !isPickingTeam ? (
 			<div
@@ -80,6 +87,7 @@ class Game extends Component {
 							className={`${className}__Logo`}
 						/>
 					</div>
+					{Game.renderCurrentPick(sidePicked, side)}
 					<div className={`${className}__Info__Buttons`} />
 				</div>
 			</div>
@@ -92,6 +100,17 @@ class Game extends Component {
 				className={`${className}__Score`}
 			>
 				{`${game.away.score} - ${game.home.score}`}
+			</div>
+		) : null;
+	}
+
+	static renderCurrentPick(sidePicked, side) {
+		const floatClassName = side === 'away' ? `${pickedClassName}__Away` : `${pickedClassName}__Home`;
+		return sidePicked ? (
+			<div
+				className={`${pickedClassName} ${floatClassName}`}
+			>
+				{"PICKED"}
 			</div>
 		) : null;
 	}
@@ -118,9 +137,19 @@ class Game extends Component {
 		);
 	}
 
+	static renderGameDate(game) {
+		return (
+			<div className={`${className}__Date`}>
+				<div>{game.day}</div>
+				<div>{game.game_date}</div>
+			</div>
+		);
+	}
+
 	static renderMiddle(game) {
 		return (
 			<div className={`${vsClassName}__Container`}>
+				{Game.renderGameDate(game)}
 				<div className={vsClassName}>
 					{"VS."}
 				</div>
@@ -191,18 +220,23 @@ class Game extends Component {
 			<div
 				className={`${className}__Container ${statusClassName}`}
 			>
-				{Game.renderSide('away', game, this.state, handlers)}
+				{Game.renderSide('away', this.state, this.props, handlers)}
 				{Game.renderMiddle(game)}
-				{Game.renderSide('home', game, this.state, handlers)}
+				{Game.renderSide('home', this.state, this.props, handlers)}
 			</div>
 		);
 	}
 }
 
+Game.defaultProps = {
+	pickedGame: {},
+};
+
 Game.propTypes = {
 	game: PropTypes.object.isRequired,
 	playerTeam: PropTypes.object.isRequired,
 	handlePick: PropTypes.func.isRequired,
+	pickedGame: PropTypes.object,
 };
 
 export default Game;

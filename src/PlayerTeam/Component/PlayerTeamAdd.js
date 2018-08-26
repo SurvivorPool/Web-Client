@@ -7,12 +7,12 @@ import { withToastManager } from "react-toast-notifications";
 import PrimaryButton from "../../Common/Button/PrimaryButton";
 import SecondaryButton from "../../Common/Button/SecondaryButton";
 
-import PlayerTeamDecrorator from "../Decorator/PlayerTeamDecorator";
+import PlayerTeamDecorator from "../Decorator/PlayerTeamDecorator";
 
 const className = "PlayerTeamAdd";
 
 @withToastManager
-@PlayerTeamDecrorator
+@PlayerTeamDecorator
 class PlayerTeamAdd extends Component {
 	constructor(props) {
 		super(props);
@@ -31,7 +31,7 @@ class PlayerTeamAdd extends Component {
 		});
 		const { toastManager } = this.props;
 		toastManager.add('Added Team Successfully', { appearance: 'success', autoDismiss: true });
-		this.props.loadLeague();
+		this.props.loadUser().then(this.props.loadLeague)
 	}
 
 	onAddTeamFailure(e) {
@@ -41,7 +41,7 @@ class PlayerTeamAdd extends Component {
 		});
 		const { toastManager } = this.props;
 		toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
-		this.props.loadLeague();
+		this.props.loadUser().then(this.props.loadLeague)
 	}
 
 	handleAddTeam() {
@@ -71,6 +71,7 @@ class PlayerTeamAdd extends Component {
 
 	cancelAction(e) {
 		e.stopPropagation();
+		e.preventDefault();
 		this.setState({
 			isAddingTeam: false,
 		});
@@ -136,12 +137,14 @@ class PlayerTeamAdd extends Component {
 
 PlayerTeamAdd.defaultProps = {
 	loadLeague: () => {},
+	loadUser: () => {},
 };
 
 PlayerTeamAdd.propTypes = {
 	leagueId: PropTypes.number.isRequired,
 	userId: PropTypes.string.isRequired,
 	loadLeague: PropTypes.func,
+	loadUser: PropTypes.func,
 };
 
 export default PlayerTeamAdd;

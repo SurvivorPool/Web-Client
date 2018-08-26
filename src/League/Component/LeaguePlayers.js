@@ -15,7 +15,6 @@ class LeaguePlayers extends Component {
 
 	rowRender({ key, index, style }) {
 		const team = this.props.players[index];
-		console.log(team);
 		return (
 			<div
 				key={key}
@@ -81,6 +80,35 @@ class LeaguePlayers extends Component {
 		);
 	}
 
+	renderTeamsList(props) {
+		return props.playersCount > 0 ? (
+			<React.Fragment>
+				<Input
+					placeholder='Search Teams...'
+					fluid
+					onChange={props.handleSearch}
+					className={`${className}__Search`}
+				/>
+				<AutoSizer>
+					{({height, width}) => (
+						<List
+							width={width}
+							height={height}
+							rowCount={props.players.length}
+							rowHeight={50}
+							rowRenderer={this.rowRender}
+							noRowsRenderer={LeaguePlayers.noRowsRender}
+							overscanRowCount={20}
+						/>
+					)}
+				</AutoSizer>
+			</React.Fragment>
+		) : (
+			<span>{"This league is lonely ☹️"}</span>
+		);
+	}
+
+
 	render() {
 		const props = this.props;
 
@@ -97,38 +125,17 @@ class LeaguePlayers extends Component {
 				<div
 					className={className}
 				>
-					<Input
-						placeholder='Search Teams...'
-						fluid
-						onChange={this.props.handleSearch}
-						className={`${className}__Search`}
-					/>
-					<AutoSizer>
-						{({ height, width }) => (
-							<List
-								width={width}
-								height={height}
-								rowCount={props.players.length}
-								rowHeight={50}
-								rowRenderer={this.rowRender}
-								noRowsRenderer={LeaguePlayers.noRowsRender}
-								overscanRowCount={20}
-							/>
-						)}
-					</AutoSizer>
+					{this.renderTeamsList(props)}
 				</div>
 			</Segment>
 		);
 	}
 }
 
-LeaguePlayers.defaultProps = {
-
-};
-
 LeaguePlayers.propTypes = {
 	players: PropTypes.array.isRequired,
 	handleSearch: PropTypes.func.isRequired,
+	playersCount: PropTypes.number.isRequired,
 };
 
 export default LeaguePlayers;

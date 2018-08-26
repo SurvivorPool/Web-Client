@@ -37,7 +37,7 @@ class PlayerTeam extends Component {
 		const messageAction = action === 'delete' ? 'Deleted' : 'Edited';
 
 		props.toastManager.add(`${messageAction} Team Successfully`, { appearance: 'success', autoDismiss: true });
-		props.loadLeague();
+		props.loadUser().then(props.loadLeague);
 	}
 
 	onTeamFailure(e) {
@@ -48,7 +48,7 @@ class PlayerTeam extends Component {
 			isLoading: false,
 		});
 		props.toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
-		props.loadLeague();
+		props.loadUser().then(props.loadLeague);
 	}
 
 	handleDeleteTeam() {
@@ -223,8 +223,20 @@ class PlayerTeam extends Component {
 		);
 	}
 
+	static renderTeamPick(team, user) {
+		const userTeams = (user && user.teams) || [];
+		const currentTeam = userTeams.find(userTeam => userTeam.team_id === team.team_id) || {};
+		const currentTeamPick = currentTeam.current_pick || [];
+
+		return currentTeamPick && currentTeamPick.length > 0 ? (
+			<Card.Description>
+				<span>{`Currently Picked - ${currentTeamPick[0]}`}</span>
+			</Card.Description>
+		) : null;
+	}
+
 	render() {
-		const { team } = this.props;
+		const { team, user } = this.props;
 
 		return (
 			<Card
@@ -240,8 +252,8 @@ class PlayerTeam extends Component {
 						src={team.user_info.picture_url}
 					/>
 					<Card.Header>{team.team_name}</Card.Header>
-					<Card.Description>{'Current Pick goes here?'}</Card.Description>
 					{this.renderTeamActions(team)}
+					{PlayerTeam.renderTeamPick(team, user)}
 				</Card.Content>
 				{PlayerTeam.renderTeamExtra(team, this.props.leagueId)}
 			</Card>
@@ -252,12 +264,17 @@ class PlayerTeam extends Component {
 PlayerTeam.defaultProps = {
 	cardColor: 'white',
 	loadLeague: () => {},
+	loadUser: () => {},
 };
 
 PlayerTeam.propTypes = {
 	team: PropTypes.object.isRequired,
 	cardColor: PropTypes.string,
 	loadLeague: PropTypes.func,
+	leagueId: PropTypes.number.isRequired,
+	loadUser: PropTypes.func,
+	user: PropTypes.object.isRequired,
 };
+
 
 export default PlayerTeam;

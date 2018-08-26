@@ -84,7 +84,7 @@ class LeaguePage extends Component {
 				<Divider />
 				{LeaguePage.renderLeagueInfo(props)}
 				{LeaguePage.renderPlayerTeams(props)}
-				{LeaguePage.renderPlayers(state, handleSearch)}
+				{LeaguePage.renderPlayers(props, state, handleSearch)}
 				{LeaguePage.renderFooter()}
 			</React.Fragment>
 		) :  null;
@@ -113,6 +113,8 @@ class LeaguePage extends Component {
 								team={team}
 								cardColor={'green'}
 								loadLeague={props.loadLeague}
+								loadUser={props.loadUser}
+								user={props.user.data}
 							/>
 						)}
 						{LeaguePage.renderAddTeam(props)}
@@ -122,9 +124,10 @@ class LeaguePage extends Component {
 		);
 	}
 
-	static renderPlayers(state, handleSearch) {
+	static renderPlayers(props, state, handleSearch) {
 		return  (
 			<LeaguePlayers
+				playersCount={props.leaguePlayers.length}
 				players={state.leaguePlayers}
 				handleSearch={handleSearch}
 			/>
@@ -156,6 +159,7 @@ class LeaguePage extends Component {
 				userId={props.user.data.user_id}
 				leagueId={props.league.data.league_id}
 				loadLeague={props.loadLeague}
+				loadUser={props.loadUser}
 			/>
 		);
 	}

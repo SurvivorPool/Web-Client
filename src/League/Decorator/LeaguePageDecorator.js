@@ -24,9 +24,11 @@ export default function(DecoratedComponent) {
 			super(props);
 			autoBind(this);
 		}
+
 		componentDidMount() {
 			this.loadLeague();
 		}
+
 		loadLeague() {
 			const props = this.props;
 			const leagueId = (props.match.params && props.match.params.league_id) || null;
@@ -34,6 +36,7 @@ export default function(DecoratedComponent) {
 				this.props.getLeague(leagueId)
 			}
 		}
+
 		render() {
 			return (
 				<DecoratedComponent
