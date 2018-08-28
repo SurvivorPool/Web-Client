@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import { Redirect} from 'react-router-dom';
-import { Card, Checkbox, Container, Label } from 'semantic-ui-react';
+import { Card, Checkbox, Container, Label, Icon } from 'semantic-ui-react';
 
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
+import UserDecorator from "../../Common/Auth/Decorator/UserDecorator";
 
 const className = "LeagueCards";
 
@@ -60,11 +60,41 @@ class LeagueCards extends Component {
 						<Card.Description>
 							{league.league_description}
 						</Card.Description>
+						{LeagueCards.renderLeagueMeta(league)}
 					</Card.Content>
 					{LeagueCards.renderLeagueExtra(league, props)}
 				</Card>
 			);
 		}) : LeagueCards.renderNoLeagues();
+	}
+
+	static renderLeagueMeta(league) {
+		const isLeagueActive = !!league.is_active;
+
+		return (
+			<Card.Description className={`${className}__Meta`}>
+				<Label
+					color={isLeagueActive ? 'green' : 'red'}
+					size={'small'}
+				>
+					{isLeagueActive ? 'Open' : 'Closed'}
+				</Label>
+				<Label
+					color={'orange'}
+					size={'small'}
+				>
+					<Icon name={'ticket'} />
+					<Label.Detail>{`$${league.price}`}</Label.Detail>
+				</Label>
+				<Label
+					color={'blue'}
+					size={'small'}
+				>
+					<Icon name={'trophy'} />
+					<Label.Detail>{`$${league.pot}`}</Label.Detail>
+				</Label>
+			</Card.Description>
+		)
 	}
 
 	static renderCurrentLeagues(props, showAllLeagues, handleLeagueSelection) {

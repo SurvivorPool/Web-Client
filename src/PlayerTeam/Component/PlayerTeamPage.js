@@ -7,9 +7,10 @@ import { withToastManager } from "react-toast-notifications";
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
 import Game from "../../Games/Component/Game";
+import Footer from "../../Common/Footer/Footer";
 
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
+import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
+import UserDecorator from "../../Common/Auth/Decorator/UserDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 import PicksDecorator from "../../Picks/Decorator/PicksDecorator";
 import PlayerTeamDecorator from "../Decorator/PlayerTeamDecorator";
@@ -46,12 +47,13 @@ class PlayerTeamPage extends Component {
 	onPickSuccess(pick) {
 		const { toastManager } = this.props;
 		toastManager.add(`Picked the ${pick.nfl_team_name}!`, { appearance: 'success', autoDismiss: true });
-		this.props.getPlayerTeam(pick.team_id);
+		this.props.loadUser().then(() => this.props.getPlayerTeam(pick.team_id));
 	}
 
 	onPickFailure() {
 		const { toastManager } = this.props;
 		toastManager.add('Oh no, something terrible happened!', { appearance: 'error' });
+		this.props.loadUser();
 	}
 
 	handlePick(pick) {
@@ -155,16 +157,19 @@ class PlayerTeamPage extends Component {
 		const props = this.props;
 
 		return (
-			<div className={className}>
+			<React.Fragment>
 				{PlayerTeamPage.renderNavBar(props)}
-				<div className={`${className}__Content`}>
-					<Container>
-						{PlayerTeamPage.renderTitle(props)}
-						{PlayerTeamPage.renderPickSection(props)}
-						{this.renderGames(props)}
-					</Container>
+				<div className={className}>
+					<div className={`${className}__Content`}>
+						<Container>
+							{PlayerTeamPage.renderTitle(props)}
+							{PlayerTeamPage.renderPickSection(props)}
+							{this.renderGames(props)}
+						</Container>
+					</div>
+					<Footer />
 				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }

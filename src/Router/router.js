@@ -13,6 +13,7 @@ import Dashboard from '../Dashboard/Component/Dashboard';
 import AdminDashboard from "../Admin/Component/AdminDashboard";
 import LeaguePage from "../League/Component/LeaguePage";
 import PlayerTeamPage from "../PlayerTeam/Component/PlayerTeamPage";
+import SettingsPage from "../Profile/Component/SettingsPage";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
@@ -46,6 +47,7 @@ export default (
 			<AdminRoute path="/admin" component={AdminDashboard}/>
 			<ProtectedRoute path={"/league/:league_id/team/:team_id"} component={PlayerTeamPage} />
 			<ProtectedRoute path={"/league/:league_id"} component={LeaguePage} />
+			<ProtectedRoute path={"/settings"} component={SettingsPage}/>
 		</Switch>
 	</ConnectedRouter>
 );

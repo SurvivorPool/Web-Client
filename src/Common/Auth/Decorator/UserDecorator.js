@@ -6,6 +6,7 @@ import userSelector from '../Selector/userSelector';
 import authSelector from '../Selector/authSelector';
 
 import userGetAction from '../Action/userGetAction';
+import userSetNotificationAction from "../Action/userSetNotificationAction";
 
 export default function(DecoratedComponent) {
 	@connect(
@@ -15,6 +16,7 @@ export default function(DecoratedComponent) {
 		}),
 		dispatch => ({
 			getUser: (user) => dispatch(userGetAction(user)),
+			setNotification: (user) => dispatch(userSetNotificationAction(user)),
 		})
 	)
 	class UserDecorator extends Component {

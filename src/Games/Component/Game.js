@@ -25,10 +25,7 @@ class Game extends Component {
 
 	handleTeamClick(team) {
 		const { game, playerTeam, pickedGame } = this.props;
-		const canPick = !game.hasStarted
-			&& playerTeam.is_active
-			&& !pickedGame.hasStarted
-			&& pickedGame.playerPick !== team.nickName;
+		const canPick = Game.canBePicked(team, game, playerTeam, pickedGame);
 
 		if(canPick) {
 			const pick = {
@@ -42,6 +39,14 @@ class Game extends Component {
 				isPicking: true,
 			});
 		}
+	}
+
+	static canBePicked(team, game, playerTeam, pickedGame) {
+		return !game.hasStarted
+			&& playerTeam.is_active
+			&& !pickedGame.hasStarted
+			&& pickedGame.playerPick !== team.nickName
+			&& !playerTeam.pick_history.includes(team.nickName);
 	}
 
 	handlePickConfirmation(pick) {

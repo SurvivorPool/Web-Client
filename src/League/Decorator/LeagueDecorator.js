@@ -10,7 +10,6 @@ import getAllLeaguesAction from "../Action/getAllLeaguesAction";
 import leagueSelector from "../Selector/leagueSelector";
 import leaguesSelector from "../Selector/leaguesSelector";
 import playerLeaguesSelector from "../Selector/playerLeaguesSelector";
-import userSelector from "../../Common/Auth/Selector/userSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
@@ -18,7 +17,6 @@ export default function(DecoratedComponent) {
 			league: leagueSelector(state),
 			leagues: leaguesSelector(state),
 			playerLeagues: playerLeaguesSelector(state),
-			user: userSelector(state),
 		}),
 		dispatch => ({
 			getLeague: (leagueId) => dispatch(getLeagueAction(leagueId)),

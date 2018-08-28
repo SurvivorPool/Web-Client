@@ -9,7 +9,7 @@ import PrimaryButton from "../../Common/Button/PrimaryButton";
 
 import AdminDecorator from "../Decorator/AdminDecorator";
 import AdminActionsDecorator from "../Decorator/AdminActionsDecorator";
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
 
 const className = "AdminDashboard";
 

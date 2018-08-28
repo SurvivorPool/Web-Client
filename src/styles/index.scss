@@ -2,6 +2,7 @@
 #root, html {
     height: 100%;
     width: 100%;
+    background-color: #F7F7F8;
 }
 
 // Components
@@ -19,3 +20,5 @@
 @import "../PlayerTeam/Component/PlayerTeamPage";
 @import "../Games/Component/Game";
 @import "../League/Component/LeaguePlayers";
+@import "../Profile/Component/SettingsPage";
+@import "../Common/Footer/Footer";

@@ -8,9 +8,10 @@ import Profile from "../../Profile/Component/Profile";
 import PlayerTeam from "../../PlayerTeam/Component/PlayerTeam";
 import PlayerTeamAdd from "../../PlayerTeam/Component/PlayerTeamAdd";
 import LeaguePlayers from "./LeaguePlayers";
+import Footer from "../../Common/Footer/Footer";
 
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
+import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
+import UserDecorator from "../../Common/Auth/Decorator/UserDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 import LeaguePageDecorator from "../Decorator/LeaguePageDecorator";
 
@@ -54,6 +55,7 @@ class LeaguePage extends Component {
 				<h1 className={`${className}__Header`}>
 					{props.league.data.league_name}
 				</h1>
+				{LeaguePage.renderMeta(props)}
 			</div>
 		);
 	}
@@ -168,10 +170,39 @@ class LeaguePage extends Component {
 		return <div className={`${className}__Footer`}/>;
 	}
 
+	static renderMeta(props) {
+		const isLeagueActive = !!props.league.data.is_active;
+
+		return (
+			<div className={`${className}__Pricing`}>
+				<Label
+					color={isLeagueActive ? 'green' : 'red'}
+					size={'large'}
+				>
+					{isLeagueActive ? 'Open' : 'Closed'}
+				</Label>
+				<Label
+					color={'orange'}
+					size={'large'}
+				>
+					Entry
+					<Label.Detail>{`$${props.league.data.price}`}</Label.Detail>
+				</Label>
+				<Label
+					color={'blue'}
+					size={'large'}
+				>
+					Current Pot
+					<Label.Detail>{`$${props.league.data.pot}`}</Label.Detail>
+				</Label>
+			</div>
+		)
+	}
+
 	render() {
 		const props = this.props;
 		return (
-			<div className={className}>
+			<React.Fragment>
 				<Navbar>
 					<Link
 						to={'/dashboard'}
@@ -183,12 +214,15 @@ class LeaguePage extends Component {
 						currentPage={'/league'}
 					/>
 				</Navbar>
-				<div className={`${className}__Content`}>
-					<Container>
-						{LeaguePage.renderLeague(props, this.state, this.handlePlayerSearch)}
-					</Container>
+				<div className={className}>
+					<div className={`${className}__Content`}>
+						<Container>
+							{LeaguePage.renderLeague(props, this.state, this.handlePlayerSearch)}
+						</Container>
+					</div>
+					<Footer />
 				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }

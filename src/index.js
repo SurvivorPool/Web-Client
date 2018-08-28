@@ -8,7 +8,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 import './styles/index.css';
-import registerServiceWorker from './registerServiceWorker';
 import store from './configureStore';
 import { setToken } from "./Common/Util/Requests";
 
@@ -54,5 +53,4 @@ Raven.context(() => {
 				{router}
 			</Provider>
 		</ToastProvider>, document.getElementById('root'));
-    registerServiceWorker();
 });

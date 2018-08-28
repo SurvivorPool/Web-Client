@@ -7,18 +7,19 @@ import Navbar from "../../Navbar/Component/Navbar";
 import LoginModal from './LoginModal';
 import PrimaryButton from "../../Common/Button/PrimaryButton";
 import Profile from "../../Profile/Component/Profile";
+import Footer from "../../Common/Footer/Footer";
 
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
 import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
 import ToastsDecorator from "../../Common/Toasts/Decorator/ToastsDecorator";
 
 import logo from 'Images/logo.png';
 import { CupIcon, HelmetIcon, StrategyIcon } from "Icons/Icons.js";
+import MobileLanding from 'Images/mobileLanding.png';
 
 const className = "LandingPage";
 const heroClassName = `${className}__Hero`;
 const sectionClassName = `${className}__Section`;
-const footerClassName = `${className}__Footer`;
 const cardClassName = `${sectionClassName}__Card`;
 
 @ToastsDecorator
@@ -56,7 +57,10 @@ class LandingPage extends Component {
 
 	static renderPlayCards() {
 		return (
-			<Card.Group centered>
+			<Card.Group
+				centered
+				className={`${className}__Cards`}
+			>
 				<Card className={cardClassName}>
 					<Card.Content>
 						<Card.Header className={`${cardClassName}__Header`}>
@@ -123,10 +127,16 @@ class LandingPage extends Component {
 		return (
 			<section className={sectionClassName}>
 				<Element name={"Overview"}/>
-				<span className={`${sectionClassName}__Title`}>
-						{"How to Play"}
-					</span>
+				<div className={`${sectionClassName}__Title`}>
+					{"How to Play"}
+				</div>
 				<div className={`${sectionClassName}__Content`}>
+					<div className={`${className}__Images`}>
+						<Image
+							size={'large'}
+							src={MobileLanding}
+						/>
+					</div>
 					{LandingPage.renderPlayCards()}
 				</div>
 			</section>
@@ -135,12 +145,9 @@ class LandingPage extends Component {
 
 	static renderFooter() {
 		return (
-			<footer className={footerClassName} id={"Footer"}>
-				<div className={`${footerClassName}__Content`}>
-					<p>Survivor Pool is not affiliated with The National Football League (NFL).</p>
-					<p>The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
-				</div>
-			</footer>
+			<Footer
+				shouldHideDivider={true}
+			/>
 		);
 	}
 
@@ -162,6 +169,7 @@ class LandingPage extends Component {
 			<div className={className}>
 				<Navbar
 					isVisible={!this.state.isLoggingIn}
+					isSimple
 				>
 					<Link
 						to={"Overview"}

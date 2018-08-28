@@ -4,32 +4,17 @@ import autoBind from 'react-autobind';
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
 import LeagueCards from "../../League/Component/LeagueCards";
+import Footer from "../../Common/Footer/Footer";
 
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
-import LoaderDecorator from "../../Common/Loader/Component/LoaderDecorator";
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
-import LeagueDecorator from "../../League/Decorator/LeagueDecorator";
+import DashboardDecorator from "../Decorator/DashboardDecorator";
 
 const className = "Dashboard";
 
-@AuthDecorator
-@UserDecorator
-@LeagueDecorator
-@LoaderDecorator
+@DashboardDecorator
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		autoBind(this);
-	}
-
-	componentDidMount() {
-		if(!this.props.user.data) {
-			this.props.getUser({user_id: this.props.auth.data.uid});
-		} else if (!this.props.leagues.data) {
-			this.props.getAllLeagues();
-		} else if (!this.props.playerLeagues.data) {
-			this.props.getLeagueByUser(this.props.user.data);
-		}
 	}
 
 	static renderLeagueCards(props) {
@@ -45,16 +30,19 @@ class Dashboard extends Component {
 
 	render() {
 		return (
-			<div className={className}>
-				<Navbar>
-					<Profile
-						currentPage={'/dashboard'}
-					/>
-				</Navbar>
-				<div className={`${className}__Content`}>
-					{Dashboard.renderLeagueCards(this.props)}
+			<React.Fragment>
+				<div className={className}>
+					<Navbar>
+						<Profile
+							currentPage={'/dashboard'}
+						/>
+					</Navbar>
+					<div className={`${className}__Content`}>
+						{Dashboard.renderLeagueCards(this.props)}
+					</div>
 				</div>
-			</div>
+				<Footer />
+			</React.Fragment>
 		);
 	}
 }

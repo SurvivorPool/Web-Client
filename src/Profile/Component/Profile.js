@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import { Image, Dropdown, Icon } from 'semantic-ui-react';
 
-import UserDecorator from "../../Common/Auth/Component/UserDecorator";
-import AuthDecorator from "../../Common/Auth/Component/AuthDecorator";
+import UserDecorator from "../../Common/Auth/Decorator/UserDecorator";
+import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
 
 const className = "Profile";
 
@@ -13,6 +13,7 @@ const links = {
 	dashboard: '/dashboard',
 	admin: '/admin',
 	league: '/league',
+	settings: '/settings',
 };
 
 @AuthDecorator
@@ -36,8 +37,8 @@ class Profile extends Component {
 
 	static renderUserImage(props) {
 		return props.auth.data && props.auth.data.pictureURL ?
-			<Image src={props.auth.data.pictureURL} avatar /> :
-			<Icon name={'user'} />;
+			<Image src={props.auth.data.pictureURL} avatar/> :
+			<Icon name={'user'}/>;
 	}
 
 	static renderDisplayName(props) {
@@ -65,7 +66,15 @@ class Profile extends Component {
 			<Dropdown.Item onClick={() => this.goToRedirect('/dashboard')}>
 				{"Dashboard"}
 			</Dropdown.Item>
- 		) : null;
+		) : null;
+	}
+
+	renderUserSettings(props) {
+		return canShowSettings(props) ? (
+			<Dropdown.Item onClick={() => this.goToRedirect('/settings')}>
+				{"Settings"}
+			</Dropdown.Item>
+		) : null;
 	}
 
 	render() {
@@ -88,6 +97,7 @@ class Profile extends Component {
 					<Dropdown.Menu>
 						{this.renderDashboardLink(props)}
 						{this.renderAdminLink(props)}
+						{this.renderUserSettings(props)}
 						{Profile.renderLogout(props)}
 					</Dropdown.Menu>
 				</Dropdown>
@@ -108,4 +118,8 @@ function canShowDashboard(props) {
 
 function canShowAdmin(props) {
 	return props.currentPage !== links.admin && props.user.data && props.user.data.is_admin;
+}
+
+function canShowSettings(props) {
+	return props.currentPage !== links.settings;
 }
