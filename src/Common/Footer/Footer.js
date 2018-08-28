@@ -67,6 +67,10 @@ class Footer extends Component {
 		return !props.shouldHideDivider ? <Divider/> : null;
 	}
 
+	static renderRulesLink(props, onClick) {
+		return props.shouldShowRules ? <a onClick={onClick}>Rules</a> : null;
+	}
+
 	render() {
 		return (
 			<footer className={className}>
@@ -76,7 +80,7 @@ class Footer extends Component {
 					<div className={`${className}__Container`}>
 						<div className={`${className}__Links`}>
 							<a href={"mailto:admin@survivorpool.win"}>Contact us</a>
-							<a onClick={this.openRulesModal}>Rules</a>
+							{Footer.renderRulesLink(this.props, this.openRulesModal)}
 						</div>
 						<p className={`${className}__Text`}>Survivor Pool is not affiliated with The National Football League (NFL). The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
 						<a
@@ -95,10 +99,12 @@ class Footer extends Component {
 
 Footer.defaultProps = {
 	shouldHideDivider: false,
+	shouldShowRules: true,
 };
 
 Footer.propTypes = {
 	shouldHideDivider: PropTypes.bool,
+	shouldShowRules: PropTypes.bool,
 };
 
 export default Footer;

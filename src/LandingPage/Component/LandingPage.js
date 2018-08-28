@@ -147,6 +147,7 @@ class LandingPage extends Component {
 		return (
 			<Footer
 				shouldHideDivider={true}
+				shouldShowRules={false}
 			/>
 		);
 	}

@@ -53,5 +53,42 @@
     &__Pick {
         color: $lavender;
         padding: 10px 0;
+
+        &__Container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        &__Logo {
+            height: 50px;
+            width: 70px;
+
+            @include mobile {
+                display: none !important;
+            }
+        }
+
+        &__Card {
+            max-width: 200px !important;
+
+            @include mobile {
+                max-width: 150px !important;
+            }
+        }
+
+        &__History {
+            margin: 15px 0;
+
+            @include mobile {
+                max-height: 200px !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+            }
+        }
+
+        &__Toggle {
+            margin-top: 30px;
+        }
     }
 }

@@ -15,7 +15,7 @@ export function getTeamConfig(game, side) {
 	}
 }
 
-function getLogoPath(team) {
+export function getLogoPath(team) {
 	return `${process.env.PUBLIC_URL}/images/${team}.gif`;
 }
 
