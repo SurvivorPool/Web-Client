@@ -4,8 +4,10 @@ import { withToastManager } from "react-toast-notifications";
 
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
-import LeagueAdmin from "./League/LeagueAdmin";
 import PrimaryButton from "../../Common/Button/PrimaryButton";
+
+import LeagueAdmin from "./League/LeagueAdmin";
+import PlayerTeamAdmin from "./PlayerTeam/PlayerTeamAdmin";
 
 import AdminDecorator from "../Decorator/AdminDecorator";
 import AdminActionsDecorator from "../Decorator/AdminActionsDecorator";
@@ -83,6 +85,7 @@ class AdminDashboard extends Component {
 				</Navbar>
 				<div className={`${className}__Content`}>
 					<LeagueAdmin/>
+					<PlayerTeamAdmin />
 				</div>
 			</div>
 		);

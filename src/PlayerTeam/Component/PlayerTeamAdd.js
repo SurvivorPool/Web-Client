@@ -91,6 +91,7 @@ class PlayerTeamAdd extends Component {
 					name={'teamName'}
 					value={this.state.teamName}
 					onChange={this.handleChange}
+					maxLength={"30"}
 				/>
 				<div className='ui two buttons'>
 					<PrimaryButton>

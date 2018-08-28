@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import {Card, Form, Icon, Image} from 'semantic-ui-react';
+import {Card, Form, Icon, Image, Label} from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 
@@ -120,14 +120,28 @@ class PlayerTeam extends Component {
 				className={`${className}__Extra`}
 				extra
 			>
-				<Icon
-					name={'dollar'}
+				<Label
 					color={hasPaidColor}
-				/>
-				<Icon
-					name={isActiveIcon}
+					size={'tiny'}
+				>
+					<Icon
+						name={'dollar'}
+					/>
+					<Label.Detail>
+						{team.has_paid ? "Paid" : "Due"}
+					</Label.Detail>
+				</Label>
+				<Label
 					color={isActiveColor}
-				/>
+					size={'tiny'}
+				>
+					<Icon
+						name={isActiveIcon}
+					/>
+					<Label.Detail>
+						{team.is_active ? "Active" : "Sunk"}
+					</Label.Detail>
+				</Label>
 				<Link
 					className={`${className}__Link`}
 					to={`/league/${leagueId}/team/${team.team_id}`}
@@ -186,6 +200,7 @@ class PlayerTeam extends Component {
 						name={'teamName'}
 						value={this.state.teamName}
 						onChange={this.handleChange}
+						maxLength={"30"}
 					/>
 					<div className='ui two buttons'>
 						<PrimaryButton>
@@ -251,7 +266,11 @@ class PlayerTeam extends Component {
 						size='mini'
 						src={team.user_info.picture_url}
 					/>
-					<Card.Header>{team.team_name}</Card.Header>
+					<div
+						className={`${className}__Header`}
+					>
+						{team.team_name}
+					</div>
 					{this.renderTeamActions(team)}
 					{PlayerTeam.renderTeamPick(team, user)}
 				</Card.Content>

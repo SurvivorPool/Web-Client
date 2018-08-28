@@ -10,6 +10,15 @@
         justify-content: space-between;
     }
 
+    &__Header {
+        display: flex;
+        justify-content: flex-start;
+        overflow-wrap: break-word;
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+    }
+
     &__Form {
         width: 100%;
     }

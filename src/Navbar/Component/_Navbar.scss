@@ -45,6 +45,13 @@
             padding: 0;
             box-shadow: none;
             border-radius: 0;
+
+            @include mobile {
+                width: 100%;
+                margin: 0;
+                background-color: $silver;
+                border-bottom: 1px solid $gray;
+            }
         }
     }
 
