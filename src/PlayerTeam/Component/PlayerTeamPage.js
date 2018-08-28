@@ -196,7 +196,8 @@ class PlayerTeamPage extends Component {
 			</div>
 		) : (
 			<div className={pickClassName}>
-				{"No current pick. Choose a team below!"}
+				<h2>{"No current pick."}</h2>
+				<h4>{"Choose a team below!"}</h4>
 			</div>
 		);
 	}
