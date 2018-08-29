@@ -85,7 +85,10 @@ class AdminDashboard extends Component {
 				</Navbar>
 				<div className={`${className}__Content`}>
 					<LeagueAdmin/>
-					<PlayerTeamAdmin />
+					<PlayerTeamAdmin
+						adminDeletePlayerTeam={this.props.deletePlayerTeam}
+						adminUpdatePlayerTeam={this.props.updatePlayerTeam}
+					/>
 				</div>
 			</div>
 		);

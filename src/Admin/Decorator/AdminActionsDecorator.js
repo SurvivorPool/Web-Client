@@ -5,14 +5,18 @@ import populateGamesAction from "../Action/populateGamesAction";
 import populateTeamsAction from "../Action/populateTeamsAction";
 import populateStadiumsAction from "../Action/populateStadiumsAction";
 
+import adminUpdatePlayerTeamAction from "../../PlayerTeam/Action/adminUpdatePlayerTeamAction";
+import adminDeletePlayerTeamAction from "../../PlayerTeam/Action/adminDeletePlayerTeamAction";
+
 export default function(DecoratedComponent) {
 	@connect(
-		state => ({
-		}),
+		null,
 		dispatch => ({
 			populateGames: () => dispatch(populateGamesAction()),
 			populateTeams: () => dispatch(populateTeamsAction()),
 			populateStadiums: () => dispatch(populateStadiumsAction()),
+			updatePlayerTeam: team => dispatch(adminUpdatePlayerTeamAction(team)),
+			deletePlayerTeam: team => dispatch(adminDeletePlayerTeamAction(team)),
 		}),
 	)
 	class AdminActionsDecorator extends Component {

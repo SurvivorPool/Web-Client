@@ -18,11 +18,6 @@ const actions = [
 		value: 'update',
 		text: 'Update',
 	},
-	{
-		key: 'delete',
-		value: 'delete',
-		text: 'Delete'
-	},
 ];
 
 @withToastManager
@@ -32,7 +27,6 @@ class LeagueAdmin extends Component {
 		super(props);
 		autoBind(this);
 		this.state = {
-			// either separate into different components or create a model
 			action: '',
 			leagueId: null,
 			leagueLoading: false,
@@ -80,10 +74,6 @@ class LeagueAdmin extends Component {
 			case 'update':
 				submit = this.props.updateLeague;
 				league.league_id = this.state.leagueId;
-				break;
-			case 'delete':
-				//submit = this.props.deleteLeague;
-				//league.league_id = this.state.leagueId;
 				break;
 			default:
 				console.log('How did you get here?', this.state.action);

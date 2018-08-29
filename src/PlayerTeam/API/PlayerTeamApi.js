@@ -18,4 +18,13 @@ export default class PlayerTeamApi {
 		return Requests.delete(`/player_team`, team);
 	}
 
+	/* Admin */
+	static adminUpdate(team) {
+		return Requests.put('/admin/player_team', team);
+	}
+
+	static adminDelete(team) {
+		return Requests.delete('/admin/player_team', team);
+	}
+
 }
