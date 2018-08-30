@@ -27,4 +27,8 @@ export default class PlayerTeamApi {
 		return Requests.delete('/admin/player_team', team);
 	}
 
+	static adminGetAll() {
+		return Requests.get('/admin/player_teams');
+	}
+
 }

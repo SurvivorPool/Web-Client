@@ -6,18 +6,29 @@ import getPlayerTeamAction from "../Action/getPlayerTeamAction";
 import updatePlayerTeamAction from "../Action/updatePlayerTeamAction";
 import deletePlayerTeamAction from "../Action/deletePlayerTeamAction";
 
+/* Admin */
+import adminGetAllPlayerTeamAction from "../Action/adminGetAllPlayerTeamAction";
+import adminUpdatePlayerTeamAction from "../Action/adminUpdatePlayerTeamAction";
+import adminDeletePlayerTeamAction from "../Action/adminDeletePlayerTeamAction";
+
+
 import playerTeamSelector from "../Selector/playerTeamSelector";
+import playerTeamsSelector from "../Selector/playerTeamsSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
 		state => ({
 			playerTeam: playerTeamSelector(state),
+			playerTeams: playerTeamsSelector(state),
 		}),
 		dispatch => ({
-			getPlayerTeam: (teamId) => dispatch(getPlayerTeamAction(teamId)),
-			createPlayerTeam: (team) => dispatch(createPlayerTeamAction(team)),
-			updatePlayerTeam: (team) => dispatch(updatePlayerTeamAction(team)),
-			deletePlayerTeam: (team) => dispatch(deletePlayerTeamAction(team)),
+			getPlayerTeam: teamId => dispatch(getPlayerTeamAction(teamId)),
+			createPlayerTeam: team => dispatch(createPlayerTeamAction(team)),
+			updatePlayerTeam: team => dispatch(updatePlayerTeamAction(team)),
+			deletePlayerTeam: team => dispatch(deletePlayerTeamAction(team)),
+			adminGetAllPlayerTeams: () => dispatch(adminGetAllPlayerTeamAction()),
+			adminUpdatePlayerTeam: team => dispatch(adminUpdatePlayerTeamAction(team)),
+			adminDeletePlayerTeam: team => dispatch(adminDeletePlayerTeamAction(team)),
 		})
 	)
 	class PlayerTeamDecorator extends Component {

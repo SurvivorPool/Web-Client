@@ -33,14 +33,16 @@ class PlayerTeamAdmin extends Component {
 			playerTeamId: null,
 			isActive: false,
 			hasPaid: false,
+			playerName: '',
+			playerTeamName: '',
 			playerTeamLoading: false,
 		}
 	}
 
 	componentDidMount() {
-		/*if(!this.props.allPlayerTeams.data) {
-			this.props.getAllPlayerTeams();
-		}*/
+		if(!this.props.playerTeams.data) {
+			this.props.adminGetAllPlayerTeams();
+		}
 	}
 
 	handleActiveChange() {
@@ -66,19 +68,27 @@ class PlayerTeamAdmin extends Component {
 			isActive: false,
 			hasPaid: false,
 			playerTeamName: '',
+			playerName: '',
 		});
 	}
 
 	onSubmitSuccess() {
 		const props = this.props;
 		props.toastManager.add(`Success`, { appearance: 'success', autoDismiss: true });
-		//props.getAllPlayerTeams();
+		props.adminGetAllPlayerTeams();
+		this.setState({
+			playerTeamLoading: false,
+		});
 	}
 
 	onSubmitFailure(error) {
+		const props = this.props;
 		const message = `${error.status} : ${error.message}`;
-		this.props.toastManager.add(message, { appearance: 'error', autoDismiss: true});
-		//props.getAllPlayerTeams();
+		props.toastManager.add(message, { appearance: 'error', autoDismiss: true});
+		props.adminGetAllPlayerTeams();
+		this.setState({
+			playerTeamLoading: false,
+		});
 	}
 
 	handleSubmit() {
@@ -90,7 +100,7 @@ class PlayerTeamAdmin extends Component {
 		const team = {
 			team_id: this.state.playerTeamId,
 			has_paid: this.state.hasPaid,
-			isActive: this.state.isActive,
+			is_active: this.state.isActive,
 		};
 
 		switch(this.state.action) {
@@ -109,12 +119,35 @@ class PlayerTeamAdmin extends Component {
 	}
 
 	handlePlayerTeamSelection(e, { value }) {
-		/*const playerTeamInfo = this.props.allPlayerTeams.data.leagues.find(league => league.league_id === value);
+		const playerTeamInfo = this.props.playerTeams.data.teams.find(team => team.team_id === value);
 		this.setState({
-			playerTeamId: playerTeamInfo.league_id,
-			isActive: playerTeamInfo.league_name,
-			hasPaid: playerTeamInfo.league_description,
-		});*/
+			playerTeamId: playerTeamInfo.team_id,
+			isActive: playerTeamInfo.is_active,
+			hasPaid: playerTeamInfo.has_paid,
+			playerTeamName: playerTeamInfo.team_name,
+			playerName: playerTeamInfo.user_info.full_name,
+		});
+	}
+
+	handlePlayerTeamSearch(teams, term){
+		const lowerTerm = term.toLowerCase();
+		return teams.filter(team => {
+			return team.text.toLowerCase().includes(lowerTerm)
+				|| team.email.toLowerCase().includes(lowerTerm)
+				|| team.player.toLowerCase().includes(lowerTerm);
+		});
+	}
+
+	static formatTeams(teams) {
+		return teams.length ? teams.map(team => {
+			return {
+				key: team.team_id,
+				value: team.team_id,
+				text: team.team_name,
+				email: team.user_info.email,
+				player: team.user_info.full_name,
+			};
+		}) : [];
 	}
 
 
@@ -131,15 +164,14 @@ class PlayerTeamAdmin extends Component {
 	}
 
 	renderPlayerTeamsDropdown() {
-		//const playerTeams = (this.props.allPlayerTeams.data && this.props.allPlayerTeams.data.teams) || [];
+		const playerTeams = (this.props.playerTeams.data && this.props.playerTeams.data.teams) || [];
 		return (
 			<Form.Dropdown
 				deburr
 				fluid
-				options={[]}
-				//options={LeagueAdmin.formatLeagues(leagues)}
-				placeholder='Select a PlayerTeam'
-				search
+				options={PlayerTeamAdmin.formatTeams(playerTeams)}
+				placeholder='Search PlayerTeams..'
+				search={this.handlePlayerTeamSearch}
 				selection
 				onChange={this.handlePlayerTeamSelection}
 			/>
@@ -163,7 +195,15 @@ class PlayerTeamAdmin extends Component {
 							fluid
 							disabled
 							label='Team Name'
+							name={'teamName'}
 							value={this.state.playerTeamName}
+						/>
+						<Form.Input
+							fluid
+							disabled
+							label='Player Name'
+							name={'playerName'}
+							value={this.state.playerName}
 						/>
 					</Form.Field>
 					<Form.Group widths={'equal'}>
