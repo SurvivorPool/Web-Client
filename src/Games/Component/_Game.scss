@@ -2,6 +2,14 @@
 
 .Game {
 
+    &__Pickable {
+        cursor: pointer;
+    }
+
+    &__Disabled {
+        cursor: not-allowed;
+    }
+
     &__Started {
         z-index: 6;
         opacity: 0.5;

@@ -205,6 +205,7 @@ class PlayerTeamPage extends Component {
 	renderGames(props) {
 		const games = (props.games.data && props.games.data.games) || [];
 		const playerTeam = (props.playerTeam.data || {});
+		const pickHistory = playerTeam && playerTeam.pick_history && playerTeam.pick_history.map(pick => pick.nfl_team_name);
 
 		return games.length ? (
 			<Segment
@@ -222,6 +223,7 @@ class PlayerTeamPage extends Component {
 						game={game}
 						playerTeam={playerTeam}
 						pickedGame={props.pickedGame}
+						pickHistory={pickHistory}
 						handlePick={this.handlePick}
 					/>
 				)}

@@ -14,4 +14,8 @@ export default class AdminApi {
 		return Requests.put('/admin/stadiums');
 	}
 
+	static advanceWeek() {
+		return Requests.put('/admin/advance_week');
+	}
+
 }

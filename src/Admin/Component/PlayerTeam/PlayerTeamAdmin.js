@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import {Container, Card, Dropdown, Checkbox, Form } from 'semantic-ui-react'
+import { Card, Dropdown, Checkbox, Form } from 'semantic-ui-react'
 import { withToastManager } from "react-toast-notifications";
 
 import PlayerTeamDecorator from "../../../PlayerTeam/Decorator/PlayerTeamDecorator";
@@ -212,9 +212,9 @@ class PlayerTeamAdmin extends Component {
 
 	render() {
 		return (
-			<Container className={`${className}__Section`}>
+			<div className={`${className}__Section`}>
 				{this.renderPlayerTeamCard()}
-			</Container>
+			</div>
 		);
 	}
 }

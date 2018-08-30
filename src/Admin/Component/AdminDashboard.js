@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { Checkbox, Card, Container } from "semantic-ui-react";
 import { withToastManager } from "react-toast-notifications";
 
 import Navbar from "../../Navbar/Component/Navbar";
@@ -24,7 +25,17 @@ class AdminDashboard extends Component {
 		super(props);
 		autoBind(this);
 		this.state = {
+			showButtons: false,
 		}
+	}
+
+
+	handleButtonToggle() {
+		this.setState(prevState => {
+			return {
+				showButtons: !prevState.showButtons,
+			}
+		});
 	}
 
 	populateGames() {
@@ -34,11 +45,15 @@ class AdminDashboard extends Component {
 	}
 
 	populateTeams() {
-		this.props.populateTeams()
-			.then(this.onPopulateSucess)
+		Promise.all([
+			this.props.populateTeams(),
+			this.props.populateStadiums(),
+		]).then(this.onPopulateSucess)
 			.catch(this.onPopulateFailure);
+	}
 
-		this.props.populateStadiums()
+	advanceWeek() {
+		this.props.advanceWeek()
 			.then(this.onPopulateSucess)
 			.catch(this.onPopulateFailure);
 	}
@@ -73,22 +88,64 @@ class AdminDashboard extends Component {
 		);
 	}
 
+	renderAdvanceWeekButton() {
+		return (
+			<PrimaryButton
+				onClick={this.advanceWeek}
+			>
+				{"Advance Week"}
+			</PrimaryButton>
+		);
+	}
+
+	renderAdminButtons(showButtons) {
+		return showButtons ? (
+			<Card
+				fluid
+				color={'yellow'}
+			>
+				<Card.Content header={"Admin Actions"}/>
+				<Card.Content>
+					{this.renderPopulateTeamsButton()}
+					{this.renderPopulateGamesButton()}
+					{this.renderAdvanceWeekButton()}
+				</Card.Content>
+			</Card>
+		) : null;
+	}
+
+	renderButtonToggle(showButtons) {
+		const label = showButtons ? "Show Buttons" : "Hide Buttons";
+		return (
+			<Checkbox
+				className={`${className}__Toggle`}
+				slider
+				onChange={this.handleButtonToggle}
+				checked={showButtons}
+				label={label}
+			/>
+		);
+	}
+
 	render() {
+		const { showButtons } = this.state;
 		return (
 			<div className={className}>
 				<Navbar>
-					{this.renderPopulateTeamsButton()}
-					{this.renderPopulateGamesButton()}
+					{this.renderButtonToggle(showButtons)}
 					<Profile
 						currentPage={'/admin'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>
-					<LeagueAdmin/>
-					<PlayerTeamAdmin
-						adminDeletePlayerTeam={this.props.deletePlayerTeam}
-						adminUpdatePlayerTeam={this.props.updatePlayerTeam}
-					/>
+					<Container>
+					{this.renderAdminButtons(showButtons)}
+						<LeagueAdmin/>
+						<PlayerTeamAdmin
+							adminDeletePlayerTeam={this.props.deletePlayerTeam}
+							adminUpdatePlayerTeam={this.props.updatePlayerTeam}
+						/>
+					</Container>
 				</div>
 			</div>
 		);

@@ -94,7 +94,7 @@ class LeaguePage extends Component {
 
 	static renderPlayerTeams(props) {
 		if(!props.playerTeamFromLeague.length) {
-			LeaguePage.renderNoTeams(props);
+			return LeaguePage.renderNoTeams(props);
 		}
 
 		return (
@@ -137,7 +137,7 @@ class LeaguePage extends Component {
 	}
 
 	static renderNoTeams(props) {
-		return (
+		return props.canCreateTeam ? (
 			<Segment raised>
 				<Label
 					color='olive'
@@ -152,18 +152,18 @@ class LeaguePage extends Component {
 					</Card.Group>
 				</div>
 			</Segment>
-		);
+		) : null;
 	}
 
 	static renderAddTeam(props) {
-		return (
+		return props.canCreateTeam ? (
 			<PlayerTeamAdd
 				userId={props.user.data.user_id}
 				leagueId={props.league.data.league_id}
 				loadLeague={props.loadLeague}
 				loadUser={props.loadUser}
 			/>
-		);
+		) : null;
 	}
 
 	static renderFooter() {
@@ -172,6 +172,8 @@ class LeaguePage extends Component {
 
 	static renderMeta(props) {
 		const isLeagueActive = !!props.league.data.is_active;
+		const isFree = props.league.data.league_type === 'FREE';
+		const price = isFree ? 'Free' : `$${props.league.data.price}`;
 
 		return (
 			<div className={`${className}__Pricing`}>
@@ -186,21 +188,24 @@ class LeaguePage extends Component {
 					size={'large'}
 				>
 					Entry
-					<Label.Detail>{`$${props.league.data.price}`}</Label.Detail>
+					<Label.Detail>{price}</Label.Detail>
 				</Label>
-				<Label
-					color={'blue'}
-					size={'large'}
-				>
-					Current Pot
-					<Label.Detail>{`$${props.league.data.pot}`}</Label.Detail>
-				</Label>
+				{!isFree ? (
+					<Label
+						color={'blue'}
+						size={'large'}
+					>
+						Current Pot
+						<Label.Detail>{`$${props.league.data.pot}`}</Label.Detail>
+					</Label>
+				) : null }
 			</div>
 		)
 	}
 
 	render() {
 		const props = this.props;
+
 		return (
 			<React.Fragment>
 				<Navbar>

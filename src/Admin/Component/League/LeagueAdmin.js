@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Container, Card,  Form, Label, Dropdown } from 'semantic-ui-react'
+import { Card,  Form, Label, Dropdown } from 'semantic-ui-react'
 import { withToastManager } from "react-toast-notifications";
 
 import LeagueDecorator from "../../../League/Decorator/LeagueDecorator";
@@ -264,9 +264,9 @@ class LeagueAdmin extends Component {
 
 	render() {
 		return (
-			<Container className={`${className}__Section`}>
+			<div className={`${className}__Section`}>
 				{this.renderLeagueCard()}
-			</Container>
+			</div>
 		);
 	}
 }

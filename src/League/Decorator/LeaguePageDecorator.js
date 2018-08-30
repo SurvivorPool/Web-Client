@@ -7,6 +7,7 @@ import getLeagueAction from "../Action/getLeagueAction";
 import leagueSelector from "../Selector/leagueSelector";
 import playerTeamFromLeagueSelector from "../../PlayerTeam/Selector/playerTeamFromLeagueSelector";
 import leaguePlayersSelector from "../Selector/leaguePlayersSelector";
+import canCreateTeamSelector from "../Selector/canCreateTeamSelector";
 
 export default function(DecoratedComponent) {
 	@connect(
@@ -14,6 +15,7 @@ export default function(DecoratedComponent) {
 			league: leagueSelector(state),
 			playerTeamFromLeague: playerTeamFromLeagueSelector(state),
 			leaguePlayers: leaguePlayersSelector(state),
+			canCreateTeam: canCreateTeamSelector(state),
 		}),
 		dispatch => ({
 			getLeague: (leagueId) => dispatch(getLeagueAction(leagueId)),

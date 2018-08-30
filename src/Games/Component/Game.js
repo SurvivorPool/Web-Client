@@ -24,8 +24,8 @@ class Game extends Component {
 	}
 
 	handleTeamClick(team) {
-		const { game, playerTeam, pickedGame } = this.props;
-		const canPick = Game.canBePicked(team, game, playerTeam, pickedGame);
+		const { game, playerTeam, pickedGame, pickHistory } = this.props;
+		const canPick = Game.canBePicked(team, game, playerTeam, pickedGame, pickHistory);
 
 		if(canPick) {
 			const pick = {
@@ -41,12 +41,12 @@ class Game extends Component {
 		}
 	}
 
-	static canBePicked(team, game, playerTeam, pickedGame) {
+	static canBePicked(team, game, playerTeam, pickedGame, pickHistory) {
 		return !game.hasStarted
 			&& playerTeam.is_active
 			&& !pickedGame.hasStarted
 			&& pickedGame.playerPick !== team.nickName
-			&& !playerTeam.pick_history.includes(team.nickName);
+			&& !pickHistory.includes(team.nickName);
 	}
 
 	handlePickConfirmation(pick) {
@@ -67,16 +67,19 @@ class Game extends Component {
 
 	static renderSide(side, state, props, handlers) {
 		const { isPicking, pick } = state;
-		const { pickedGame, game } = props;
+		const { pickedGame, game, pickHistory, playerTeam } = props;
+
 		const sideClassName = side === 'away' ? awayClassName : homeClassName;
 		const team = game[side];
 		const isPickingTeam = isPicking && pick.nfl_team_name === team.nickName;
 		const hasPickedGame = pickedGame && pickedGame.game_id === game.game_id;
 		const sidePicked = hasPickedGame ? pickedGame.playerPick === team.nickName : false;
+		const teamHasBeenPicked = pickHistory.includes(team.nickName);
+		const canPick = Game.canBePicked(team, game, playerTeam, pickedGame, pickHistory);
 
 		return !isPickingTeam ? (
 			<div
-				className={sideClassName}
+				className={`${sideClassName} ${canPick ? `${className}__Pickable` : `${className}__Disabled` }`}
 				style={{ 'backgroundColor': `#${team.color}`}}
 				onClick={() => handlers.handleTeamClick(team)}
 			>
@@ -93,6 +96,7 @@ class Game extends Component {
 						/>
 					</div>
 					{Game.renderCurrentPick(sidePicked, side)}
+					{Game.renderPastPick(teamHasBeenPicked, side)}
 					<div className={`${className}__Info__Buttons`} />
 				</div>
 			</div>
@@ -105,6 +109,17 @@ class Game extends Component {
 				className={`${className}__Score`}
 			>
 				{`${game.away.score} - ${game.home.score}`}
+			</div>
+		) : null;
+	}
+
+	static renderPastPick(teamHasBeenPicked, side) {
+		const floatClassName = side === 'away' ? `${pickedClassName}__Away` : `${pickedClassName}__Home`;
+		return teamHasBeenPicked ? (
+			<div
+				className={`${pickedClassName} ${floatClassName}`}
+			>
+				{"PREVIOUS PICK"}
 			</div>
 		) : null;
 	}
@@ -235,6 +250,7 @@ class Game extends Component {
 
 Game.defaultProps = {
 	pickedGame: {},
+	pickHistory: [],
 };
 
 Game.propTypes = {
@@ -242,6 +258,7 @@ Game.propTypes = {
 	playerTeam: PropTypes.object.isRequired,
 	handlePick: PropTypes.func.isRequired,
 	pickedGame: PropTypes.object,
+	pickHistory: PropTypes.array,
 };
 
 export default Game;

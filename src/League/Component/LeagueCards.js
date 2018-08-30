@@ -70,6 +70,8 @@ class LeagueCards extends Component {
 
 	static renderLeagueMeta(league) {
 		const isLeagueActive = !!league.is_active;
+		const isFree = league.league_type === 'FREE';
+		const price = isFree ? 'Free' : `$${league.price}`;
 
 		return (
 			<Card.Description className={`${className}__Meta`}>
@@ -84,15 +86,17 @@ class LeagueCards extends Component {
 					size={'small'}
 				>
 					<Icon name={'ticket'} />
-					<Label.Detail>{`$${league.price}`}</Label.Detail>
+					<Label.Detail>{price}</Label.Detail>
 				</Label>
-				<Label
-					color={'blue'}
-					size={'small'}
-				>
-					<Icon name={'trophy'} />
-					<Label.Detail>{`$${league.pot}`}</Label.Detail>
-				</Label>
+				{!isFree ? (
+					<Label
+						color={'blue'}
+						size={'small'}
+					>
+						<Icon name={'trophy'} />
+						<Label.Detail>{`$${league.pot}`}</Label.Detail>
+					</Label>
+				) : null}
 			</Card.Description>
 		)
 	}
