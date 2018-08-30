@@ -153,7 +153,7 @@ class PlayerTeamAdmin extends Component {
 			<React.Fragment>
 				<Card.Content description={`${actionText} Team`}/>
 				<Form
-					loading={this.state.leagueLoading}
+					loading={this.state.playerTeamLoading}
 					className={`${className}__Form`}
 					onSubmit={this.handleSubmit}
 				>

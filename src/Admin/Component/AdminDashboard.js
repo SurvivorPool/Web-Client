@@ -9,6 +9,7 @@ import PrimaryButton from "../../Common/Button/PrimaryButton";
 
 import LeagueAdmin from "./League/LeagueAdmin";
 import PlayerTeamAdmin from "./PlayerTeam/PlayerTeamAdmin";
+import MessagesAdmin from "./Messages/MessagesAdmin";
 
 import AdminDecorator from "../Decorator/AdminDecorator";
 import AdminActionsDecorator from "../Decorator/AdminActionsDecorator";
@@ -145,6 +146,7 @@ class AdminDashboard extends Component {
 							adminDeletePlayerTeam={this.props.deletePlayerTeam}
 							adminUpdatePlayerTeam={this.props.updatePlayerTeam}
 						/>
+						<MessagesAdmin />
 					</Container>
 				</div>
 			</div>
