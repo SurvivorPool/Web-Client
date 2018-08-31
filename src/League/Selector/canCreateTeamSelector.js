@@ -10,13 +10,13 @@ const canCreateTeamSelector = createSelector(
 );
 
 function canCreateTeam(league, user)  {
-	if(!league.is_open) {
+	if(!league.is_active) {
 		return false;
 	}
 
 	if(league.league_type === 'FREE') {
 		const leagueTeams = user.teams && user.teams.filter(team => team.league_id === league.league_id);
-		return !leagueTeams.length === 1;
+		return leagueTeams.length !== 1;
 	}
 
 	return true;
