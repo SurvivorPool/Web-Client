@@ -74,6 +74,16 @@ class LeaguePage extends Component {
 					<div className={`${className}__Info`}>
 						{props.league.data.league_description}
 					</div>
+					<Divider />
+					<div>
+						<p>{"Any fees due for the league can be paid via venmo/paypal or cold hard cash. If paying by venmo/paypal please supply a message with either your full name or your account's email address."}</p>
+						<p>
+							<strong>{"Venmo: @Jimmy-Timmons"}</strong>
+						</p>
+						<p>
+							<strong>{"Paypal: paypal.me/JimmyTimmons"}</strong>
+						</p>
+					</div>
 				</Segment>
 			</div>
 		);
