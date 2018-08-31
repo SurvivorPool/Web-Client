@@ -118,11 +118,12 @@ class PlayerTeamPage extends Component {
 
 	static renderPickSection(props) {
 		const { pickedGame, playerTeam } = props;
+		const isActive = (playerTeam.data && playerTeam.data.is_active) || true;
 		return (
 			<Segment
 				raised
 			>
-				{playerTeam.is_active ?
+				{isActive ?
 					PlayerTeamPage.getCurrentPick(pickedGame.playerPick)
 					: PlayerTeamPage.renderEliminated()
 				}
