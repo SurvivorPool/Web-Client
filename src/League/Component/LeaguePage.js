@@ -93,9 +93,9 @@ class LeaguePage extends Component {
 			</div>
 		) : (
 			<div>
-				<p>{"Any fees due for the league can be paid via venmo/paypal or cold hard cash. If paying by venmo/paypal please supply a message with either your full name or your account's email address."}</p>
+				<p>{"Any fees due for the league can be paid via venmo/paypal or cold hard cash. If paying by venmo/paypal please supply a message with either your full name or your account's email address. Fees are due Friday 9/7. Teams not paid for by then will be removed."}</p>
 				<p>
-					<strong>{"Venmo: @Jimmy-Timmons"}</strong>
+					<strong>{"Venmo: @Jimmy-Timmons or @Alex-Berardi-1"}</strong>
 				</p>
 				<p>
 					<strong>{"Paypal: paypal.me/JimmyTimmons"}</strong>
