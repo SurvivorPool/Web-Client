@@ -75,16 +75,31 @@ class LeaguePage extends Component {
 						{props.league.data.league_description}
 					</div>
 					<Divider />
-					<div>
-						<p>{"Any fees due for the league can be paid via venmo/paypal or cold hard cash. If paying by venmo/paypal please supply a message with either your full name or your account's email address."}</p>
-						<p>
-							<strong>{"Venmo: @Jimmy-Timmons"}</strong>
-						</p>
-						<p>
-							<strong>{"Paypal: paypal.me/JimmyTimmons"}</strong>
-						</p>
-					</div>
+					{LeaguePage.renderPaymentInfo(props)}
 				</Segment>
+			</div>
+		);
+	}
+
+	static renderPaymentInfo(props) {
+		const isFree = props.league.data && props.league.data.league_type && props.league.data.league_type === 'FREE';
+
+		return isFree ? (
+			<div>
+				<p>{"Free leagues are all about the glory. You're restricted to only having 1 team."}</p>
+				<p>
+					<strong>{"Make it count."}</strong>
+				</p>
+			</div>
+		) : (
+			<div>
+				<p>{"Any fees due for the league can be paid via venmo/paypal or cold hard cash. If paying by venmo/paypal please supply a message with either your full name or your account's email address."}</p>
+				<p>
+					<strong>{"Venmo: @Jimmy-Timmons"}</strong>
+				</p>
+				<p>
+					<strong>{"Paypal: paypal.me/JimmyTimmons"}</strong>
+				</p>
 			</div>
 		);
 	}
