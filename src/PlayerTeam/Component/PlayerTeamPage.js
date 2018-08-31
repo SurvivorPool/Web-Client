@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import {Segment, Container, Label, Card, Checkbox} from 'semantic-ui-react';
+import {Segment, Container, Label, Card, Checkbox, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 
@@ -123,6 +123,11 @@ class PlayerTeamPage extends Component {
 			<Segment
 				raised
 			>
+				<div className={pickClassName}>
+					<h2>{"We expect NFL to post the first week of games by Wednesday 9/7."}</h2>
+					<h4>{"You will be unable to make a pick until then."}</h4>
+				</div>
+				<Divider />
 				{isActive ?
 					PlayerTeamPage.getCurrentPick(pickedGame.playerPick)
 					: PlayerTeamPage.renderEliminated()

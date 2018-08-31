@@ -110,8 +110,7 @@ class PlayerTeam extends Component {
 		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
-	static renderTeamExtra(team, leagueId, price) {
-		const hasPaidColor = team.has_paid ? 'green' : 'red';
+	static renderTeamExtra(team, leagueId, price, leagueType) {
 		const isActiveColor = team.is_active ? 'green' : 'red';
 		const isActiveIcon = team.is_active ? 'checkmark' : 'cancel';
 
@@ -120,18 +119,7 @@ class PlayerTeam extends Component {
 				className={`${className}__Extra`}
 				extra
 			>
-				<Label
-					color={hasPaidColor}
-					size={'tiny'}
-				>
-					<Icon
-						name={'dollar'}
-					/>
-					{!team.has_paid ? price : ''}
-					<Label.Detail>
-						{team.has_paid ? "Paid" : 'Due'}
-					</Label.Detail>
-				</Label>
+				{PlayerTeam.renderTeamDue(price, !!team.has_paid, leagueType)}
 				<Label
 					color={isActiveColor}
 					size={'tiny'}
@@ -151,6 +139,25 @@ class PlayerTeam extends Component {
 				</Link>
 			</Card.Content>
 		);
+	}
+
+	static renderTeamDue(price, hasPaid, leagueType) {
+		const hasPaidColor = hasPaid ? 'green' : 'red';
+
+		return leagueType !== 'FREE' ? (
+			<Label
+				color={hasPaidColor}
+				size={'tiny'}
+			>
+				<Icon
+					name={'dollar'}
+				/>
+				{!hasPaid ? price : ''}
+				<Label.Detail>
+					{hasPaid ? "Paid" : 'Due'}
+				</Label.Detail>
+			</Label>
+		) : null;
 	}
 
 	renderDeleteTeam(team) {
@@ -252,7 +259,7 @@ class PlayerTeam extends Component {
 	}
 
 	render() {
-		const { team, user, leagueId, price } = this.props;
+		const { team, user, leagueId, price, leagueType } = this.props;
 
 		return (
 			<Card
@@ -275,7 +282,7 @@ class PlayerTeam extends Component {
 					{this.renderTeamActions(team)}
 					{PlayerTeam.renderTeamPick(team, user)}
 				</Card.Content>
-				{PlayerTeam.renderTeamExtra(team, leagueId, price )}
+				{PlayerTeam.renderTeamExtra(team, leagueId, price, leagueType )}
 			</Card>
 		);
 	}
@@ -295,6 +302,7 @@ PlayerTeam.propTypes = {
 	loadUser: PropTypes.func,
 	user: PropTypes.object.isRequired,
 	price: PropTypes.string.isRequired,
+	leagueType: PropTypes.string.isRequired,
 };
 
 
