@@ -45,6 +45,10 @@ class PlayerTeamAdmin extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.props.adminClearPlayerTeam();
+	}
+
 	handleActiveChange() {
 		this.setState(prevState => {
 			return {

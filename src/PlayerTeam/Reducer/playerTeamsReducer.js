@@ -1,6 +1,7 @@
 import adminGetAllPlayerTeamAction from "../Action/adminGetAllPlayerTeamAction";
 import adminUpdatePlayerTeamAction from "../Action/adminUpdatePlayerTeamAction";
 import adminDeletePlayerTeamAction from "../Action/adminDeletePlayerTeamAction";
+import adminClearPlayerTeamAction from "../Action/adminClearPlayerTeamAction";
 
 export const initialState = {
 	loading: false,
@@ -34,6 +35,10 @@ export default function playersTeamReducer(state = initialState, action) {
 				data: null,
 				loading: false,
 				error: action.error,
+			};
+		case adminClearPlayerTeamAction.ACTION:
+			return {
+				...initialState,
 			};
 		default:
 			return state;

@@ -86,7 +86,7 @@ class LeagueCards extends Component {
 					size={'small'}
 				>
 					<Icon name={'ticket'} />
-					<Label.Detail>{price}</Label.Detail>
+					<Label.Detail>{formatPrice(price)}</Label.Detail>
 				</Label>
 				{!isFree ? (
 					<Label
@@ -204,3 +204,7 @@ LeagueCards.propTypes = {
 };
 
 export default LeagueCards;
+
+function formatPrice(price) {
+	return price = price.replace(/\.00$/,'');
+}

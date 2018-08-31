@@ -23,4 +23,10 @@ export default class UserApi {
 	static setNotification(user) {
 		return Requests.put('/user', user);
 	}
+
+	/* Admin */
+
+	static getAll() {
+		return Requests.get('/admin/users/');
+	}
 }

@@ -84,7 +84,7 @@ class PlayerTeamPage extends Component {
 				<h1 className={`${className}__Header`}>
 					{props.playerTeam.data && props.playerTeam.data.team_name}
 				</h1>
-				{PlayerTeamPage.renderHistoryToggle(shouldShowHistory, handleHistoryToggle)}
+				{PlayerTeamPage.renderHistoryToggle(props, shouldShowHistory, handleHistoryToggle)}
 			</div>
 		);
 	}
@@ -117,13 +117,15 @@ class PlayerTeamPage extends Component {
 	}
 
 	static renderPickSection(props) {
-		const { pickedGame } = props;
-
+		const { pickedGame, playerTeam } = props;
 		return (
 			<Segment
 				raised
 			>
-				{PlayerTeamPage.getCurrentPick(pickedGame.playerPick)}
+				{playerTeam.is_active ?
+					PlayerTeamPage.getCurrentPick(pickedGame.playerPick)
+					: PlayerTeamPage.renderEliminated()
+				}
 			</Segment>
 		);
 	}
@@ -183,8 +185,16 @@ class PlayerTeamPage extends Component {
 					</Card.Description>
 				</Card.Content>
 			</Card>
+		);
+	}
 
-
+	static renderEliminated() {
+		return (
+			<div className={pickClassName}>
+				<h2>{"You've been eliminated!"}</h2>
+				<span>{"It happens to the best of us..and the worst of us, I guess."}</span>
+				<p>{"Better luck next time!"}</p>
+			</div>
 		);
 	}
 
@@ -192,7 +202,7 @@ class PlayerTeamPage extends Component {
 		return currentPick ? (
 			<div className={pickClassName}>
 				<h2>{`You've currently chosen the ${currentPick}.`}</h2>
-				<span>{`If the ${currentPick}' game hasn't started yet, you can switch to another team. Goodluck!`}</span>
+				<span>{`If the ${currentPick}' game hasn't started yet, you can switch to another team. Good Luck!`}</span>
 			</div>
 		) : (
 			<div className={pickClassName}>
@@ -231,7 +241,13 @@ class PlayerTeamPage extends Component {
 		) : null;
 	}
 
-	static renderHistoryToggle(shouldShowHistory, handleHistoryToggle) {
+	static renderHistoryToggle(props, shouldShowHistory, handleHistoryToggle) {
+		const pickHistory = props.playerTeam && props.playerTeam.pick_history;
+
+		if(!pickHistory) {
+			return null;
+		}
+
 		const label = shouldShowHistory ? "Hide History" : "Show History";
 		return (
 			<Checkbox

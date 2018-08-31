@@ -11,7 +11,11 @@ export default class MessagesApi {
 		return Requests.put('/admin/message', message);
 	}
 
-	static get() {
+	static update(message) {
+		return Requests.put('/admin/message', message);
+	}
+
+	static getAllMessages() {
 		return Requests.get('/admin/messages');
 	}
 

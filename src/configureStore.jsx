@@ -17,6 +17,7 @@ import playerTeamReducer from "./PlayerTeam/Reducer/playerTeamReducer";
 import playerTeamsReducer from "./PlayerTeam/Reducer/playerTeamsReducer";
 import toastsReducer from "./Common/Toasts/Reducer/toastsReducer"
 import userReducer from "./Common/Auth/Reducer/userReducer";
+import usersReducer from "./Common/Auth/Reducer/usersReducer";
 
 import authMiddleware from "./Common/Auth/Middleware/authMiddleware";
 
@@ -34,6 +35,7 @@ const storeReducers = combineReducers({
     playerTeams: playerTeamsReducer,
     toasts: toastsReducer,
     user: userReducer,
+    users: usersReducer,
 });
 
 function getMiddleware() {

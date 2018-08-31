@@ -117,6 +117,7 @@ class LeaguePage extends Component {
 								loadLeague={props.loadLeague}
 								loadUser={props.loadUser}
 								user={props.user.data}
+								price={formatPrice(props.league.data.price)}
 							/>
 						)}
 						{LeaguePage.renderAddTeam(props)}
@@ -188,7 +189,7 @@ class LeaguePage extends Component {
 					size={'large'}
 				>
 					Entry
-					<Label.Detail>{price}</Label.Detail>
+					<Label.Detail>{formatPrice(price)}</Label.Detail>
 				</Label>
 				{!isFree ? (
 					<Label
@@ -233,3 +234,7 @@ class LeaguePage extends Component {
 }
 
 export default LeaguePage;
+
+function formatPrice(price) {
+	return price = price.replace(/\.00$/,'');
+}

@@ -4,19 +4,26 @@ import autoBind from "react-autobind";
 
 import userSelector from '../Selector/userSelector';
 import authSelector from '../Selector/authSelector';
+import usersSelector from "../Selector/usersSelector";
 
 import userGetAction from '../Action/userGetAction';
 import userSetNotificationAction from "../Action/userSetNotificationAction";
+import usersClearAction from "../Action/usersClearAction";
+import usersGetAction from "../Action/usersGetAction";
+
 
 export default function(DecoratedComponent) {
 	@connect(
 		state => ({
-			user: userSelector(state),
 			auth: authSelector(state),
+			user: userSelector(state),
+			users: usersSelector(state),
 		}),
 		dispatch => ({
 			getUser: (user) => dispatch(userGetAction(user)),
 			setNotification: (user) => dispatch(userSetNotificationAction(user)),
+			getUsers: () => dispatch(usersGetAction()),
+			clearUsers: () => dispatch(usersClearAction()),
 		})
 	)
 	class UserDecorator extends Component {

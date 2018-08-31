@@ -10,7 +10,7 @@ import deletePlayerTeamAction from "../Action/deletePlayerTeamAction";
 import adminGetAllPlayerTeamAction from "../Action/adminGetAllPlayerTeamAction";
 import adminUpdatePlayerTeamAction from "../Action/adminUpdatePlayerTeamAction";
 import adminDeletePlayerTeamAction from "../Action/adminDeletePlayerTeamAction";
-
+import adminClearPlayerTeamAction from "../Action/adminClearPlayerTeamAction";
 
 import playerTeamSelector from "../Selector/playerTeamSelector";
 import playerTeamsSelector from "../Selector/playerTeamsSelector";
@@ -29,6 +29,7 @@ export default function(DecoratedComponent) {
 			adminGetAllPlayerTeams: () => dispatch(adminGetAllPlayerTeamAction()),
 			adminUpdatePlayerTeam: team => dispatch(adminUpdatePlayerTeamAction(team)),
 			adminDeletePlayerTeam: team => dispatch(adminDeletePlayerTeamAction(team)),
+			adminClearPlayerTeam: () => dispatch(adminClearPlayerTeamAction()),
 		})
 	)
 	class PlayerTeamDecorator extends Component {

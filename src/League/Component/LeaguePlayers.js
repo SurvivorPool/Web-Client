@@ -68,6 +68,7 @@ class LeaguePlayers extends Component {
 			<Label
 				color={statusColor}
 				horizontal
+				size={'small'}
 			>
 				{status}
 			</Label>

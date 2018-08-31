@@ -110,7 +110,7 @@ class PlayerTeam extends Component {
 		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
-	static renderTeamExtra(team, leagueId) {
+	static renderTeamExtra(team, leagueId, price) {
 		const hasPaidColor = team.has_paid ? 'green' : 'red';
 		const isActiveColor = team.is_active ? 'green' : 'red';
 		const isActiveIcon = team.is_active ? 'checkmark' : 'cancel';
@@ -127,8 +127,9 @@ class PlayerTeam extends Component {
 					<Icon
 						name={'dollar'}
 					/>
+					{!team.has_paid ? price : ''}
 					<Label.Detail>
-						{team.has_paid ? "Paid" : "Due"}
+						{team.has_paid ? "Paid" : 'Due'}
 					</Label.Detail>
 				</Label>
 				<Label
@@ -251,7 +252,7 @@ class PlayerTeam extends Component {
 	}
 
 	render() {
-		const { team, user } = this.props;
+		const { team, user, leagueId, price } = this.props;
 
 		return (
 			<Card
@@ -274,7 +275,7 @@ class PlayerTeam extends Component {
 					{this.renderTeamActions(team)}
 					{PlayerTeam.renderTeamPick(team, user)}
 				</Card.Content>
-				{PlayerTeam.renderTeamExtra(team, this.props.leagueId)}
+				{PlayerTeam.renderTeamExtra(team, leagueId, price )}
 			</Card>
 		);
 	}
@@ -293,6 +294,7 @@ PlayerTeam.propTypes = {
 	leagueId: PropTypes.number.isRequired,
 	loadUser: PropTypes.func,
 	user: PropTypes.object.isRequired,
+	price: PropTypes.string.isRequired,
 };
 
 
