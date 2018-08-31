@@ -113,7 +113,7 @@ class MessagesAdmin extends Component {
 			message_text: this.state.messageText,
 			show_message: this.state.showMessage,
 			message_type: this.state.messageType,
-			user_id: (this.state.userIds || []).join(','),
+			user_ids: (this.state.userIds || []).join(','),
 		};
 
 		switch(this.state.action) {

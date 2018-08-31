@@ -2,8 +2,12 @@ import Requests from "../../Common/Util/Requests";
 
 export default class MessagesApi {
 
-	static getByUser(user) {
-		return Requests.get(`/admin/message/${user.user_id}`);
+	static markRead(message) {
+		return Requests.put(`/user/${message.user_id}/messages`, message);
+	}
+
+	static get(userId) {
+		return Requests.get(`/user/${userId}/messages`);
 	}
 
 	/* Admin */
