@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Divider, Segment, Label, Container, Card } from 'semantic-ui-react';
+import { Divider, Segment, Label, Container, Card , Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
 import Navbar from "../../Navbar/Component/Navbar";
@@ -204,12 +204,7 @@ class LeaguePage extends Component {
 
 		return (
 			<div className={`${className}__Pricing`}>
-				<Label
-					color={isLeagueActive ? 'green' : 'red'}
-					size={'large'}
-				>
-					{isLeagueActive ? 'Open' : 'Closed'}
-				</Label>
+				{LeaguePage.renderLeagueStatus(isLeagueActive)}
 				<Label
 					color={'orange'}
 					size={'large'}
@@ -227,6 +222,31 @@ class LeaguePage extends Component {
 					</Label>
 				) : null }
 			</div>
+		)
+	}
+
+	static renderLeagueStatus(isLeagueActive) {
+		return isLeagueActive ? (
+			<Label
+				color={'green'}
+				size={'large'}
+			>
+				{'Open'}
+			</Label>
+		) : (
+			<Label
+				color={'white'}
+				size={'large'}
+				className={`${className}__Dont`}
+			>
+				<Icon
+					size={'large'}
+					name={'dont'}
+					className={`${className}__Dont__Icon`}
+					color={'red'}
+					fitted
+				/>
+			</Label>
 		)
 	}
 

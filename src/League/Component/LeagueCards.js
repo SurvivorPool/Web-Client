@@ -75,12 +75,7 @@ class LeagueCards extends Component {
 
 		return (
 			<Card.Description className={`${className}__Meta`}>
-				<Label
-					color={isLeagueActive ? 'green' : 'red'}
-					size={'small'}
-				>
-					{isLeagueActive ? 'Open' : 'Closed'}
-				</Label>
+				{LeagueCards.renderLeagueStatus(isLeagueActive)}
 				<Label
 					color={'orange'}
 					size={'small'}
@@ -98,6 +93,31 @@ class LeagueCards extends Component {
 					</Label>
 				) : null}
 			</Card.Description>
+		)
+	}
+
+
+	static renderLeagueStatus(isLeagueActive) {
+		return isLeagueActive ? (
+			<Label
+				color={'green'}
+				size={'small'}
+			>
+				{'Open'}
+			</Label>
+		) : (
+			<Label
+				color={'white'}
+				size={'small'}
+				className={`${className}__Dont`}
+			>
+				<Icon
+					size={'medium'}
+					name={'dont'}
+					color={'red'}
+					className={`${className}__Dont__Icon`}
+				/>
+			</Label>
 		)
 	}
 

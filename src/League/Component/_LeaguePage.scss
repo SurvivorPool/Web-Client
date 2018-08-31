@@ -16,6 +16,16 @@
         }
     }
 
+    &__Dont {
+        opacity: 0.6 !important;
+        width: auto !important;
+        margin: 0 !important;
+
+        &__Icon {
+            margin: 0 !important;
+        }
+    }
+
     &__Footer {
         height: 100px;
     }
