@@ -144,6 +144,7 @@ class LeaguePage extends Component {
 								user={props.user.data}
 								price={formatPrice(props.league.data.price)}
 								leagueType={props.league.data.league_type}
+								leagueIsActive={props.league.data.is_active}
 							/>
 						)}
 						{LeaguePage.renderAddTeam(props)}

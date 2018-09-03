@@ -160,8 +160,8 @@ class PlayerTeam extends Component {
 		) : null;
 	}
 
-	renderDeleteTeam(team) {
-		const canDelete = !team.has_paid;
+	renderDeleteTeam(team, leagueIsActive) {
+		const canDelete = !leagueIsActive;
 
 		if(this.state.isDeletingTeam) {
 			return (
@@ -235,13 +235,13 @@ class PlayerTeam extends Component {
 		) : null;
 	}
 
-	renderTeamActions(team) {
+	renderTeamActions(team, leagueIsActive) {
 		return (
 			<Card.Description
 				className={`${className}__Actions`}
 			>
 				{this.renderEditTeam(team)}
-				{this.renderDeleteTeam(team)}
+				{this.renderDeleteTeam(team, leagueIsActive)}
 			</Card.Description>
 		);
 	}
@@ -259,7 +259,7 @@ class PlayerTeam extends Component {
 	}
 
 	render() {
-		const { team, user, leagueId, price, leagueType } = this.props;
+		const { team, user, leagueId, price, leagueType, leagueIsActive } = this.props;
 
 		return (
 			<Card
@@ -279,7 +279,7 @@ class PlayerTeam extends Component {
 					>
 						{team.team_name}
 					</div>
-					{this.renderTeamActions(team)}
+					{this.renderTeamActions(team, leagueIsActive)}
 					{PlayerTeam.renderTeamPick(team, user)}
 				</Card.Content>
 				{PlayerTeam.renderTeamExtra(team, leagueId, price, leagueType )}
@@ -303,6 +303,7 @@ PlayerTeam.propTypes = {
 	user: PropTypes.object.isRequired,
 	price: PropTypes.string.isRequired,
 	leagueType: PropTypes.string.isRequired,
+	leagueIsActive: PropTypes.bool.isRequired,
 };
 
 
