@@ -123,11 +123,6 @@ class PlayerTeamPage extends Component {
 			<Segment
 				raised
 			>
-				<div className={pickClassName}>
-					<h2>{"We expect NFL to post the first week of games by Wednesday 9/7."}</h2>
-					<h4>{"You will be unable to make a pick until then."}</h4>
-				</div>
-				<Divider />
 				{isActive ?
 					PlayerTeamPage.getCurrentPick(pickedGame.playerPick)
 					: PlayerTeamPage.renderEliminated()
