@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import {Segment, Container, Label, Card, Checkbox, Divider } from 'semantic-ui-react';
+import {Segment, Container, Label, Card, Checkbox } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { withToastManager } from "react-toast-notifications";
 

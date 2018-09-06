@@ -16,13 +16,13 @@
 
     &__Team {
         display: grid;
-        grid-template-columns: 150px auto 200px 150px;
+        grid-template-columns: 100px 400px 200px;
         border-top: 0.5x solid $gray;
         border-bottom: 0.5px solid $gray;
         align-content: center;
 
         @include mobile {
-            grid-template-columns: auto auto auto auto;
+            grid-template-columns: 50px auto auto;
         }
 
         &__Avatar {

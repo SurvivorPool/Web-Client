@@ -24,7 +24,6 @@ class LeaguePlayers extends Component {
 				{LeaguePlayers.renderPlayerAvatar(team)}
 				{LeaguePlayers.renderTeamName(team)}
 				{LeaguePlayers.renderPlayerName(team)}
-				{LeaguePlayers.renderTeamStatus(team)}
 			</div>
 		);
 	}
@@ -61,20 +60,6 @@ class LeaguePlayers extends Component {
 		);
 	}
 
-	static renderTeamStatus(team) {
-		const status = team.is_active ? 'Active' : 'Sunk';
-		const statusColor = status === 'Active' ? 'green' : 'red';
-		return (
-			<Label
-				color={statusColor}
-				horizontal
-				size={'small'}
-			>
-				{status}
-			</Label>
-		)
-	}
-
 	static noRowsRender() {
 		return (
 			<div>{"No Teams Found."}</div>
@@ -96,7 +81,7 @@ class LeaguePlayers extends Component {
 							width={width}
 							height={height}
 							rowCount={props.players.length}
-							rowHeight={50}
+							rowHeight={75}
 							rowRenderer={this.rowRender}
 							noRowsRenderer={LeaguePlayers.noRowsRender}
 							overscanRowCount={20}
