@@ -55,6 +55,7 @@ class Footer extends Component {
 								<li>Similar to the above, NFL team selections are user-team specific as well. So if "Team A" takes the Giants in week 1, "Team B" is allowed to take the Giants any week of the season.</li>
 								<li>All picks must be made before that particular NFL game has started.</li>
 								<li>You cannot edit your pick if your current selection's NFL game has started.</li>
+								<li>Ties count as a loss.</li>
 							</ul>
 						</div>
 					</div>
