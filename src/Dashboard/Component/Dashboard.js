@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { Link } from 'react-router-dom'
+import { Label } from 'semantic-ui-react';
 
 import Navbar from "../../Navbar/Component/Navbar";
 import Profile from "../../Profile/Component/Profile";
@@ -28,11 +30,31 @@ class Dashboard extends Component {
 		);
 	}
 
+	static renderUnreadCount(props) {
+		return props.unreadMessages > 0 ? (
+			<span className={`${className}__Messages`}>
+				<Label
+					color={'orange'}
+					circular
+				>
+					{props.unreadMessages}
+				</Label>
+			</span>
+		) : null;
+	}
+
 	render() {
 		return (
 			<React.Fragment>
 				<div className={className}>
 					<Navbar>
+						<Link
+							to={'/messages'}
+							className={'Navbar__Link'}
+						>
+							{"Messages"}
+							{Dashboard.renderUnreadCount(this.props)}
+						</Link>
 						<Profile
 							currentPage={'/dashboard'}
 						/>

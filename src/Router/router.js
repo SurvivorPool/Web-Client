@@ -14,6 +14,7 @@ import AdminDashboard from "../Admin/Component/AdminDashboard";
 import LeaguePage from "../League/Component/LeaguePage";
 import PlayerTeamPage from "../PlayerTeam/Component/PlayerTeamPage";
 import SettingsPage from "../Profile/Component/SettingsPage";
+import MessagesPage from "../Messages/Component/MessagesPage";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
@@ -48,6 +49,7 @@ export default (
 			<ProtectedRoute path={"/league/:league_id/team/:team_id"} component={PlayerTeamPage} />
 			<ProtectedRoute path={"/league/:league_id"} component={LeaguePage} />
 			<ProtectedRoute path={"/settings"} component={SettingsPage}/>
+			<ProtectedRoute path={"/messages"} component={MessagesPage} />
 		</Switch>
 	</ConnectedRouter>
 );

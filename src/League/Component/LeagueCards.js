@@ -107,12 +107,11 @@ class LeagueCards extends Component {
 			</Label>
 		) : (
 			<Label
-				color={'white'}
 				size={'small'}
 				className={`${className}__Dont`}
 			>
 				<Icon
-					size={'medium'}
+					size={'large'}
 					name={'dont'}
 					color={'red'}
 					className={`${className}__Dont__Icon`}

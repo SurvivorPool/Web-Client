@@ -6,6 +6,7 @@ import getAllMessagesAction from "../Action/getAllMessagesAction";
 import createMessageAction from "../Action/createMessageAction";
 import updateMessageAction from "../Action/updateMessageAction";
 import getMessagesByUserAction from "../Action/getMessagesByUserAction";
+import markReadMessageAction from "../Action/markReadMessageAction";
 
 import messagesSelector from "../Selector/messagesSelector";
 
@@ -17,8 +18,9 @@ export default function(DecoratedComponent) {
 		dispatch => ({
 			createMessage: message => dispatch(createMessageAction(message)),
 			getAllMessages: () => dispatch(getAllMessagesAction()),
-			getMessagesByUserAction: user => dispatch(getMessagesByUserAction(user)),
+			getMessagesByUser: userId => dispatch(getMessagesByUserAction(userId)),
 			updateMessage: message => dispatch(updateMessageAction(message)),
+			markMessageRead: message => dispatch(markReadMessageAction(message)),
 		})
 	)
 	class MessagesDecorator extends Component {

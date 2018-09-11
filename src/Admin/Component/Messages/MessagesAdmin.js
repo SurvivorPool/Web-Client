@@ -43,6 +43,7 @@ class MessagesAdmin extends Component {
 			messageType: 1,
 			userIds: [],
 			messageId: '',
+			sendAllUsers: false,
 		}
 	}
 
@@ -114,6 +115,7 @@ class MessagesAdmin extends Component {
 			show_message: this.state.showMessage,
 			message_type: this.state.messageType,
 			user_ids: (this.state.userIds || []).join(','),
+			all_users: this.state.sendAllUsers,
 		};
 
 		switch(this.state.action) {
@@ -140,6 +142,15 @@ class MessagesAdmin extends Component {
 		});
 	}
 
+	handleAllUsersChange() {
+		this.setState(prevState => {
+			return {
+				sendAllUsers: !prevState.sendAllUsers,
+				userIds: [],
+			}
+		});
+	}
+
 	handleUserSearch(users, term){
 		const lowerTerm = term.toLowerCase();
 		return users.filter(user => {
@@ -156,6 +167,7 @@ class MessagesAdmin extends Component {
 
 	handleMessagesSelection(e, { value }) {
 		const messageInfo = this.props.messages.data.messages.find(message => message.message_id === value);
+
 		this.setState({
 			messageText: messageInfo.message_text,
 			showMessage: messageInfo.show_message,
@@ -221,6 +233,7 @@ class MessagesAdmin extends Component {
 
 		return (
 			<Form.Dropdown
+				disabled={this.state.sendAllUsers}
 				deburr
 				fluid
 				options={MessagesAdmin.formatUsers(users)}
@@ -258,6 +271,18 @@ class MessagesAdmin extends Component {
 		);
 	}
 
+	renderAllUsersToggle() {
+		return (
+			<Checkbox
+				checked={!!this.state.sendAllUsers}
+				toggle
+				label='All Users'
+				name={'sendAllUsers'}
+				onChange={this.handleAllUsersChange}
+			/>
+		);
+	}
+
 	renderMessageCreate(action) {
 		return action === 'create' ? (
 			<React.Fragment>
@@ -269,6 +294,9 @@ class MessagesAdmin extends Component {
 				>
 					<Form.Field>
 						{this.renderUsersDropdown()}
+					</Form.Field>
+					<Form.Field>
+						{this.renderAllUsersToggle()}
 					</Form.Field>
 					<Form.Group widths={'equal'}>
 						<Form.Field>
@@ -306,6 +334,9 @@ class MessagesAdmin extends Component {
 					</Form.Field>
 					<Form.Field>
 						{this.renderUsersDropdown()}
+					</Form.Field>
+					<Form.Field>
+						{this.renderAllUsersToggle()}
 					</Form.Field>
 					<Form.Group widths={'equal'}>
 						<Form.Field>
