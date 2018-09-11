@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
-import { Image, Dropdown, Icon } from 'semantic-ui-react';
+import { Image, Dropdown, Icon, Label } from 'semantic-ui-react';
 
 import UserDecorator from "../../Common/Auth/Decorator/UserDecorator";
 import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
+import MessagesDecorator from "../../Messages/Decorator/MessagesDecorator";
 
 const className = "Profile";
 
@@ -14,10 +15,12 @@ const links = {
 	admin: '/admin',
 	league: '/league',
 	settings: '/settings',
+	messages: '/messages',
 };
 
 @AuthDecorator
 @UserDecorator
+@MessagesDecorator
 class Profile extends Component {
 	constructor(props) {
 		super(props);
@@ -77,6 +80,26 @@ class Profile extends Component {
 		) : null;
 	}
 
+	renderMessagesLink(props) {
+		return canShowMessages(props) ? (
+			<Dropdown.Item onClick={() => this.goToRedirect('/messages')}>
+				{Profile.renderUnreadMessages(props.unreadMessages)}
+			</Dropdown.Item>
+		) : null;
+	}
+
+	static renderUnreadMessages(unreadCount) {
+		return unreadCount > 0 ? (
+			<Label
+				color={'orange'}
+				horizontal
+			>
+				{"Messages"}
+				<Label.Detail>{unreadCount}</Label.Detail>
+			</Label>
+		) : "Messages";
+	}
+
 	render() {
 		const props = this.props;
 
@@ -98,6 +121,7 @@ class Profile extends Component {
 						{this.renderDashboardLink(props)}
 						{this.renderAdminLink(props)}
 						{this.renderUserSettings(props)}
+						{this.renderMessagesLink(props)}
 						{Profile.renderLogout(props)}
 					</Dropdown.Menu>
 				</Dropdown>
@@ -122,4 +146,8 @@ function canShowAdmin(props) {
 
 function canShowSettings(props) {
 	return props.currentPage !== links.settings;
+}
+
+function canShowMessages(props) {
+	return props.currentPage !== links.messages && props.currentPage !== links.dashboard;
 }

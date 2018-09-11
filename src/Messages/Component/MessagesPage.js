@@ -7,13 +7,13 @@ import { Segment, Container, Card , Icon } from 'semantic-ui-react';
 import Profile from "../../Profile/Component/Profile";
 import Navbar from "../../Navbar/Component/Navbar";
 
-import MessagesDeocorator from "../Decorator/MessagesDecorator";
+import MessagesDecorator from "../Decorator/MessagesDecorator";
 import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
 
 const className = "MessagesPage";
 
 @AuthDecorator
-@MessagesDeocorator
+@MessagesDecorator
 class MessagesPage extends Component {
 	constructor(props) {
 		super(props);
@@ -126,7 +126,7 @@ class MessagesPage extends Component {
 						{"Dashboard"}
 					</Link>
 					<Profile
-						currentPage={'/league'}
+						currentPage={'/messages'}
 					/>
 				</Navbar>
 				<div className={`${className}__Content`}>
