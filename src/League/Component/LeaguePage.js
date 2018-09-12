@@ -8,6 +8,7 @@ import Profile from "../../Profile/Component/Profile";
 import PlayerTeam from "../../PlayerTeam/Component/PlayerTeam";
 import PlayerTeamAdd from "../../PlayerTeam/Component/PlayerTeamAdd";
 import LeaguePlayers from "./LeaguePlayers";
+import LeagueStats from "../../Stats/Component/LeagueStats";
 import Footer from "../../Common/Footer/Footer";
 
 import AuthDecorator from "../../Common/Auth/Decorator/AuthDecorator";
@@ -111,6 +112,7 @@ class LeaguePage extends Component {
 				<Divider />
 				{LeaguePage.renderLeagueInfo(props)}
 				{LeaguePage.renderPlayerTeams(props)}
+				{LeaguePage.renderStats(props)}
 				{LeaguePage.renderPlayers(props, state, handleSearch)}
 				{LeaguePage.renderFooter()}
 			</React.Fragment>
@@ -152,6 +154,23 @@ class LeaguePage extends Component {
 				</div>
 			</Segment>
 		);
+	}
+
+	static renderStats(props) {
+		return props.leagueStats ? (
+			<Segment raised>
+				<Label
+					color={'blue'}
+					ribbon
+					className={`${className}__Info__Ribbon`}
+				>
+					{"Stats"}
+				</Label>
+				<LeagueStats
+					leagueStats={props.leagueStats}
+				/>
+			</Segment>
+		) : null;
 	}
 
 	static renderPlayers(props, state, handleSearch) {
@@ -236,7 +255,6 @@ class LeaguePage extends Component {
 			</Label>
 		) : (
 			<Label
-				color={'white'}
 				size={'large'}
 				className={`${className}__Dont`}
 			>
@@ -253,7 +271,6 @@ class LeaguePage extends Component {
 
 	render() {
 		const props = this.props;
-
 		return (
 			<React.Fragment>
 				<Navbar>

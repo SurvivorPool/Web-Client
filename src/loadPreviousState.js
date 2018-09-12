@@ -7,6 +7,7 @@ import { initialState as initialPlayerLeaguesState } from "./League/Reducer/play
 import { initialState as initialPlayerTeamState } from "./PlayerTeam/Reducer/playerTeamReducer";
 import { initialState as initialPlayerTeamsState } from "./PlayerTeam/Reducer/playerTeamsReducer";
 import { initialState as initialGamesState } from "./Games/Reducer/gamesReducer";
+import { initialState as initialStatsState } from "./Stats/Reducer/statsReducer";
 import { initialState as initialToastsState } from "./Common/Toasts/Reducer/toastsReducer";
 import { initialState as initialMessagesState } from "./Messages/Reducer/messagesReducer";
 import { initialState as initialUsersState } from "./Common/Auth/Reducer/usersReducer";
@@ -22,6 +23,7 @@ export default function loadPreviousState() {
         playerLeagues: initialPlayerLeaguesState,
         playerTeam: initialPlayerTeamState,
         playerTeams: initialPlayerTeamsState,
+        stats: initialStatsState,
         toasts: initialToastsState,
         user: initialUserState,
         users: initialUsersState,

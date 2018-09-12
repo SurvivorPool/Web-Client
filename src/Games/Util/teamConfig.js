@@ -19,7 +19,7 @@ export function getLogoPath(team) {
 	return `${process.env.PUBLIC_URL}/images/${team}.gif`;
 }
 
-const teamColors = {
+export const teamColors = {
 	cardinals: '97233F',
 	falcons: 'A71930',
 	ravens: '241773',

@@ -15,6 +15,7 @@ import pickReducer from "./Picks/Reducer/pickReducer";
 import playerLeaguesReducer from "./League/Reducer/playerLeaguesReducer";
 import playerTeamReducer from "./PlayerTeam/Reducer/playerTeamReducer";
 import playerTeamsReducer from "./PlayerTeam/Reducer/playerTeamsReducer";
+import statsReducer from "./Stats/Reducer/statsReducer";
 import toastsReducer from "./Common/Toasts/Reducer/toastsReducer"
 import userReducer from "./Common/Auth/Reducer/userReducer";
 import usersReducer from "./Common/Auth/Reducer/usersReducer";
@@ -33,6 +34,7 @@ const storeReducers = combineReducers({
     playerLeagues: playerLeaguesReducer,
     playerTeam: playerTeamReducer,
     playerTeams: playerTeamsReducer,
+    stats: statsReducer,
     toasts: toastsReducer,
     user: userReducer,
     users: usersReducer,
