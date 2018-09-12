@@ -36,5 +36,9 @@
         & > div {
             text-overflow: ellipsis;
         }
+
+        &__Sunk {
+            background-color: rgba(249, 45, 45, 0.2);
+        }
     }
 }

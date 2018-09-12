@@ -15,11 +15,12 @@ class LeaguePlayers extends Component {
 
 	rowRender({ key, index, style }) {
 		const team = this.props.players[index];
+		const rowClassName = team.is_active ? teamClassName : `${teamClassName} ${teamClassName}__Sunk`;
 		return (
 			<div
 				key={key}
 				style={style}
-				className={teamClassName}
+				className={rowClassName}
 			>
 				{LeaguePlayers.renderPlayerAvatar(team)}
 				{LeaguePlayers.renderTeamName(team)}
