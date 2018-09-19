@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { teamColors } from "../../Games/Util/teamConfig";
 
 const className = "LeagueStats";

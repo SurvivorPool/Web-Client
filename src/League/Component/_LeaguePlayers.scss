@@ -37,6 +37,10 @@
             text-overflow: ellipsis;
         }
 
+        &__Pick {
+            width: 40px;
+        }
+
         &__Sunk {
             background-color: rgba(249, 45, 45, 0.2);
         }

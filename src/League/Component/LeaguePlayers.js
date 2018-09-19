@@ -4,6 +4,8 @@ import { Image, Segment, Label, Input } from 'semantic-ui-react';
 import { List, AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
 
+import { getLogoPath } from "../../Games/Util/teamConfig";
+
 const className = 'LeaguePlayers';
 const teamClassName = `${className}__Team`;
 
@@ -16,13 +18,15 @@ class LeaguePlayers extends Component {
 	rowRender({ key, index, style }) {
 		const team = this.props.players[index];
 		const rowClassName = team.is_active ? teamClassName : `${teamClassName} ${teamClassName}__Sunk`;
+		const hasPick = !!team.current_pick;
+
 		return (
 			<div
 				key={key}
 				style={style}
 				className={rowClassName}
 			>
-				{LeaguePlayers.renderPlayerAvatar(team)}
+				{hasPick ? LeaguePlayers.renderPick(team) : LeaguePlayers.renderPlayerAvatar(team)}
 				{LeaguePlayers.renderTeamName(team)}
 				{LeaguePlayers.renderPlayerName(team)}
 			</div>
@@ -41,6 +45,22 @@ class LeaguePlayers extends Component {
 				/>
 			</div>
 		);
+	}
+
+	static renderPick(team) {
+		const teamName = team.current_pick === '49ers' ? 'niners' : team.current_pick.toLowerCase();
+		const logoPath = getLogoPath(teamName);
+
+		return (
+			<div
+				className={`${teamClassName}__Pick`}
+			>
+				<Image
+					alt={`${teamName} logo`}
+					src={logoPath}
+				/>
+			</div>
+		)
 	}
 
 	static renderTeamName(team) {
