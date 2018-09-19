@@ -51,6 +51,7 @@
     }
 
     &__Message {
+        white-space: pre-line;
 
         &__Read {
             float: right;
