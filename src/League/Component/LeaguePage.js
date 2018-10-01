@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { Divider, Segment, Label, Container, Card , Icon } from 'semantic-ui-react';
+import { Divider, Segment, Label, Container, Card, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
 import Navbar from "../../Navbar/Component/Navbar";
@@ -111,6 +111,7 @@ class LeaguePage extends Component {
 				{LeaguePage.renderLeagueTitle(props)}
 				<Divider />
 				{LeaguePage.renderLeagueInfo(props)}
+				{LeaguePage.renderResults(props)}
 				{LeaguePage.renderPlayerTeams(props)}
 				{LeaguePage.renderStats(props)}
 				{LeaguePage.renderPlayers(props, state, handleSearch)}
@@ -119,12 +120,72 @@ class LeaguePage extends Component {
 		) :  null;
 	}
 
+	static renderResults(props) {
+		const winners = props.leaguePlayers.filter(player => player.is_active);
+		const winnerLabel = winners.length > 1 ? "Winners" : "Winner";
+		return props.league.data.completed ? (
+			<Segment raised>
+				<Label
+					color='yellow'
+					ribbon
+					className={`${className}__Info__Ribbon`}
+				>
+					{winnerLabel}
+				</Label>
+				<div className={`${className}__Teams__Container`}>
+					{winners.map(LeaguePage.renderWinner)}
+				</div>
+			</Segment>
+		) : null;
+	}
+
+	static renderWinner(winner) {
+		const user = winner.user_info;
+		return (
+			<Card key={winner.team_id}>
+				<Card.Content>
+					<Card.Header className={`${className}__Winner`}>
+						{user.full_name}
+						{LeaguePage.renderLeaguesWon(user)}
+						<Image
+							className={`${className}__Winner__Avatar`}
+							circular
+							size='small'
+							avatar
+							src={user.picture_url}
+						/>
+					</Card.Header>
+					<Card.Description>
+						{winner.team_name}
+					</Card.Description>
+				</Card.Content>
+			</Card>
+		);
+	}
+
+	static renderLeaguesWon(user) {
+		const wonCount = user.leagues_won;
+		return (
+			<div className={`${className}__Winner__Count`}>
+				<Icon
+					name={'trophy'}
+					color={'yellow'}
+				/>
+				{wonCount > 0 ? (
+					<span>
+						{wonCount}
+					</span>
+				) : null}
+			</div>
+		);
+	}
+
 	static renderPlayerTeams(props) {
 		if(!props.playerTeamFromLeague.length) {
 			return LeaguePage.renderNoTeams(props);
 		}
 
-		return (
+		return !props.league.data.completed ? (
 			<Segment raised>
 				<Label
 					color='olive'
@@ -153,7 +214,7 @@ class LeaguePage extends Component {
 					</Card.Group>
 				</div>
 			</Segment>
-		);
+		) : null;
 	}
 
 	static renderStats(props) {
@@ -241,6 +302,14 @@ class LeaguePage extends Component {
 						<Label.Detail>{`$${props.league.data.pot}`}</Label.Detail>
 					</Label>
 				) : null }
+				{props.league.data.completed ? (
+					<Label
+						color={'black'}
+						size={'large'}
+					>
+						{"Completed"}
+					</Label>
+				) : null}
 			</div>
 		)
 	}

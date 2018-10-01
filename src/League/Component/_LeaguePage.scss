@@ -105,4 +105,17 @@
         }
 
     }
+
+    &__Winner {
+        display: flex !important;
+
+        &__Avatar {
+            margin: 0 10px;
+        }
+
+        &__Count {
+            margin-left: 5px;
+            color: #fbbd08;
+        }
+    }
 }

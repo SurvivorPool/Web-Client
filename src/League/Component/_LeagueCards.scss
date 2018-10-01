@@ -2,6 +2,10 @@
 
 .LeagueCards {
 
+    &__Completed {
+        opacity: 0.4;
+    }
+
     &__Empty {
         width: 100%;
         display: flex;

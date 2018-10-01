@@ -47,11 +47,14 @@ class LeagueCards extends Component {
 
 	static renderLeagueCards(props, showAllLeagues, handleLeagueSelection) {
 		const leagues = showAllLeagues ? props.leagues : props.playerLeagues;
-		return leagues.length ? leagues.map(league => {
+		return leagues.length ? leagues.sort(league => league.completed).map(league => {
+			const cardClassName = league.completed ? `${className}__Completed` : '';
+
 			return (
 				<Card
 					key={league.league_id}
 					onClick={() => handleLeagueSelection(league.league_id)}
+					className={cardClassName}
 				>
 					<Card.Content>
 						<Card.Header>
@@ -90,6 +93,14 @@ class LeagueCards extends Component {
 					>
 						<Icon name={'trophy'} />
 						<Label.Detail>{`$${league.pot}`}</Label.Detail>
+					</Label>
+				) : null}
+				{league.completed ? (
+					<Label
+						color={'black'}
+						size={'small'}
+					>
+						{"Completed"}
 					</Label>
 				) : null}
 			</Card.Description>
@@ -148,7 +159,7 @@ class LeagueCards extends Component {
 
 	static renderPlayerTeamCount(league, props) {
 		const playerTeams = (props.user.data && props.user.data.teams) || [];
-		const noTeamMessage = <div>{"Join this league!"}</div>;
+		const noTeamMessage = !league.completed && !league.is_active ? <div>{"Join this league!"}</div> : "";
 
 		if(!playerTeams.length) {
 			return noTeamMessage;
