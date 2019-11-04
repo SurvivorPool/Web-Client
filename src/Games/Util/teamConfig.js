@@ -10,7 +10,7 @@ export function getTeamConfig(game, side) {
 			color: teamColors[teamName.toLowerCase()],
 			score: game[`${side}_team_score`],
 			abbrev: teamInfo.abbreviation,
-			logoPath: getLogoPath(teamInfo.nickname.toLowerCase()),
+			logoPath: getLogoPath(teamName),
 		}
 	}
 }
