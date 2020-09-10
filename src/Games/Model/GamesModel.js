@@ -1,4 +1,6 @@
-import { getTeamConfig } from "../Util/teamConfig";
+import {
+	getTeamConfig
+} from "../Util/teamConfig";
 
 export default function GamesModel(data) {
 	const formattedGames = data.games.map(game => formatGame(game));
@@ -17,7 +19,7 @@ function formatGame(game) {
 		time: game.time,
 		week: game.week,
 		game_id: game.game_id,
-		hasStarted: game.quarter !== 'P',
+		hasStarted: game.has_started,
 		...getTeamConfig(game, 'away'),
 		...getTeamConfig(game, 'home'),
 	}
