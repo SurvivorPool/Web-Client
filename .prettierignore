@@ -1,0 +1,7 @@
+.next
+.babelrc
+package.json
+yarn.lock
+packge-lock.json
+src/
+assets/
