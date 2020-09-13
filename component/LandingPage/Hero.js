@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
 import { Icon } from "semantic-ui-react";
-import breakpoints from "../../styles/breakpoints";
 
 import logo from "../../public/image/logo.png";
 
