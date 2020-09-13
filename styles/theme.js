@@ -1,7 +1,9 @@
 import { createGlobalStyle } from "styled-components";
+
 import palette from "./palette";
 import animations from "./animations";
 import breakpoints from "./breakpoints";
+import layout from "./layout";
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -18,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
 const theme = {
   animations,
   breakpoints,
+  layout,
   palette,
 };
 

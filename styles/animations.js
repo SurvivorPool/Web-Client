@@ -28,6 +28,7 @@ const popIn = keyframes`
 
 const animations = {
   bounce,
+  popIn,
 };
 
 export default animations;
