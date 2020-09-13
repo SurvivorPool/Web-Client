@@ -8,12 +8,12 @@ import layout from "./layout";
 export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: Happy-Fox;
-        src: url('../assets/font/HappyFox-Condensed.otf');
+        src: url('/font/HappyFox-Condensed.otf');
     }
     
     @font-face {
         font-family: Raleway;
-        src: url('../assets/font/Raleway-Regular.ttf');
+        src: url('/font/Raleway-Regular.ttf');
     }
 `;
 
