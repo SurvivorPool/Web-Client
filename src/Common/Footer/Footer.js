@@ -81,6 +81,7 @@ class Footer extends Component {
 					<div className={`${className}__Container`}>
 						<div className={`${className}__Links`}>
 							<a href={"mailto:admin@survivorpool.win"}>Contact us</a>
+							<a href={"/privacy"}>Privacy Policy</a>
 							{Footer.renderRulesLink(this.props, this.openRulesModal)}
 						</div>
 						<p className={`${className}__Text`}>Survivor Pool is not affiliated with The National Football League (NFL). The team names, logos and uniform designs are registered trademarks of the teams indicated. All other NFL-related trademarks are trademarks of the National Football League.</p>
