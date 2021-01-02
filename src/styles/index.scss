@@ -1,8 +1,8 @@
-
-#root, html {
-    height: 100%;
-    width: 100%;
-    background-color: #F7F7F8;
+#root,
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #f7f7f8;
 }
 
 // Components
@@ -25,3 +25,4 @@
 @import "../Admin/Component/PlayerTeam/PlayerTeamAdmin";
 @import "../Messages/Component/MessagesPage";
 @import "../Stats/Component/LeagueStats";
+@import "../PrivacyPolicy/Component/PrivacyPolicyPage";
