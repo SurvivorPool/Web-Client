@@ -32,6 +32,10 @@ function PrivacyPolicyPage() {
 
                 <p>For more general information on cookies, please read <a href="https://www.cookieconsent.com/what-are-cookies/">"What Are Cookies"</a>.</p>
 
+                <h2>Data Deletion</h2>
+
+                <p>Users of our service may request data deletion at any time by contacting us at <a href="mailto:admin@survivorpool.win">admin@survivorpool.win</a>. Requests will be processed in 1-2 business days.</p>
+
                 <h2>Service Providers</h2>
 
                 <p>We may employ third-party companies and individuals due to the following reasons:</p>
