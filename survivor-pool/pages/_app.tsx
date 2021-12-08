@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle`
     background: #F5F4F0;
     display: block;
     height: 100%;
-    max-width: 640px;
     margin: 0 auto;
     padding: 0;
   }

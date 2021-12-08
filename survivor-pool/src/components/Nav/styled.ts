@@ -7,12 +7,4 @@ export const Container = styled.div`
     height: 75px;
     display: flex;
     justify-content: flex-end;
-    z-index: 6;
-    position: fixed;
-    top: 0;
-
-    @media ${device.tablet} {
-        position: absolute;
-        top: 20px;
-    }
 `;
