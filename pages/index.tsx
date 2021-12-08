@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <Nav>hello</Nav>
+        <Nav>Nav</Nav>
       </main>
 
       <footer></footer>
