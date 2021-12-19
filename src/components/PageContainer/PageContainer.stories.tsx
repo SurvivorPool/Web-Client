@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Center } from "@mantine/core";
 
 import Providers from "../providers";
-import PageContainer from "./PageContainer";
+import { PageContainer } from "./PageContainer";
 
 export default {
   title: "PageContainer",
