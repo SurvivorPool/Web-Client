@@ -1,31 +1,50 @@
 import React from "react";
-import { MantineProvider } from "@mantine/core";
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
+
+const schemeLight: ColorScheme = "light";
+const schemeDark: ColorScheme = "dark";
 
 export const Providers: React.FC = ({ children }) => {
+  const [colorScheme, setColorScheme] =
+    React.useState<ColorScheme>(schemeLight);
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(
+      value || (colorScheme == schemeDark ? schemeLight : schemeDark)
+    );
+
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        /** Put your mantine theme override here */
-        colors: {
-          brand: [
-            "#FFF4E6",
-            "#FEDFB9",
-            "#FDCA8B",
-            "#FDB65E",
-            "#FCA131",
-            "#FB8D04",
-            "#C97103",
-            "#975402",
-            "#643802",
-            "#321C01",
-          ],
-        },
-      }}
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
     >
-      {children}
-    </MantineProvider>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme,
+          colors: {
+            brand: [
+              "#FFF4E6",
+              "#FEDFB9",
+              "#FDCA8B",
+              "#FDB65E",
+              "#FCA131",
+              "#FB8D04",
+              "#C97103",
+              "#975402",
+              "#643802",
+              "#321C01",
+            ],
+          },
+        }}
+      >
+        {children}
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 };
 export default Providers;

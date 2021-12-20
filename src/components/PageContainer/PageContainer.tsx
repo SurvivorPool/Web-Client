@@ -3,6 +3,7 @@ import { AppShell, Container, Navbar, Text, Divider } from "@mantine/core";
 
 import { Menu } from "../Menu";
 import { UserPanel } from "../UserPanel";
+import { ColorSchemeToggle } from "../ColorSchemeToggle";
 
 export const PageContainer: FC = ({ children }) => {
   return (
@@ -38,7 +39,6 @@ export const PageContainer: FC = ({ children }) => {
           <Divider />
           <Navbar.Section
             sx={(theme) => ({
-              marginBottom: theme.spacing.lg,
               padding: theme.spacing.xs,
             })}
           >
@@ -51,6 +51,14 @@ export const PageContainer: FC = ({ children }) => {
                   "https://lh4.googleusercontent.com/-Fpy6YNYE5Yc/AAAAAAAAAAI/AAAAAAAAElU/G7GQ9HiX7yg/photo.jpg",
               }}
             />
+          </Navbar.Section>
+          <Navbar.Section
+            sx={(theme) => ({
+              padding: theme.spacing.lg,
+              marginTop: theme.spacing.md,
+            })}
+          >
+            <ColorSchemeToggle />
           </Navbar.Section>
         </Navbar>
       }
