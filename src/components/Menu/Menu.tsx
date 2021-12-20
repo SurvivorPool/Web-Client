@@ -23,11 +23,14 @@ const MenuButton: React.FC<{ onClick?: () => void }> = ({
   children,
 }) => {
   const theme = useMantineTheme();
+
   return (
     <UnstyledButton
       onClick={onClick}
       sx={(theme) => ({
-        "&:hover": { backgroundColor: theme.colors.gray[0] },
+        "&:hover": {
+          backgroundColor: theme.colors.gray[0],
+        },
         width: "100%",
         padding: theme.spacing.xs,
         borderRadius: theme.radius.md,
@@ -40,47 +43,38 @@ const MenuButton: React.FC<{ onClick?: () => void }> = ({
 
 export const Menu: React.FC = () => {
   const theme = useMantineTheme();
+
   return (
     <>
       <Divider label={"Account"} />
       <MenuButton>
         <Group>
           <RiMessage2Line fill={theme.colors.blue[9]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Messages"}
-          </Text>
+          <Text>{"Messages"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiCheckboxCircleLine fill={theme.colors.green[9]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Picks"}
-          </Text>
+          <Text>{"Picks"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiFlag2Line fill={theme.colors.red[4]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Teams"}
-          </Text>
+          <Text>{"Teams"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiGroup2Line fill={theme.colors.orange[9]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Leagues"}
-          </Text>
+          <Text>{"Leagues"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiSettings3Line fill={theme.colors.indigo[6]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Preferences"}
-          </Text>
+          <Text>{"Preferences"}</Text>
         </Group>
       </MenuButton>
       <Divider
@@ -90,25 +84,19 @@ export const Menu: React.FC = () => {
       <MenuButton>
         <Group>
           <MdOutlineAddTask fill={theme.colors.orange[7]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Make a Pick"}
-          </Text>
+          <Text>{"Make a Pick"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiSearchLine fill={theme.colors.gray[9]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Find a League"}
-          </Text>
+          <Text>{"Find a League"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
           <RiPlayListAddFill fill={theme.colors.green[6]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Create a League"}
-          </Text>
+          <Text>{"Create a League"}</Text>
         </Group>
       </MenuButton>
       <Divider
@@ -118,9 +106,7 @@ export const Menu: React.FC = () => {
       <MenuButton>
         <Group>
           <RiDatabase2Line fill={theme.colors.red[9]} />
-          <Text sx={(theme) => ({ color: theme.colors.dark[3] })}>
-            {"Dashboard"}
-          </Text>
+          <Text>{"Dashboard"}</Text>
         </Group>
       </MenuButton>
     </>
