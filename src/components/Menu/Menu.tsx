@@ -5,6 +5,7 @@ import {
   Text,
   useMantineTheme,
   UnstyledButton,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   RiMessage2Line,
@@ -43,6 +44,8 @@ const MenuButton: React.FC<{ onClick?: () => void }> = ({
 
 export const Menu: React.FC = () => {
   const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === "dark";
 
   return (
     <>
@@ -61,13 +64,13 @@ export const Menu: React.FC = () => {
       </MenuButton>
       <MenuButton>
         <Group>
-          <RiFlag2Line fill={theme.colors.red[4]} />
+          <RiGroup2Line fill={theme.colors.red[4]} />
           <Text>{"Teams"}</Text>
         </Group>
       </MenuButton>
       <MenuButton>
         <Group>
-          <RiGroup2Line fill={theme.colors.orange[9]} />
+          <RiFlag2Line fill={theme.colors.orange[9]} />
           <Text>{"Leagues"}</Text>
         </Group>
       </MenuButton>
@@ -89,7 +92,9 @@ export const Menu: React.FC = () => {
       </MenuButton>
       <MenuButton>
         <Group>
-          <RiSearchLine fill={theme.colors.gray[9]} />
+          <RiSearchLine
+            fill={isDark ? theme.colors.gray[0] : theme.colors.gray[9]}
+          />
           <Text>{"Find a League"}</Text>
         </Group>
       </MenuButton>
