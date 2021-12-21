@@ -36,7 +36,6 @@ export const PageContainer: FC = ({ children }) => {
           >
             <Menu />
           </Navbar.Section>
-          <Divider />
           <Navbar.Section
             sx={(theme) => ({
               padding: theme.spacing.xs,

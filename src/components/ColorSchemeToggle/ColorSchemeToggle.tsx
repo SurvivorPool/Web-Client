@@ -13,6 +13,7 @@ export const ColorSchemeToggle: React.FC = () => {
       onClick={() => toggleColorScheme()}
       size={"lg"}
       title={`Toggle ${isDark ? "light" : "dark"} color scheme`}
+      style={{ width: "100%" }}
     >
       {isDark ? <RiSunLine /> : <RiMoonClearLine />}
     </ActionIcon>

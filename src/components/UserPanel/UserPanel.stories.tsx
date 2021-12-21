@@ -28,3 +28,8 @@ LoggedIn.args = {
       "https://lh4.googleusercontent.com/-Fpy6YNYE5Yc/AAAAAAAAAAI/AAAAAAAAElU/G7GQ9HiX7yg/photo.jpg",
   },
 };
+
+export const LoggedOut = Template.bind({});
+LoggedOut.args = {
+  user: undefined,
+};
