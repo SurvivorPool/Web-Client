@@ -19,17 +19,3 @@ const Template: ComponentStory<typeof UserPanel> = (args) => (
 );
 
 export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  user: {
-    firstName: "Jimmy",
-    lastName: "Timmons",
-    email: "timmonsjg@gmail.com",
-    photoUrl:
-      "https://lh4.googleusercontent.com/-Fpy6YNYE5Yc/AAAAAAAAAAI/AAAAAAAAElU/G7GQ9HiX7yg/photo.jpg",
-  },
-};
-
-export const LoggedOut = Template.bind({});
-LoggedOut.args = {
-  user: undefined,
-};

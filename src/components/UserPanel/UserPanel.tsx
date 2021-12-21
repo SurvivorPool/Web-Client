@@ -1,4 +1,5 @@
 import React from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import {
   Avatar,
@@ -13,16 +14,12 @@ import { RiArrowRightSFill } from "react-icons/ri";
 
 import { User } from "types";
 
-interface IUserPanel {
-  user?: User;
-  onClick?: () => void;
-}
-
-export const UserPanel: React.FC<IUserPanel> = ({ user = null }) => {
+export const UserPanel: React.FC = () => {
   const theme = useMantineTheme();
   const router = useRouter();
+  const { data: session } = useSession();
 
-  if (user) {
+  if (session) {
     return (
       <UnstyledButton
         sx={(theme) => ({
@@ -33,9 +30,10 @@ export const UserPanel: React.FC<IUserPanel> = ({ user = null }) => {
           padding: "8px 16px",
           borderRadius: theme.radius.md,
         })}
+        onClick={() => signOut()}
       >
         <Group direction="row">
-          <Avatar src={user.photoUrl} />
+          <Avatar src={session.user.image} />
           <div style={{ flex: 1 }}>
             <Text
               size={"sm"}
@@ -44,7 +42,7 @@ export const UserPanel: React.FC<IUserPanel> = ({ user = null }) => {
                 color: theme.colors.gray[5],
               })}
             >
-              {`${user.firstName} ${user.lastName}`}
+              {"Logout"}
             </Text>
             <Text
               color={"dimmed"}
@@ -52,7 +50,7 @@ export const UserPanel: React.FC<IUserPanel> = ({ user = null }) => {
                 fontSize: "8px",
               })}
             >
-              {user.email}
+              {session.user.email}
             </Text>
           </div>
           <RiArrowRightSFill height={"16px"} fill={theme.colors.dark[1]} />
@@ -64,7 +62,7 @@ export const UserPanel: React.FC<IUserPanel> = ({ user = null }) => {
   return (
     <Center style={{ padding: theme.spacing.xs }}>
       <Button
-        onClick={() => router.push("/login")}
+        onClick={() => signIn()}
         variant="gradient"
         gradient={{ from: "orange", to: "red" }}
         fullWidth

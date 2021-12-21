@@ -1,9 +1,10 @@
 import Head from "next/head";
 import type { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
 
 import Providers from "src/components/providers";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
@@ -26,7 +27,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         ></link>
       </Head>
       <Providers>
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </Providers>
     </>
   );

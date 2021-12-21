@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AppShell, Container, Navbar, Text, Divider } from "@mantine/core";
+import { AppShell, Container, Navbar, Text } from "@mantine/core";
 
 import { Menu } from "../Menu";
 import { UserPanel } from "../UserPanel";
@@ -41,15 +41,7 @@ export const PageContainer: FC = ({ children }) => {
               padding: theme.spacing.xs,
             })}
           >
-            <UserPanel
-              user={{
-                firstName: "Jimmy",
-                lastName: "Timmons",
-                email: "timmonsjg@gmail.com",
-                photoUrl:
-                  "https://lh4.googleusercontent.com/-Fpy6YNYE5Yc/AAAAAAAAAAI/AAAAAAAAElU/G7GQ9HiX7yg/photo.jpg",
-              }}
-            />
+            <UserPanel />
           </Navbar.Section>
           <Navbar.Section
             sx={(theme) => ({
