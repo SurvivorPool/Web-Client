@@ -10,7 +10,7 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { RiArrowRightSFill } from "react-icons/ri";
+import { RiArrowRightSFill, RiUserLine } from "react-icons/ri";
 
 import { User } from "types";
 
@@ -33,24 +33,22 @@ export const UserPanel: React.FC = () => {
         onClick={() => signOut()}
       >
         <Group direction="row">
-          <Avatar src={session.user.image} />
+          {session.user?.image ? (
+            <Avatar src={session.user.image} />
+          ) : (
+            <Avatar color="blue" radius="sm">
+              <RiUserLine />
+            </Avatar>
+          )}
           <div style={{ flex: 1 }}>
             <Text
               size={"sm"}
               weight={500}
               sx={(theme) => ({
-                color: theme.colors.gray[5],
+                color: theme.colors.orange[6],
               })}
             >
               {"Logout"}
-            </Text>
-            <Text
-              color={"dimmed"}
-              sx={(theme) => ({
-                fontSize: "8px",
-              })}
-            >
-              {session.user.email}
             </Text>
           </div>
           <RiArrowRightSFill height={"16px"} fill={theme.colors.dark[1]} />
