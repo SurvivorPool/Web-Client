@@ -24,4 +24,9 @@ export default NextAuth({
     }),
   ],
   secret: process.env.AUTH_HASH_SECRET,
+  theme: {
+    colorScheme: "light",
+    brandColor: "#FDC37B",
+    logo: "https://jimmydotdev.s3.us-east-2.amazonaws.com/SP+Logo.png"
+  }
 });
