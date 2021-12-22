@@ -1,6 +1,5 @@
 import React from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSession, signIn } from "next-auth/react";
 import {
   Avatar,
   Button,
@@ -12,11 +11,12 @@ import {
 } from "@mantine/core";
 import { RiArrowRightSFill, RiUserLine } from "react-icons/ri";
 
-import { User } from "types";
+interface IUserPanel {
+  onClick: () => void;
+}
 
-export const UserPanel: React.FC = () => {
+export const UserPanel: React.FC<IUserPanel> = ({ onClick }) => {
   const theme = useMantineTheme();
-  const router = useRouter();
   const { data: session } = useSession();
 
   if (session) {
@@ -29,8 +29,9 @@ export const UserPanel: React.FC = () => {
           },
           padding: "8px 16px",
           borderRadius: theme.radius.md,
+          width: "100%",
         })}
-        onClick={() => signOut()}
+        onClick={onClick}
       >
         <Group direction="row">
           {session.user?.image ? (
@@ -51,7 +52,7 @@ export const UserPanel: React.FC = () => {
               {"Logout"}
             </Text>
           </div>
-          <RiArrowRightSFill height={"16px"} fill={theme.colors.dark[1]} />
+          <RiArrowRightSFill fontSize={28} fill={theme.colors.orange[6]} />
         </Group>
       </UnstyledButton>
     );

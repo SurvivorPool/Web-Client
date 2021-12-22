@@ -3,6 +3,7 @@ import {
   AppShell,
   Burger,
   Container,
+  Drawer,
   Header,
   MediaQuery,
   Navbar,
@@ -14,10 +15,12 @@ import {
 import { Menu } from "../Menu";
 import { UserPanel } from "../UserPanel";
 import { ColorSchemeToggle } from "../ColorSchemeToggle";
+import { LogoutDrawer } from "../LogoutDrawer";
 
 export const PageContainer: FC = ({ children }) => {
   const theme = useMantineTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoutDrawerOpen, setLogoutDrawerOpen] = useState(false);
 
   return (
     <AppShell
@@ -33,8 +36,12 @@ export const PageContainer: FC = ({ children }) => {
           }}
           padding={"xs"}
           hiddenBreakpoint={"md"}
-          hidden={!isOpen}
+          hidden={!isMenuOpen}
         >
+          <LogoutDrawer
+            isOpen={isLogoutDrawerOpen}
+            onClose={() => setLogoutDrawerOpen(false)}
+          />
           <MediaQuery largerThan={"md"} styles={{ display: "none" }}>
             <Navbar.Section sx={(theme) => ({ padding: theme.spacing.xs })}>
               <Container
@@ -71,7 +78,7 @@ export const PageContainer: FC = ({ children }) => {
               padding: theme.spacing.xs,
             })}
           >
-            <UserPanel />
+            <UserPanel onClick={() => setLogoutDrawerOpen(true)} />
           </Navbar.Section>
           <Navbar.Section
             sx={(theme) => ({
@@ -98,8 +105,8 @@ export const PageContainer: FC = ({ children }) => {
           >
             <MediaQuery smallerThan={"md"} styles={{ display: "none" }}>
               <Burger
-                opened={isOpen}
-                onClick={() => setIsOpen((open) => !open)}
+                opened={isMenuOpen}
+                onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"

@@ -19,3 +19,8 @@ const Template: ComponentStory<typeof UserPanel> = (args) => (
 );
 
 export const LoggedIn = Template.bind({});
+LoggedIn.args = {
+  onClick: () => {
+    console.log("clicked");
+  },
+};
