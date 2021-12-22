@@ -1,37 +1,67 @@
-import { FC } from "react";
-import { AppShell, Container, Navbar, Text } from "@mantine/core";
+import { FC, useState } from "react";
+import {
+  AppShell,
+  Burger,
+  Container,
+  Header,
+  MediaQuery,
+  Navbar,
+  Text,
+  ScrollArea,
+  useMantineTheme,
+} from "@mantine/core";
 
 import { Menu } from "../Menu";
 import { UserPanel } from "../UserPanel";
 import { ColorSchemeToggle } from "../ColorSchemeToggle";
 
 export const PageContainer: FC = ({ children }) => {
+  const theme = useMantineTheme();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <AppShell
       padding={"md"}
+      fixed
+      navbarOffsetBreakpoint="sm"
       navbar={
-        <Navbar width={{ base: 250 }} padding={"xs"}>
-          <Navbar.Section sx={(theme) => ({ padding: theme.spacing.xs })}>
-            <Container>
-              <Text
-                size={"xl"}
-                variant={"gradient"}
-                gradient={{
-                  from: "brand",
-                  to: "brand",
-                  deg: 135,
+        <Navbar
+          width={{
+            lg: 300,
+            md: 300,
+            sm: "100%",
+          }}
+          padding={"xs"}
+          hiddenBreakpoint={"md"}
+          hidden={!isOpen}
+        >
+          <MediaQuery largerThan={"md"} styles={{ display: "none" }}>
+            <Navbar.Section sx={(theme) => ({ padding: theme.spacing.xs })}>
+              <Container
+                style={{
+                  marginBottom: theme.spacing.lg,
                 }}
               >
-                {"SurvivorPool"}
-              </Text>
-            </Container>
-          </Navbar.Section>
+                <Text
+                  size={"xl"}
+                  variant={"gradient"}
+                  gradient={{
+                    from: "brand",
+                    to: "brand",
+                    deg: 135,
+                  }}
+                >
+                  {"SurvivorPool"}
+                </Text>
+              </Container>
+            </Navbar.Section>
+          </MediaQuery>
           <Navbar.Section
             grow
+            component={ScrollArea}
             mt={"lg"}
             sx={(theme) => ({
               padding: theme.spacing.xs,
-              marginTop: theme.spacing.lg,
             })}
           >
             <Menu />
@@ -61,6 +91,23 @@ export const PageContainer: FC = ({ children }) => {
               : theme.colors.gray[0],
         },
       })}
+      header={
+        <Header height={70} padding={"md"}>
+          <div
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
+            <MediaQuery smallerThan={"md"} styles={{ display: "none" }}>
+              <Burger
+                opened={isOpen}
+                onClick={() => setIsOpen((open) => !open)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
+          </div>
+        </Header>
+      }
     >
       {children}
     </AppShell>
