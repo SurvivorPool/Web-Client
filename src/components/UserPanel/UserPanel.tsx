@@ -1,5 +1,5 @@
 import React from "react";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import {
   Avatar,
   Button,
@@ -11,15 +11,17 @@ import {
 } from "@mantine/core";
 import { RiArrowRightSFill, RiUserLine } from "react-icons/ri";
 
+import { useLogin } from "@/utils/useLogin";
+
 interface IUserPanel {
   onClick: () => void;
 }
 
 export const UserPanel: React.FC<IUserPanel> = ({ onClick }) => {
   const theme = useMantineTheme();
-  const { data: session } = useSession();
+  const { isLoggedIn, user } = useLogin();
 
-  if (session) {
+  if (isLoggedIn) {
     return (
       <UnstyledButton
         sx={(theme) => ({
@@ -34,8 +36,8 @@ export const UserPanel: React.FC<IUserPanel> = ({ onClick }) => {
         onClick={onClick}
       >
         <Group direction="row">
-          {session.user?.image ? (
-            <Avatar src={session.user.image} />
+          {user?.image ? (
+            <Avatar src={user.image} />
           ) : (
             <Avatar color="blue" radius="sm">
               <RiUserLine />

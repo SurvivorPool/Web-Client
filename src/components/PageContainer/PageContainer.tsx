@@ -1,32 +1,36 @@
-import { FC, useState } from "react";
+import { Children, FC, useState } from "react";
 import {
   AppShell,
   Burger,
-  Container,
-  Drawer,
-  Header,
+  Center,
   MediaQuery,
   Navbar,
-  Text,
+  Image,
   ScrollArea,
   useMantineTheme,
 } from "@mantine/core";
+import { useSession, signIn } from "next-auth/react";
 
-import { Menu } from "../Menu";
-import { UserPanel } from "../UserPanel";
-import { ColorSchemeToggle } from "../ColorSchemeToggle";
-import { LogoutDrawer } from "../LogoutDrawer";
+import { Menu } from "@/components/Menu";
+import { UserPanel } from "@/components/UserPanel";
+import { ColorSchemeToggle } from "@/components/ColorSchemeToggle";
+import { LogoutDrawer } from "@/components/LogoutDrawer";
+import { Header } from "@/components/Header";
 
 export const PageContainer: FC = ({ children }) => {
+  const { status } = useSession();
   const theme = useMantineTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutDrawerOpen, setLogoutDrawerOpen] = useState(false);
+  const isLoggedIn = status === "authenticated";
 
   return (
     <AppShell
       padding={"md"}
       fixed
       navbarOffsetBreakpoint="sm"
+      style={{ minHeight: "calc(100vh - 70px)" }}
+      sx={{ "& > div > main": { minHeight: "calc(100vh - 70px)" } }}
       navbar={
         <Navbar
           width={{
@@ -44,23 +48,17 @@ export const PageContainer: FC = ({ children }) => {
           />
           <MediaQuery largerThan={"md"} styles={{ display: "none" }}>
             <Navbar.Section sx={(theme) => ({ padding: theme.spacing.xs })}>
-              <Container
-                style={{
-                  marginBottom: theme.spacing.lg,
-                }}
-              >
-                <Text
-                  size={"xl"}
-                  variant={"gradient"}
-                  gradient={{
-                    from: "brand",
-                    to: "brand",
-                    deg: 135,
-                  }}
-                >
-                  {"SurvivorPool"}
-                </Text>
-              </Container>
+              <Center>
+                <Image
+                  width={"125px"}
+                  height={"auto"}
+                  fit={"contain"}
+                  src={
+                    "https://jimmydotdev.s3.us-east-2.amazonaws.com/SP+Logo.png"
+                  }
+                  alt={"Survivor Pool Logo"}
+                />
+              </Center>
             </Navbar.Section>
           </MediaQuery>
           <Navbar.Section
@@ -73,13 +71,15 @@ export const PageContainer: FC = ({ children }) => {
           >
             <Menu />
           </Navbar.Section>
-          <Navbar.Section
-            sx={(theme) => ({
-              padding: theme.spacing.xs,
-            })}
-          >
-            <UserPanel onClick={() => setLogoutDrawerOpen(true)} />
-          </Navbar.Section>
+          <MediaQuery smallerThan={"md"} styles={{ display: "none" }}>
+            <Navbar.Section
+              sx={(theme) => ({
+                padding: theme.spacing.xs,
+              })}
+            >
+              <UserPanel onClick={() => setLogoutDrawerOpen(true)} />
+            </Navbar.Section>
+          </MediaQuery>
           <Navbar.Section
             sx={(theme) => ({
               padding: theme.spacing.lg,
@@ -99,20 +99,21 @@ export const PageContainer: FC = ({ children }) => {
         },
       })}
       header={
-        <Header height={70} padding={"md"}>
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery smallerThan={"md"} styles={{ display: "none" }}>
-              <Burger
-                opened={isMenuOpen}
-                onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-          </div>
+        <Header
+          onClick={
+            isLoggedIn ? () => setLogoutDrawerOpen(true) : () => signIn()
+          }
+        >
+          <MediaQuery smallerThan={"lg"} styles={{ display: "none" }}>
+            <Burger
+              opened={isMenuOpen}
+              onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+              size="sm"
+              color={theme.colors.gray[6]}
+              mr="xl"
+              style={{ zIndex: 101 }}
+            />
+          </MediaQuery>
         </Header>
       }
     >
