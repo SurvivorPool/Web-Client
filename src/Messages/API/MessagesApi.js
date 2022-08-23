@@ -7,7 +7,7 @@ export default class MessagesApi {
 	}
 
 	static get(userId) {
-		return Requests.get(`/user/${userId}/messages`);
+		return Requests.get(`/user/${userId}/messages/unread`);
 	}
 
 	/* Admin */

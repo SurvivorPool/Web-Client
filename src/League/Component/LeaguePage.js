@@ -54,7 +54,7 @@ class LeaguePage extends Component {
 		return (
 			<div className={`${className}__Header__Container`}>
 				<h1 className={`${className}__Header`}>
-					{props.league.data.league_name}
+					{props.league.data.name}
 				</h1>
 				{LeaguePage.renderMeta(props)}
 			</div>
@@ -73,7 +73,7 @@ class LeaguePage extends Component {
 						{'Description'}
 					</Label>
 					<div className={`${className}__Info`}>
-						{props.league.data.league_description}
+						{props.league.data.description}
 					</div>
 					<Divider />
 					{LeaguePage.renderPaymentInfo(props)}
@@ -106,7 +106,7 @@ class LeaguePage extends Component {
 	}
 
 	static renderLeague(props, state, handleSearch) {
-		return props.league.data && props.league.data.league_name ? (
+		return props.league.data && props.league.data.name ? (
 			<React.Fragment>
 				{LeaguePage.renderLeagueTitle(props)}
 				<Divider />
@@ -199,7 +199,7 @@ class LeaguePage extends Component {
 						{props.playerTeamFromLeague.map(team =>
 							<PlayerTeam
 								key={team.team_id}
-								leagueId={props.league.data.league_id}
+								leagueId={props.league.data.id}
 								team={team}
 								cardColor={'green'}
 								loadLeague={props.loadLeague}
@@ -267,7 +267,7 @@ class LeaguePage extends Component {
 		return props.canCreateTeam ? (
 			<PlayerTeamAdd
 				userId={props.user.data.user_id}
-				leagueId={props.league.data.league_id}
+				leagueId={props.league.data.id}
 				loadLeague={props.loadLeague}
 				loadUser={props.loadUser}
 			/>

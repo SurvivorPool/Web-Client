@@ -91,9 +91,9 @@ class PlayerTeamPage extends Component {
 
 	static renderNavBar(props) {
 		const leagueInfo = props.playerTeam.data && props.playerTeam.data.league_info;
-		const leagueLink = leagueInfo && leagueInfo.league_id ? (
+		const leagueLink = leagueInfo && leagueInfo.id ? (
 			<Link
-				to={`/league/${leagueInfo.league_id}`}
+				to={`/league/${leagueInfo.id}`}
 				className={'Navbar__Link'}
 			>
 				{"League"}

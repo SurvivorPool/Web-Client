@@ -52,16 +52,16 @@ class LeagueCards extends Component {
 
 			return (
 				<Card
-					key={league.league_id}
-					onClick={() => handleLeagueSelection(league.league_id)}
+					key={league.id}
+					onClick={() => handleLeagueSelection(league.id)}
 					className={cardClassName}
 				>
 					<Card.Content>
 						<Card.Header>
-							{league.league_name}
+							{league.name}
 						</Card.Header>
 						<Card.Description>
-							{league.league_description}
+							{league.description}
 						</Card.Description>
 						{LeagueCards.renderLeagueMeta(league)}
 					</Card.Content>
@@ -72,7 +72,7 @@ class LeagueCards extends Component {
 	}
 
 	static renderLeagueMeta(league) {
-		const isLeagueActive = !!league.is_active;
+		const isLeagueActive = !league.completed;
 		const isFree = league.league_type === 'FREE';
 		const price = isFree ? 'Free' : `$${league.price}`;
 
@@ -165,7 +165,7 @@ class LeagueCards extends Component {
 			return noTeamMessage;
 		}
 
-		const leagueTeams = playerTeams.filter(team => team.league_id === league.league_id);
+		const leagueTeams = playerTeams.filter(team => team.league_id === league.id);
 		return leagueTeams.length ? (
 			<div>
 				<Label
