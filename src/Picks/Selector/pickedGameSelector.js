@@ -10,9 +10,9 @@ const pickedGameSelector = createSelector(
 	(gamesData, playerTeamData) => {
 		if(
 			(gamesData && gamesData.games.length)
-			&& (playerTeamData && playerTeamData.current_pick.length)
+			&& (playerTeamData && playerTeamData.current_pick)
 		) {
-			const currentPick = playerTeamData.current_pick[0];
+			const currentPick = playerTeamData.current_pick;
 			const pickGame = gamesData.games.find(game => game.away.nickName === currentPick || game.home.nickName === currentPick);
 
 			return pickGame ? { ...pickGame, playerPick: currentPick } :defaultPickedGame;

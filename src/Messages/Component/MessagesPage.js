@@ -28,7 +28,7 @@ class MessagesPage extends Component {
 		const formattedMessage = {
 			...message,
 			read: true,
-			user_id: message.user.user_id,
+			user_id: message.user.id,
 		};
 		this.props.markMessageRead(formattedMessage).then(this.onMarkReadSuccess);
 	}

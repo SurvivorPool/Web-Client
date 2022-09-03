@@ -18,7 +18,7 @@ function formatGame(game) {
 		stadium_info: game.stadium_info,
 		time: game.time,
 		week: game.week,
-		game_id: game.game_id,
+		id: game.id,
 		hasStarted: game.has_started,
 		...getTeamConfig(game, 'away'),
 		...getTeamConfig(game, 'home'),

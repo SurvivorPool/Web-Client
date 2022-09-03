@@ -18,7 +18,7 @@ export default class UserApi {
 	}
 
 	static get(user) {
-		return Requests.get(`/users/${user.user_id}`);
+		return Requests.get(`/users/${user.id}`);
 	}
 
 	static setNotification(user) {

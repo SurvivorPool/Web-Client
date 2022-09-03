@@ -10,7 +10,7 @@ const canCreateTeamSelector = createSelector(
 );
 
 function canCreateTeam(league, user)  {
-	if(!league.is_active) {
+	if(!league.signup_active) {
 		return false;
 	}
 

@@ -32,7 +32,7 @@ class PlayerTeamAdmin extends Component {
 			action: '',
 			playerTeamId: null,
 			isActive: false,
-			hasPaid: false,
+			paid: false,
 			playerName: '',
 			playerTeamName: '',
 			playerTeamLoading: false,
@@ -60,7 +60,7 @@ class PlayerTeamAdmin extends Component {
 	handlePaidChange() {
 		this.setState(prevState => {
 			return {
-				hasPaid: !prevState.hasPaid,
+				paid: !prevState.paid,
 			}
 		});
 	}
@@ -70,7 +70,7 @@ class PlayerTeamAdmin extends Component {
 			action: value,
 			playerTeamId: null,
 			isActive: false,
-			hasPaid: false,
+			paid: false,
 			playerTeamName: '',
 			playerName: '',
 		});
@@ -102,9 +102,9 @@ class PlayerTeamAdmin extends Component {
 
 		let submit = () => {};
 		const team = {
-			team_id: this.state.playerTeamId,
-			has_paid: this.state.hasPaid,
-			is_active: this.state.isActive,
+			id: this.state.playerTeamId,
+			paid: this.state.paid,
+			active: this.state.isActive,
 		};
 
 		switch(this.state.action) {
@@ -123,13 +123,13 @@ class PlayerTeamAdmin extends Component {
 	}
 
 	handlePlayerTeamSelection(e, { value }) {
-		const playerTeamInfo = this.props.playerTeams.data.teams.find(team => team.team_id === value);
+		const playerTeamInfo = this.props.playerTeams.data.teams.find(team => team.id === value);
 		this.setState({
-			playerTeamId: playerTeamInfo.team_id,
-			isActive: playerTeamInfo.is_active,
-			hasPaid: playerTeamInfo.has_paid,
-			playerTeamName: playerTeamInfo.team_name,
-			playerName: playerTeamInfo.user_info.full_name,
+			playerTeamId: playerTeamInfo.id,
+			isActive: playerTeamInfo.active,
+			paid: playerTeamInfo.paid,
+			playerTeamName: playerTeamInfo.name,
+			playerName: playerTeamInfo.user.full_name,
 		});
 	}
 
@@ -145,11 +145,11 @@ class PlayerTeamAdmin extends Component {
 	static formatTeams(teams) {
 		return teams.length ? teams.map(team => {
 			return {
-				key: team.team_id,
-				value: team.team_id,
-				text: team.team_name,
-				email: team.user_info.email,
-				player: team.user_info.full_name,
+				key: team.id,
+				value: team.id,
+				text: team.name,
+				email: team.user.email,
+				player: team.user.full_name,
 			};
 		}) : [];
 	}
@@ -213,10 +213,10 @@ class PlayerTeamAdmin extends Component {
 					<Form.Group widths={'equal'}>
 						<Form.Field>
 							<Checkbox
-								checked={!!this.state.hasPaid}
+								checked={!!this.state.paid}
 								toggle
 								label='Paid'
-								name={'hasPaid'}
+								name={'paid'}
 								onChange={this.handlePaidChange}
 							/>
 						</Form.Field>

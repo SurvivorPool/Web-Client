@@ -159,7 +159,7 @@ class LeagueCards extends Component {
 
 	static renderPlayerTeamCount(league, props) {
 		const playerTeams = (props.user.data && props.user.data.teams) || [];
-		const noTeamMessage = !league.completed && !league.is_active ? <div>{"Join this league!"}</div> : "";
+		const noTeamMessage = !league.completed && league.signup_active ? <div>{"Join this league!"}</div> : "";
 
 		if(!playerTeams.length) {
 			return noTeamMessage;
@@ -183,8 +183,8 @@ class LeagueCards extends Component {
 		const count = leagueTeams.length;
 		const multipleOthers = leagueTeams.length >= 3;
 		return count > 1 ?
-			`${leagueTeams[0].team_name} and ${leagueTeams.length - 1} other${multipleOthers ? 's' : ''}..`
-			: leagueTeams[0].team_name;
+			`${leagueTeams[0].name} and ${leagueTeams.length - 1} other${multipleOthers ? 's' : ''}..`
+			: leagueTeams[0].name;
 	}
 
 	static renderNoLeagues() {

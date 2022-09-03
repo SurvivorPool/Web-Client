@@ -17,7 +17,7 @@ class LeaguePlayers extends Component {
 
 	rowRender({ key, index, style }) {
 		const team = this.props.players[index];
-		const rowClassName = team.is_active ? teamClassName : `${teamClassName} ${teamClassName}__Sunk`;
+		const rowClassName = team.active ? teamClassName : `${teamClassName} ${teamClassName}__Sunk`;
 		const hasPick = !!team.current_pick;
 
 		return (
@@ -41,7 +41,7 @@ class LeaguePlayers extends Component {
 				<Image
 					circular
 					size='mini'
-					src={team.user_info.picture_url}
+					src={team.user.picture_url}
 				/>
 			</div>
 		);
@@ -68,7 +68,7 @@ class LeaguePlayers extends Component {
 			<div
 				className={`${teamClassName}__Name`}
 			>
-				{team.team_name}
+				{team.name}
 			</div>
 		);
 	}
@@ -76,7 +76,7 @@ class LeaguePlayers extends Component {
 	static renderPlayerName(team) {
 		return (
 			<div>
-				{team.user_info.full_name}
+				{team.user.full_name}
 			</div>
 		);
 	}

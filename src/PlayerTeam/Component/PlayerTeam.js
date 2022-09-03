@@ -22,7 +22,7 @@ class PlayerTeam extends Component {
 			isDeletingTeam: false,
 			isEditingTeam: false,
 			isLoading: false,
-			teamName: props.team.team_name || '',
+			name: props.team.name || '',
 		}
 	}
 
@@ -86,8 +86,8 @@ class PlayerTeam extends Component {
 
 		this.props.deletePlayerTeam(
 			{
-				user_id: props.team.user_info.user_id,
-				team_id: props.team.team_id,
+				user_id: props.team.user.id,
+				id: props.team.id,
 			}
 		).then(onSuccess).catch(this.onTeamFailure);
 	}
@@ -102,24 +102,24 @@ class PlayerTeam extends Component {
 
 		this.props.updatePlayerTeam(
 			{
-				user_id: props.team.user_info.user_id,
+				user_id: props.team.user.id,
 				league_id: props.leagueId,
-				team_id: props.team.team_id,
-				team_name: this.state.teamName,
+				id: props.team.id,
+				name: this.state.name,
 			}
 		).then(onSuccess).catch(this.onTeamFailure);
 	}
 
 	static renderTeamExtra(team, leagueId, price, leagueType) {
-		const isActiveColor = team.is_active ? 'green' : 'red';
-		const isActiveIcon = team.is_active ? 'checkmark' : 'cancel';
+		const isActiveColor = team.active ? 'green' : 'red';
+		const isActiveIcon = team.active ? 'checkmark' : 'cancel';
 
 		return (
 			<Card.Content
 				className={`${className}__Extra`}
 				extra
 			>
-				{PlayerTeam.renderTeamDue(price, !!team.has_paid, leagueType)}
+				{PlayerTeam.renderTeamDue(price, !!team.paid, leagueType)}
 				<Label
 					color={isActiveColor}
 					size={'tiny'}
@@ -128,12 +128,12 @@ class PlayerTeam extends Component {
 						name={isActiveIcon}
 					/>
 					<Label.Detail>
-						{team.is_active ? "Active" : "Sunk"}
+						{team.active ? "Active" : "Sunk"}
 					</Label.Detail>
 				</Label>
 				<Link
 					className={`${className}__Link`}
-					to={`/league/${leagueId}/team/${team.team_id}`}
+					to={`/league/${leagueId}/team/${team.id}`}
 				>
 					{"View Team"}
 				</Link>
@@ -141,20 +141,20 @@ class PlayerTeam extends Component {
 		);
 	}
 
-	static renderTeamDue(price, hasPaid, leagueType) {
-		const hasPaidColor = hasPaid ? 'green' : 'red';
+	static renderTeamDue(price, paid, leagueType) {
+		const paidColor = paid ? 'green' : 'red';
 
 		return leagueType !== 'FREE' ? (
 			<Label
-				color={hasPaidColor}
+				color={paidColor}
 				size={'tiny'}
 			>
 				<Icon
 					name={'dollar'}
 				/>
-				{!hasPaid ? price : ''}
+				{!paid ? price : ''}
 				<Label.Detail>
-					{hasPaid ? "Paid" : 'Due'}
+					{paid ? "Paid" : 'Due'}
 				</Label.Detail>
 			</Label>
 		) : null;
@@ -192,7 +192,7 @@ class PlayerTeam extends Component {
 	}
 
 	renderEditTeam(team) {
-		const canEdit = !team.has_paid;
+		const canEdit = !team.paid;
 
 		if(this.state.isEditingTeam) {
 			return (
@@ -205,8 +205,8 @@ class PlayerTeam extends Component {
 						required
 						label='Team Name'
 						placeholder='Team'
-						name={'teamName'}
-						value={this.state.teamName}
+						name={'name'}
+						value={this.state.name}
 						onChange={this.handleChange}
 						maxLength={"30"}
 					/>
@@ -248,12 +248,12 @@ class PlayerTeam extends Component {
 
 	static renderTeamPick(team, user) {
 		const userTeams = (user && user.teams) || [];
-		const currentTeam = userTeams.find(userTeam => userTeam.team_id === team.team_id) || {};
-		const currentTeamPick = currentTeam.current_pick || [];
+		const currentTeam = userTeams.find(userTeam => userTeam.id === team.id) || {};
+		const currentTeamPick = currentTeam.current_pick || "";
 
-		return currentTeamPick && currentTeamPick.length > 0 ? (
+		return currentTeamPick ? (
 			<Card.Description>
-				<span>{`Currently Picked - ${currentTeamPick[0]}`}</span>
+				<span>{`Currently Picked - ${currentTeamPick}`}</span>
 			</Card.Description>
 		) : null;
 	}
@@ -272,12 +272,12 @@ class PlayerTeam extends Component {
 						floated='right'
 						circular
 						size='mini'
-						src={team.user_info.picture_url}
+						src={team.user.picture_url}
 					/>
 					<div
 						className={`${className}__Header`}
 					>
-						{team.team_name}
+						{team.name}
 					</div>
 					{this.renderTeamActions(team, leagueIsActive)}
 					{PlayerTeam.renderTeamPick(team, user)}

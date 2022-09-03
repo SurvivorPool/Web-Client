@@ -34,7 +34,7 @@ export default function(DecoratedComponent) {
 	)
 	class DashboardDecorator extends Component {
 		componentDidMount() {
-			this.props.getUser({user_id: this.props.auth.data.uid});
+			this.props.getUser({id: this.props.auth.data.uid});
 			this.props.getAllLeagues();
 			this.props.getMessagesByUser(this.props.auth.data.uid);
 		}

@@ -35,8 +35,8 @@ class LeaguePage extends Component {
 		value = value.toLowerCase();
 		if(value) {
 			const searchedPlayers = this.props.leaguePlayers.filter(team => {
-				const teamName = team.team_name.toLowerCase();
-				const fullName = team.user_info.full_name.toLowerCase();
+				const teamName = team.name.toLowerCase();
+				const fullName = team.user.full_name.toLowerCase();
 				return teamName.includes(value) || fullName.includes(value);
 			});
 
@@ -121,7 +121,7 @@ class LeaguePage extends Component {
 	}
 
 	static renderResults(props) {
-		const winners = props.leaguePlayers.filter(player => player.is_active);
+		const winners = props.leaguePlayers.filter(player => player.active);
 		const winnerLabel = winners.length > 1 ? "Winners" : "Winner";
 		return props.league.data.completed ? (
 			<Segment raised>
@@ -140,9 +140,9 @@ class LeaguePage extends Component {
 	}
 
 	static renderWinner(winner) {
-		const user = winner.user_info;
+		const user = winner.user;
 		return (
-			<Card key={winner.team_id}>
+			<Card key={winner.id}>
 				<Card.Content>
 					<Card.Header className={`${className}__Winner`}>
 						{user.full_name}
@@ -156,7 +156,7 @@ class LeaguePage extends Component {
 						/>
 					</Card.Header>
 					<Card.Description>
-						{winner.team_name}
+						{winner.name}
 					</Card.Description>
 				</Card.Content>
 			</Card>
@@ -198,7 +198,7 @@ class LeaguePage extends Component {
 					<Card.Group>
 						{props.playerTeamFromLeague.map(team =>
 							<PlayerTeam
-								key={team.team_id}
+								key={team.id}
 								leagueId={props.league.data.id}
 								team={team}
 								cardColor={'green'}
@@ -207,7 +207,7 @@ class LeaguePage extends Component {
 								user={props.user.data}
 								price={formatPrice(props.league.data.price)}
 								leagueType={props.league.data.league_type}
-								leagueIsActive={props.league.data.is_active}
+								leagueIsActive={!props.league.data.completed}
 							/>
 						)}
 						{LeaguePage.renderAddTeam(props)}
@@ -266,7 +266,7 @@ class LeaguePage extends Component {
 	static renderAddTeam(props) {
 		return props.canCreateTeam ? (
 			<PlayerTeamAdd
-				userId={props.user.data.user_id}
+				userId={props.user.data.id}
 				leagueId={props.league.data.id}
 				loadLeague={props.loadLeague}
 				loadUser={props.loadUser}
@@ -279,7 +279,7 @@ class LeaguePage extends Component {
 	}
 
 	static renderMeta(props) {
-		const isLeagueActive = !!props.league.data.is_active;
+		const isLeagueActive = !props.league.data.completed;
 		const isFree = props.league.data.league_type === 'FREE';
 		const price = isFree ? 'Free' : `$${props.league.data.price}`;
 
@@ -369,5 +369,6 @@ class LeaguePage extends Component {
 export default LeaguePage;
 
 function formatPrice(price) {
+    price = String(price)
 	return price = price.replace(/\.00$/,'');
 }

@@ -12,11 +12,11 @@ export default class MessagesApi {
 
 	/* Admin */
 	static create(message) {
-		return Requests.put('/admin/user/message', message);
+		return Requests.post('/admin/user/messages', message);
 	}
 
 	static update(message) {
-		return Requests.put('/admin/user/message', message);
+		return Requests.put('/admin/user/messages', message);
 	}
 
 	static getAllMessages() {

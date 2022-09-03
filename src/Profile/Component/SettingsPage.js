@@ -23,7 +23,7 @@ class SettingsPage extends Component {
 
 	handleNotificationClick() {
 		this.props.setNotification({
-			user_id: this.props.user.data.user_id,
+			user_id: this.props.user.data.id,
 			receive_notifications: !this.props.user.data.receive_notifications,
 		})
 			.then(this.onSettingsSuccess)

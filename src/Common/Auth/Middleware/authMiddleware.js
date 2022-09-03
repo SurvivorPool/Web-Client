@@ -31,7 +31,7 @@ function determineUser(userAuth, token, dispatch) {
 		const exists = !!response.exists;
 		!exists ?
 			dispatch(userCreateAction(userAuth))
-			: dispatch(userInitialGetAction({user_id: userAuth.uid}));
+			: dispatch(userInitialGetAction({id: userAuth.uid}));
 	});
 }
 
@@ -71,7 +71,7 @@ function authMiddlewareListeners(action, getState, dispatch) {
 			break;
 		}
 		case userCreateAction.ACTION_COMPLETED: {
-			dispatch(userInitialGetAction({user_id: getState().auth.data.uid}));
+			dispatch(userInitialGetAction({id: getState().auth.data.uid}));
 			break;
 		}
 		case userInitialGetAction.ACTION_COMPLETED: {

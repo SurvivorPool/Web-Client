@@ -84,7 +84,7 @@ class LeagueAdmin extends Component {
 	}
 
 	handleLeagueSelection(e, { value }) {
-		const leagueInfo = this.props.leagues.data.leagues.find(league => league.league_id === value);
+		const leagueInfo = this.props.leagues.data.leagues.find(league => league.id === value);
 		this.setState({
 			id: leagueInfo.id,
 			name: leagueInfo.name,

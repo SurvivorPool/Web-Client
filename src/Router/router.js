@@ -55,10 +55,10 @@ export default (
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <AdminRoute path="/admin" component={AdminDashboard} />
       <ProtectedRoute
-        path={"/league/:league_id/team/:team_id"}
+        path={"/league/:id/team/:team_id"}
         component={PlayerTeamPage}
       />
-      <ProtectedRoute path={"/league/:league_id"} component={LeaguePage} />
+      <ProtectedRoute path={"/league/:id"} component={LeaguePage} />
       <ProtectedRoute path={"/settings"} component={SettingsPage} />
       <ProtectedRoute path={"/messages"} component={MessagesPage} />
     </Switch>
