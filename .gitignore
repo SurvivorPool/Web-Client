@@ -3,8 +3,6 @@
 # dependencies
 /node_modules
 
-.yarn/*
-
 # testing
 /coverage
 
