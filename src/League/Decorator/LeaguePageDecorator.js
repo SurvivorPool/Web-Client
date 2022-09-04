@@ -38,7 +38,7 @@ export default function(DecoratedComponent) {
 
 		loadLeague() {
 			const props = this.props;
-			const leagueId = (props.match.params && props.match.params.league_id) || null;
+			const leagueId = (props.match.params && props.match.params.id) || null;
 			if(leagueId) {
 				this.props.getLeague(leagueId)
 			}
@@ -46,7 +46,7 @@ export default function(DecoratedComponent) {
 
 		loadLeagueStats() {
 			const props = this.props;
-			const leagueId = (props.match.params && props.match.params.league_id) || null;
+			const leagueId = (props.match.params && props.match.params.id) || null;
 			if(leagueId) {
 				this.props.getLeagueStats(leagueId);
 			}

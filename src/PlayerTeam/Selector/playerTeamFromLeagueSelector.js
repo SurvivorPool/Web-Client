@@ -12,7 +12,7 @@ const playerTeamFromLeagueSelector = createSelector(
 			return defaultPlayerTeamFromLeague;
 		}
 
-		const playerTeams = leagueData.teams.filter(team => team.user_info.user_id === userData.user_id);
+		const playerTeams = leagueData.teams.filter(team => team.user_id === userData.id);
 		return playerTeams.length ? playerTeams : defaultPlayerTeamFromLeague;
 	}
 );

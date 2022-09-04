@@ -61,7 +61,7 @@ class PlayerTeamPage extends Component {
 	onPickSuccess(pick) {
 		const { toastManager } = this.props;
 		toastManager.add(`Picked the ${pick.nfl_team_name}!`, { appearance: 'success', autoDismiss: true });
-		this.props.loadUser().then(() => this.props.getPlayerTeam(pick.team_id));
+		this.props.loadUser().then(() => this.props.getPlayerTeam(pick.player_team_id));
 	}
 
 	onPickFailure() {
@@ -82,7 +82,7 @@ class PlayerTeamPage extends Component {
 		return (
 			<div className={`${className}__Header__Container`}>
 				<h1 className={`${className}__Header`}>
-					{props.playerTeam.data && props.playerTeam.data.team_name}
+					{props.playerTeam.data && props.playerTeam.data.name}
 				</h1>
 				{PlayerTeamPage.renderHistoryToggle(props, shouldShowHistory, handleHistoryToggle)}
 			</div>
@@ -91,9 +91,9 @@ class PlayerTeamPage extends Component {
 
 	static renderNavBar(props) {
 		const leagueInfo = props.playerTeam.data && props.playerTeam.data.league_info;
-		const leagueLink = leagueInfo && leagueInfo.league_id ? (
+		const leagueLink = leagueInfo && leagueInfo.id ? (
 			<Link
-				to={`/league/${leagueInfo.league_id}`}
+				to={`/league/${leagueInfo.id}`}
 				className={'Navbar__Link'}
 			>
 				{"League"}
@@ -118,7 +118,7 @@ class PlayerTeamPage extends Component {
 
 	static renderPickSection(props) {
 		const { pickedGame, playerTeam } = props;
-		const isActive = (playerTeam.data && playerTeam.data.is_active) || true;
+		const isActive = (playerTeam.data && playerTeam.data.active) || true;
 		return (
 			<Segment
 				raised
@@ -230,7 +230,7 @@ class PlayerTeamPage extends Component {
 				</Label>
 				{games.map(game =>
 					<Game
-						key={game.game_id}
+						key={game.id}
 						game={game}
 						playerTeam={playerTeam}
 						pickedGame={props.pickedGame}

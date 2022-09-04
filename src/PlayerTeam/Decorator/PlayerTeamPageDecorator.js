@@ -30,7 +30,7 @@ export default function(DecoratedComponent) {
 		componentDidMount() {
 			const props = this.props;
 			this.loadTeam().then(team => {
-				if(team && team.user_info && team.user_info.user_id !== props.user.data.user_id ) {
+				if(team && team.user && team.user.id !== props.user.data.id ) {
 					this.setState({
 						shouldRedirect: true,
 					});

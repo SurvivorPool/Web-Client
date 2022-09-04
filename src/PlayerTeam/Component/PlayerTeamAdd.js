@@ -60,7 +60,7 @@ class PlayerTeamAdd extends Component {
 			{
 				user_id: props.userId,
 				league_id: props.leagueId,
-				team_name: this.state.teamName,
+				name: this.state.teamName,
 			}
 		).then(this.onAddTeamSuccess).catch(e => this.onAddTeamFailure(e));
 	}

@@ -7,16 +7,16 @@ export default class MessagesApi {
 	}
 
 	static get(userId) {
-		return Requests.get(`/user/${userId}/messages`);
+		return Requests.get(`/user/${userId}/messages/unread`);
 	}
 
 	/* Admin */
 	static create(message) {
-		return Requests.put('/admin/user/message', message);
+		return Requests.post('/admin/user/messages', message);
 	}
 
 	static update(message) {
-		return Requests.put('/admin/user/message', message);
+		return Requests.put('/admin/user/messages', message);
 	}
 
 	static getAllMessages() {

@@ -29,9 +29,9 @@ class Game extends Component {
 
 		if(canPick) {
 			const pick = {
-				team_id: playerTeam.team_id,
+				player_team_id: playerTeam.id,
 				nfl_team_name: team.nickName,
-				game_id: game.game_id,
+				game_id: game.id,
 			};
 
 			this.setState({
@@ -43,7 +43,7 @@ class Game extends Component {
 
 	static canBePicked(team, game, playerTeam, pickedGame, pickHistory) {
 		return !game.hasStarted
-			&& playerTeam.is_active
+			&& playerTeam.active
 			&& !pickedGame.hasStarted
 			&& pickedGame.playerPick !== team.nickName
 			&& !pickHistory.includes(team.nickName);
@@ -72,7 +72,7 @@ class Game extends Component {
 		const sideClassName = side === 'away' ? awayClassName : homeClassName;
 		const team = game[side];
 		const isPickingTeam = isPicking && pick.nfl_team_name === team.nickName;
-		const hasPickedGame = pickedGame && pickedGame.game_id === game.game_id;
+		const hasPickedGame = pickedGame && pickedGame.id === game.id;
 		const sidePicked = hasPickedGame ? pickedGame.playerPick === team.nickName : false;
 		const teamHasBeenPicked = pickHistory.includes(team.nickName);
 		const canPick = Game.canBePicked(team, game, playerTeam, pickedGame, pickHistory);
@@ -158,10 +158,11 @@ class Game extends Component {
 	}
 
 	static renderGameDate(game) {
+        const game_date = new Date(game.game_date)
 		return (
 			<div className={`${className}__Date`}>
 				<div>{game.day}</div>
-				<div>{game.game_date}</div>
+				<div>{game_date.toLocaleDateString()} {game_date.toLocaleTimeString()}</div>
 			</div>
 		);
 	}

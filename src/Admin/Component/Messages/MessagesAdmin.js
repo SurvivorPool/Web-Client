@@ -111,8 +111,8 @@ class MessagesAdmin extends Component {
 
 		let submit = () => {};
 		const message = {
-			message_text: this.state.messageText,
-			show_message: this.state.showMessage,
+			text: this.state.messageText,
+			show: this.state.showMessage,
 			message_type: this.state.messageType,
 			user_ids: (this.state.userIds || []).join(','),
 			all_users: this.state.sendAllUsers,
@@ -180,8 +180,8 @@ class MessagesAdmin extends Component {
 	static formatUsers(users) {
 		return users.length ? users.map(user => {
 			return {
-				key: user.user_id,
-				value: user.user_id,
+				key: user.id,
+				value: user.id,
 				text: `${user.full_name}  -  ${user.email}`,
 				email: user.email,
 				name: user.full_name,

@@ -51,6 +51,6 @@ export const teamColors = {
 	seahawks: '69BE28',
 	buccaneers: 'D50A0A',
 	titans: '4495D1',
-	redskins: '773141',
+	commanders: '773141',
 	washington: '773141',
 };

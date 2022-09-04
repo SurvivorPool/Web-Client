@@ -30,9 +30,9 @@ class LeagueAdmin extends Component {
 			action: '',
 			leagueId: null,
 			leagueLoading: false,
-			leagueName: '',
-			leaguePrice: '',
-			leagueDescription: '',
+			name: '',
+			price: '',
+			description: '',
 		}
 	}
 
@@ -49,9 +49,9 @@ class LeagueAdmin extends Component {
 	handleActionChange(e, { value }) {
 		this.setState({
 			action: value,
-			leagueName: '',
-			leaguePrice: '',
-			leagueDescription: '',
+			name: '',
+			price: '',
+			description: '',
 		});
 	}
 
@@ -62,9 +62,9 @@ class LeagueAdmin extends Component {
 
 		let submit = () => {};
 		const league = {
-			league_name: this.state.leagueName,
-			league_description: this.state.leagueDescription,
-			price: this.state.leaguePrice,
+			name: this.state.name,
+			description: this.state.description,
+			price: this.state.price,
 		};
 
 		switch(this.state.action) {
@@ -73,7 +73,7 @@ class LeagueAdmin extends Component {
 				break;
 			case 'update':
 				submit = this.props.updateLeague;
-				league.league_id = this.state.leagueId;
+				league.id = this.state.id;
 				break;
 			default:
 				console.log('How did you get here?', this.state.action);
@@ -84,12 +84,12 @@ class LeagueAdmin extends Component {
 	}
 
 	handleLeagueSelection(e, { value }) {
-		const leagueInfo = this.props.leagues.data.leagues.find(league => league.league_id === value);
+		const leagueInfo = this.props.leagues.data.leagues.find(league => league.id === value);
 		this.setState({
-			leagueId: leagueInfo.league_id,
-			leagueName: leagueInfo.league_name,
-			leagueDescription: leagueInfo.league_description,
-			leaguePrice: leagueInfo.price,
+			id: leagueInfo.id,
+			name: leagueInfo.name,
+			description: leagueInfo.description,
+			price: leagueInfo.price,
 		});
 	}
 
@@ -113,9 +113,9 @@ class LeagueAdmin extends Component {
 	static formatLeagues(leagues) {
 		return leagues.length ? leagues.map(league => {
 			return {
-				key: league.league_id,
-				value: league.league_id,
-				text: league.league_name,
+				key: league.id,
+				value: league.id,
+				text: league.name,
 			};
 		}) : [];
 	}
@@ -171,8 +171,8 @@ class LeagueAdmin extends Component {
 							required
 							label='League Price'
 							placeholder='Price'
-							name={'leaguePrice'}
-							value={this.state.leaguePrice}
+							name={'price'}
+							value={this.state.price}
 							onChange={this.handleChange}
 							labelPosition='right'
 						>
@@ -220,8 +220,8 @@ class LeagueAdmin extends Component {
 							required
 							label='League Price'
 							placeholder='Price'
-							name={'leaguePrice'}
-							value={this.state.leaguePrice}
+							name={'price'}
+							value={this.state.price}
 							onChange={this.handleChange}
 							labelPosition='right'
 						>
