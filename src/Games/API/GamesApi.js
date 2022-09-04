@@ -5,7 +5,7 @@ import GamesModel from "../Model/GamesModel";
 export default class GamesApi {
 
 	static get() {
-		return Requests.get('/games/').then(GamesModel);
+		return Requests.get('/games').then(GamesModel);
 	}
 
 }
