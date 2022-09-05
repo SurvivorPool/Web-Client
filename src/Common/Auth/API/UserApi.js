@@ -28,6 +28,6 @@ export default class UserApi {
 	/* Admin */
 
 	static getAll() {
-		return Requests.get('/admin/users/');
+		return Requests.get('/admin/users');
 	}
 }
