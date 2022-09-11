@@ -12,6 +12,8 @@ import PlayerTeamPage from "../PlayerTeam/Component/PlayerTeamPage";
 import SettingsPage from "../Profile/Component/SettingsPage";
 import MessagesPage from "../Messages/Component/MessagesPage";
 import PrivacyPolicyPage from "../PrivacyPolicy/Component/PrivacyPolicyPage";
+import TermsOfUsePage from "../TermsOfUse/TermsOfUsePage";
+import DataPolicyPage from "../DataPolicy/DataPolicyPage";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -52,6 +54,8 @@ export default (
     <Switch>
       <Route exact path="/" component={LandingPage} />
       <Route exact path={"/privacy"} component={PrivacyPolicyPage} />
+      <Route exact path={"/terms-of-use"} component={TermsOfUsePage} />
+      <Route exact path={"/data-policy"} component={DataPolicyPage}
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <AdminRoute path="/admin" component={AdminDashboard} />
       <ProtectedRoute
