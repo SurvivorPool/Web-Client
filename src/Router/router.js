@@ -55,7 +55,7 @@ export default (
       <Route exact path="/" component={LandingPage} />
       <Route exact path={"/privacy"} component={PrivacyPolicyPage} />
       <Route exact path={"/terms-of-use"} component={TermsOfUsePage} />
-      <Route exact path={"/data-policy"} component={DataPolicyPage}
+      <Route exact path={"/data-policy"} component={DataPolicyPage} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <AdminRoute path="/admin" component={AdminDashboard} />
       <ProtectedRoute
